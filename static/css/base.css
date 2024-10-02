@@ -46,11 +46,11 @@ header{
 .header-anchors-container a{
     font-size: 18px;
     color: #fff;
-    cursor: pointer;
 }
 
 .header-anchors-container a:hover{
     color: #75FCDE;
+    cursor: pointer;
 }
 
 #login-btn{
