@@ -25,3 +25,8 @@ contactsButton.addEventListener('click', function () {
         block: 'start'
     });
 });
+
+function toggleMenu() {
+    const navMenu = document.querySelector('.header-anchors-container');
+    navMenu.classList.toggle('active');
+}
