@@ -7,17 +7,21 @@ html, body {
     width: 100%;
     background-image: linear-gradient(to right top,
     #2b2927, #2a2922, #242b1f, #182d22, #022e2a);
-}
-
-.explanation-container{
-    margin: 100px auto;
     display: flex;
     gap: 40px;
-    align-items: center;
+    justify-content: center;
     color: #fff;
-    width: 1000px;
-    height: 400px;
 }
+
+/*.explanation-container{*/
+/*    margin: 100px auto;*/
+/*    display: flex;*/
+/*    gap: 40px;*/
+/*    align-items: center;*/
+/*    color: #fff;*/
+/*    width: 1000px;*/
+/*    height: 400px;*/
+/*}*/
 
 h1{
     font-size: 60px;
@@ -30,6 +34,7 @@ h1{
     transform-style: preserve-3d;
     animation: flipCoin 7s infinite;
     margin-right: 20px;
+    margin-top: 100px;
 }
 
 .coin-face {
@@ -69,6 +74,7 @@ h1{
     display: flex;
     flex-direction: column;
     font-size: 25px;
+    margin-top: 100px;
 }
 
 .explanation-text-con ul{
@@ -83,4 +89,33 @@ h1{
 ul li{
     margin: 0;
     padding: 0;
+}
+
+@media only screen and (max-width: 950px){
+    body{
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        gap: 0;
+        margin-top: 50px;
+    }
+    .coin{
+        margin-top: 50px;
+    }
+    .explanation-text-con{
+        margin-top: 0;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .coin-face{
+        width: 277px;
+        height: 277px;
+    }
+    h1{
+        font-size: 45px;
+    }
+    .explanation-text-con ul{
+        font-size: 20px;
+    }
 }

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
     <header>
         <div class="artfluence-logo-header">
@@ -15,7 +16,13 @@
             <a href="javascript:void(0)" id="about">About</a>
             <a href="{% url 'what-is-ap' %}">What is AP</a>
             <a href="javascript:void(0)" id="contacts-btn">Contacts</a>
-            <a href="#" id="login-btn">Log in</a>
+            <a href="#" id="gallery">Gallery</a>
+            {% if user.is_authenticated %}
+                <p>Welcome, {{ user.username }}!</p>
+{#                <a href="{% url 'logout' %}">Logout</a>#}
+            {% else %}
+                <a href="{% url 'login' %}" id="login-btn">Log in</a>
+            {% endif %}
         </div>
     </header>
 

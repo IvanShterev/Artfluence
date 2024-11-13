@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
+<!-- register.html -->
 {% load static %}
 {% block content %}
-
-
-
+   <form action="{% url 'register' %}" method="post">
+        <h1>Create Account</h1>
+        <h1>Artfluence</h1>
+        {% csrf_token %}
+        {{ form.username }}
+        {{ form.email }}
+        {{ form.password1 }}
+        {{ form.password2 }}
+        <button>Sign Up</button>
+   </form>
 {% endblock %}

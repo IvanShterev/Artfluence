@@ -7,3 +7,7 @@ def index(request):
 
 def what_is_ap_view(request):
     return render(request, 'what-is-ap.html')
+
+
+def login(request):
+    return render(request, 'accounts/login.html')
