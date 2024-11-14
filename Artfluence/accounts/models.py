@@ -23,6 +23,14 @@ class ArtfluenceUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    profile_picture = models.ImageField(
+        upload_to='profile_pictures/',
+        default='profile_pictures/default_profile_pic.png'
+    )
+    artfluence_points = models.PositiveIntegerField(default=0)
+    has_posted = models.BooleanField(default=False)
+    has_sold_art = models.BooleanField(default=False)
+    has_bought_art = models.BooleanField(default=False)
 
     objects = ArtfluenceUserManager()
 

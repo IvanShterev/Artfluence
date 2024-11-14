@@ -45,7 +45,7 @@ h1{
 }
 
 .coin-front, .coin-back {
-    background-image: url('../images/Artfluence_AP_coin_facing_forward-removebg-preview.png');
+    background-image: url('../../images/Artfluence_AP_coin_facing_forward-removebg-preview.png');
     background-size: cover;
     background-position: center;
 }

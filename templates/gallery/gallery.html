@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/gallery/gallery.css' %}">
+
+    <div class="top-container">
+        <img src="{% static 'images/Artfluence-logo-removebg-preview (1).png' %}">
+        <input type="text" placeholder="Search">
+        <div></div>
+    </div>
+
+    <div class="main-content">
+        {% if user.is_authenticated %}
+            <div class="a-points-cont">
+                <span>Current AP Balance:</span>
+                <span id="dividing-line"></span>
+                <div class="display-ap-cont">
+                    <span id="balance">{{ user.artfluence_points }} AP</span>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="posts">
+            {% for post in posts %}
+                <div class="post">
+                    <h2>{{ post.title }}</h2>
+                    <p>By: {{ post.owner.username }}</p>
+                    <p>Likes: {{ post.likes_count }}</p>
+                    <p>Comments: {{ post.comments_count }}</p>
+
+                    {% if post.is_liked_by_user %}
+                        <p>You have liked this post.</p>
+                    {% else %}
+                        <p>You have not liked this post.</p>
+                    {% endif %}
+
+                    <h3>Comments:</h3>
+                    <ul>
+                        {% for comment in post.comments.all %}
+                            <li>{{ comment.creator.username }}: {{ comment.content }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="right-menu">
+        <h2>Artfluence</h2>
+        {% if user.is_authenticated %}
+                <span id="greet-user">Hello, {{ user.username }}!</span>
+                <a href="#" class="option">
+                    <img src="{{ user.profile_picture.url }}">
+                    <span>Profile</span>
+                </a>
+
+                <a href="#" class="option">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Create</span>
+                </a>
+            {% else %}
+                <span>Login to access all features!</span>
+                <a href="{% url 'login' %}" class="option">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Login</span>
+                </a>
+            {% endif %}
+
+            <a href="{% url 'home' %}" class="option" >
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+
+            <a href="{% url 'gallery' %}" class="option">
+                <i class="fa-solid fa-image"></i>
+                <span>Gallery</span>
+            </a>
+
+            <a href="#" class="option">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Top 5 Art Pieces</span>
+            </a>
+
+            <a href="#" class="option">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+    </div>
+{% endblock %}

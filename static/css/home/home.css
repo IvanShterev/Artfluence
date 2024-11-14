@@ -81,7 +81,7 @@ a{
 }
 
 .first-display-container{
-    background-image: url("../images/abstract_art_image_1322x700.jpg");
+    background-image: url("../../images/abstract_art_image_1322x700.jpg");
     background-size: cover;
     height: 100vh;
     display: flex;

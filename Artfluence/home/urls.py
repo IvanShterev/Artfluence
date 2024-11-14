@@ -1,5 +1,5 @@
 from django.urls import path
-from Artfluence.NoUser import views
+from Artfluence.home import views
 
 
 urlpatterns = [

@@ -2,6 +2,7 @@
 <!-- register.html -->
 {% load static %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'css/accounts/register.css' %}">
    <form action="{% url 'register' %}" method="post">
         <h1>Create Account</h1>
         <h1>Artfluence</h1>
@@ -11,5 +12,6 @@
         {{ form.password1 }}
         {{ form.password2 }}
         <button>Sign Up</button>
+        <p>Have an account? <a href="{% url 'login' %}">Login</a></p>
    </form>
 {% endblock %}

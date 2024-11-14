@@ -2,12 +2,18 @@
 <!-- login.html -->
 {% load static %}
 {% block content %}
-    <form action="{% url 'login' %}" method="post">
-        <h1>Sign in</h1>
-        <h1>Artfluence</h1>
-        {% csrf_token %}
-        {{ form.email }}
-        {{ form.password }}
-        <button>Sign In</button>
-    </form>
+    <link rel="stylesheet" href="{% static 'css/accounts/login.css' %}">
+
+    <div class="form-container">
+        <img src="{% static 'images/painted_mountains.png' %}">
+        <form action="{% url 'login' %}" method="post">
+            <h1>Sign in</h1>
+            <h1>Artfluence</h1>
+            {% csrf_token %}
+            {{ form.email }}
+            {{ form.password }}
+            <button>Sign In</button>
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        </form>
+    </div>
 {% endblock %}

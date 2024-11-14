@@ -1,0 +1,112 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.top-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 82%;
+    border-bottom: 1px solid gray;
+    background-color: #f6f5f7;
+    position: fixed;
+    z-index: 100;
+}
+
+.top-container img{
+    height: 100px;
+    width: 100px;
+}
+
+.top-container input{
+    padding: 15px;
+    border-radius: 20px;
+    width: 50%;
+}
+
+.main-content {
+    display: flex;
+    gap: 40px;
+    position: absolute;
+    top: 120px;
+    padding: 30px;
+}
+
+.a-points-cont{
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
+    background-color: #f6f5f7;
+    padding: 15px;
+    height: 350px;
+    width: 300px;
+    position: fixed;
+    border-radius: 15px;
+}
+
+#balance{
+    font-size: 20px;
+}
+
+#dividing-line{
+    height: 1px;
+    background-color: black;
+    width: 100%;
+}
+
+.posts{
+    display: flex;
+    flex-flow: column;
+}
+
+.right-menu{
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+    width: 18%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 40px 10px 0 10px;
+    height: 100vh;
+    font-size: 20px;
+    border-left: 1px solid gray;
+    background-color: #f6f5f7;
+}
+
+.right-menu h2{
+    padding-left: 30px;
+}
+
+#greet-user{
+    padding-left: 30px;
+}
+
+.option{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.option:hover{
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.option img{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class NouserConfig(AppConfig):
+class GalleryConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Artfluence.NoUser'
+    name = 'Artfluence.gallery'
