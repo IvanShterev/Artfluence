@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.validators import MinLengthValidator, RegexValidator
 from django.db import models
 
 
@@ -31,8 +32,40 @@ class ArtfluenceUser(AbstractBaseUser, PermissionsMixin):
     has_posted = models.BooleanField(default=False)
     has_sold_art = models.BooleanField(default=False)
     has_bought_art = models.BooleanField(default=False)
+    is_first_login = models.BooleanField(default=True)
 
     objects = ArtfluenceUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+
+class DebitCard(models.Model):
+    owner = models.ForeignKey(
+        to=ArtfluenceUser,
+        on_delete=models.CASCADE,
+        related_name='debit_cards'
+    )
+    card_number = models.CharField(
+        max_length=16,
+        validators=[MinLengthValidator(16), RegexValidator(
+            regex=r'^\d{16}$',
+            message='Card number must contain exactly 16 digits.',
+        )
+                    ]
+    )
+    holder_name = models.CharField(
+        max_length=100,
+        validators=[MinLengthValidator(4), RegexValidator(
+            regex=r'^[A-Za-z\s]+$',
+            message="Cardholder name must contain only letters and spaces."
+        )]
+    )
+    expiration_date = models.DateField()
+    cvv = models.CharField(
+        max_length=3,
+        validators=[MinLengthValidator(3), RegexValidator(
+            regex=r'^\d{3}$',
+            message="CVV must be exactly 3 digits."
+        )]
+    )

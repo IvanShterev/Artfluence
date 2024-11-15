@@ -347,6 +347,25 @@ footer img{
     background-color: #0077B5;
 }
 
+.popup{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    background-color: #fff;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.popup button{
+    padding: 15px;
+    border-radius: 20px;
+}
+
 @media only screen and (max-width: 1150px){
     #what-is-artfluence img{
         width: 500px;

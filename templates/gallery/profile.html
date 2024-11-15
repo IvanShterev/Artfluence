@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/gallery/profile.css' %}">
+
+    <div class="profile-card">
+        <img src="{{ user.profile_picture.url }}">
+        <div class="right-side-cont">
+            <h1>{{ user.username }}</h1>
+            <span>Currently showing:
+                <select id="view-selector" onchange="updateView()">
+                    <option value="collection">Collection</option>
+                    <option value="for-sale">For sale</option>
+                </select>
+            </span>
+        </div>
+    </div>
+
+    <div class="posts-cont">
+        <div id="collection-view">
+            {% for post in collection %}
+            <div class="post-item">
+                <h3>{{ post.title }}</h3>
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            </div>
+            {% empty %}
+            <p>No items in collection</p>
+            {% endfor %}
+        </div>
+
+        <div id="for-sale-view" style="display: none;">
+            {% for post in for_sale %}
+            <div class="post-item">
+                <h3>{{ post.title }}</h3>
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                <p>Price: ${{ post.price }}</p>
+            </div>
+            {% empty %}
+            <p>No items for sale</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}

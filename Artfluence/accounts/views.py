@@ -5,6 +5,7 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from .forms import CustomUserRegistrationForm, LoginForm
+from django.contrib import messages
 
 
 class CustomLoginView(FormView):
@@ -13,6 +14,13 @@ class CustomLoginView(FormView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
+        user = form.cleaned_data['user']
+        if user.is_first_login:
+            user.artfluence_points += 100
+            user.is_first_login = False
+            user.save()
+            messages.success(self.request,
+                             'Congratulations! You have received 100 Artfluence Points for your first login!')
 
         login(self.request, form.cleaned_data['user'])
         return super().form_valid(form)
