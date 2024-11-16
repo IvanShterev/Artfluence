@@ -58,3 +58,26 @@ body{
 .debit-card-cont a{
     text-decoration: none;
 }
+
+.post-item{
+    display: flex;
+    flex-flow: column;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.post-top{
+    display: flex;
+}
+
+.likes-comments-cont{
+    display: flex;
+    gap: 30px;
+}
+
+.collection-view, .for-sale-view{
+    display: flex;
+    flex-flow: column;
+    gap: 40px;
+}
