@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/gallery/add_debit_card.css' %}">
+
+    <h2>Your Debit Cards</h2>
+    {% if debit_cards %}
+        <ul>
+            {% for card in debit_cards %}
+                <li>
+                    <strong>Cardholder:</strong> {{ card.cardholder_name }}<br>
+                    <strong>Card Number:</strong> **** **** **** {{ card.card_number|slice:"-4:" }}<br>
+                    <strong>Expires:</strong> {{ card.expiration_date|date:"m/Y" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no saved debit cards.</p>
+    {% endif %}
+
+    <div class="add-debit-card-cont">
+        <i class="fa-regular fa-credit-card"></i>
+        <span>Add Debit Card</span>
+    </div>
+
+    <form action="" method="post" style="display: none" id="add-debit-card-form">
+        {% csrf_token %}
+        {{ form }}
+        <button>Add Debit Card</button>
+    </form>
+
+    <script src="{% static 'js/add_debit_card.js' %}"></script>
+
+{% endblock %}

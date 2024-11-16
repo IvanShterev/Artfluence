@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 
 from Artfluence.accounts.models import ArtfluenceUser
 
@@ -20,8 +21,16 @@ class Post(models.Model):
         blank=True,
         related_name='liked_posts'
     )
+    price = models.IntegerField(
+        null=True,
+        blank=True,
+    )
     image = models.ImageField(
         upload_to='art_pictures/',
+    )
+    created_at = models.DateTimeField(
+        default=now,
+        editable=False
     )
     def is_liked_by(self, user):
         return self.likes.filter(id=user.id).exists()

@@ -18,6 +18,7 @@ a{
     border-bottom: 1px solid gray;
     background-color: #f6f5f7;
     position: fixed;
+    top: 0;
     z-index: 100;
 }
 
@@ -32,14 +33,6 @@ a{
     width: 50%;
 }
 
-.main-content {
-    display: flex;
-    gap: 40px;
-    position: absolute;
-    top: 120px;
-    padding: 30px;
-}
-
 .a-points-cont{
     display: flex;
     flex-flow: column;
@@ -49,14 +42,115 @@ a{
     height: 350px;
     width: 300px;
     position: fixed;
+    left: 100px;
     border-radius: 15px;
 }
 
-#balance{
-    font-size: 20px;
+.a-points-top{
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
 }
 
-#dividing-line{
+.resultCont{
+    display: flex;
+    flex-flow: column;
+    font-size: 22px;
+    margin-top: 110px;
+}
+
+.display-ap-cont{
+   font-size: 22px;
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px;
+    padding: 20px;
+    gap: 40px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    width: 45%;
+}
+
+.post h2, .post p, .post h3, .post ul {
+    margin: 10px 0;
+}
+
+.post ul {
+    list-style: none;
+    padding: 0;
+}
+
+.post-top{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding-bottom: 3px;
+}
+
+.post-top img{
+    height: 32px;
+}
+
+.post-top a{
+    margin-left: 100px;
+    font-weight: normal;
+}
+
+#user-profile{
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 0;
+}
+
+.post-top a:hover{
+    text-decoration: underline;
+}
+
+.post-image {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-top: 15px;
+    /*border: 1px solid black;*/
+}
+
+.post-image img {
+    width: 100%; /* Makes the image fill the width of the container */
+    height: 100%; /* Makes the image fill the height of the container */
+    object-fit: cover; /* Ensures the image maintains its aspect ratio and covers the entire container */
+    display: block; /* Removes extra whitespace below the image caused by inline-block elements */
+}
+
+.post h2{
+    font-size: 18px;
+    font-weight: bold;
+    border-top: 1px solid black;
+}
+
+.likes-comments-cont{
+    display: flex;
+    gap: 30px;
+}
+
+.dividing-line{
     height: 1px;
     background-color: black;
     width: 100%;

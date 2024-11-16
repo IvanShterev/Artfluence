@@ -1,11 +1,14 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
-from .forms import CustomUserRegistrationForm, LoginForm
+from .forms import CustomUserRegistrationForm, LoginForm, DebitCardForm
 from django.contrib import messages
+
+from .models import DebitCard
 
 
 class CustomLoginView(FormView):
@@ -34,3 +37,16 @@ class RegisterView(FormView):
     def form_valid(self, form):
         user = form.save()
         return super().form_valid(form)
+
+
+class AddDebitCardView(LoginRequiredMixin, CreateView):
+    model = DebitCard
+    form_class = DebitCardForm
+    template_name = 'gallery/add_debit_card.html'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return redirect('profile', username=self.request.user.username).url

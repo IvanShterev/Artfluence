@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.validators import MinLengthValidator, RegexValidator
+import hashlib
 from django.db import models
+from django.utils.crypto import get_random_string
 
 
 class ArtfluenceUserManager(BaseUserManager):
@@ -42,7 +44,7 @@ class ArtfluenceUser(AbstractBaseUser, PermissionsMixin):
 
 class DebitCard(models.Model):
     owner = models.ForeignKey(
-        to=ArtfluenceUser,
+        to='ArtfluenceUser',
         on_delete=models.CASCADE,
         related_name='debit_cards'
     )
@@ -51,11 +53,10 @@ class DebitCard(models.Model):
         validators=[MinLengthValidator(16), RegexValidator(
             regex=r'^\d{16}$',
             message='Card number must contain exactly 16 digits.',
-        )
-                    ]
+        )]
     )
     holder_name = models.CharField(
-        max_length=100,
+        max_length=50,
         validators=[MinLengthValidator(4), RegexValidator(
             regex=r'^[A-Za-z\s]+$',
             message="Cardholder name must contain only letters and spaces."
@@ -69,3 +70,5 @@ class DebitCard(models.Model):
             message="CVV must be exactly 3 digits."
         )]
     )
+    used_for_payments = models.BooleanField(default=False)
+

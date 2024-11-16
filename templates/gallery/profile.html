@@ -13,6 +13,12 @@
                     <option value="for-sale">For sale</option>
                 </select>
             </span>
+            {% if is_owner %}
+                <div class="debit-card-cont">
+                    <i class="fa-regular fa-credit-card"></i>
+                    <a href="{% url 'add-debit-card' user.username %}">Choose debit card</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 
@@ -24,11 +30,11 @@
                 <img src="{{ post.image.url }}" alt="{{ post.title }}">
             </div>
             {% empty %}
-            <p>No items in collection</p>
+            <p class="no-items-to-display">No items in collection</p>
             {% endfor %}
         </div>
 
-        <div id="for-sale-view" style="display: none;">
+        <div id="for-sale-view">
             {% for post in for_sale %}
             <div class="post-item">
                 <h3>{{ post.title }}</h3>
@@ -36,7 +42,7 @@
                 <p>Price: ${{ post.price }}</p>
             </div>
             {% empty %}
-            <p>No items for sale</p>
+            <p class="no-items-to-display">No items for sale</p>
             {% endfor %}
         </div>
     </div>

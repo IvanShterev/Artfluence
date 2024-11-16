@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('Artfluence.home.urls')),
     path('', include('Artfluence.accounts.urls')),
     path('', include('Artfluence.gallery.urls')),
+    path('', include('Artfluence.posts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

@@ -8,6 +8,8 @@ body{
     display: flex;
     align-items: center;
     flex-flow: column;
+    gap: 30px;
+    background: #f6f5f7;
 }
 
 .profile-card{
@@ -15,11 +17,44 @@ body{
     align-items: center;
     height: 400px;
     width: 30%;
-    background-color: green;
-    border-radius: 15px;
+    gap: 40px;
+    font-size: 20px;
+}
+
+.profile-card a{
+    color: black;
+}
+
+.profile-card a:hover{
+    text-decoration: underline;
+}
+
+#view-selector{
+    padding: 7px;
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+.right-side-cont{
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
 }
 
 .profile-card img{
-    height: 100px;
-    width: 100px;
+    height: 120px;
+}
+
+.no-items-to-display{
+    font-size: 30px;
+    color: gray;
+}
+
+.debit-card-cont{
+    display: flex;
+    gap: 5px;
+}
+
+.debit-card-cont a{
+    text-decoration: none;
 }
