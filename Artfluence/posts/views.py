@@ -1,8 +1,13 @@
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
-from .models import Post
+from django.shortcuts import redirect, get_object_or_404
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from .models import Post, Comment
 from .forms import PostForm
 
 
@@ -17,3 +22,4 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('gallery')
+

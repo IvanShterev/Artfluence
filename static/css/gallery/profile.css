@@ -65,19 +65,31 @@ body{
     background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    width: 28%;
+    height: 420px;
+}
+
+.post-item img{
+    height: 350px;
+    overflow: hidden;
 }
 
 .post-top{
     display: flex;
+    padding: 10px;
 }
 
 .likes-comments-cont{
     display: flex;
     gap: 30px;
+    padding: 10px;
 }
 
-.collection-view, .for-sale-view{
+#collection-view, #for-sale-view{
     display: flex;
-    flex-flow: column;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 40px;
+    width: 70%;
+
 }

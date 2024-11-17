@@ -22,39 +22,39 @@
         </div>
     </div>
 
-    <div class="posts-cont">
-        <div id="collection-view">
-            {% for post in collection %}
-            <div class="post-item">
+    <div id="collection-view">
+        {% for post in collection %}
+        <div class="post-item">
+            <div class="post-top">
                 <h3>{{ post.title }}</h3>
-                <img src="{{ post.image.url }}">
-                <div class="likes-comments-cont">
-                    <p>Likes: {{ post.likes_count }}</p>
-                    <p>Comments: {{ post.comments_count }}</p>
-                </div>
             </div>
-            {% empty %}
-            <p class="no-items-to-display">No items in collection</p>
-            {% endfor %}
+            <img src="{{ post.image.url }}">
+            <div class="likes-comments-cont">
+                <p>Likes: {{ post.likes_count }}</p>
+                <p>Comments: {{ post.comments_count }}</p>
+            </div>
         </div>
+        {% empty %}
+        <p class="no-items-to-display">No items in collection</p>
+        {% endfor %}
+    </div>
 
-        <div id="for-sale-view">
-            {% for post in for_sale %}
-            <div class="post-item">
-                <div class="post-top">
-                    <span>{{ post.title }}</span>
-                    <span>Price: ${{ post.price }}</span>
-                </div>
-                <img src="{{ post.image.url }}">
-                <div class="likes-comments-cont">
-                    <p>Likes: {{ post.likes_count }}</p>
-                    <p>Comments: {{ post.comments_count }}</p>
-                </div>
+    <div id="for-sale-view">
+        {% for post in for_sale %}
+        <div class="post-item">
+            <div class="post-top">
+                <span>{{ post.title }}</span>
+                <span>Price: ${{ post.price }}</span>
             </div>
-            {% empty %}
-            <p class="no-items-to-display">No items for sale</p>
-            {% endfor %}
+            <img src="{{ post.image.url }}">
+            <div class="likes-comments-cont">
+                <p>Likes: {{ post.likes_count }}</p>
+                <p>Comments: {{ post.comments_count }}</p>
+            </div>
         </div>
+        {% empty %}
+        <p class="no-items-to-display">No items for sale</p>
+        {% endfor %}
     </div>
 
     <script src="{% static 'js/profile.js' %}"></script>

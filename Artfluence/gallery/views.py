@@ -1,3 +1,4 @@
+
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -29,6 +30,23 @@ class Gallery(ListView):
             post.is_liked_by_user = post.is_liked_by(self.request.user)
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        post_id = request.POST.get("post_id")
+        post = get_object_or_404(Post, id=post_id)
+
+        if "like" in request.POST:
+            if post.likes.filter(id=request.user.id).exists():
+                post.likes.remove(request.user)
+            else:
+                post.likes.add(request.user)
+
+        elif "comment" in request.POST:
+            content = request.POST.get("comment_content")
+            if content:
+                Comment.objects.create(post=post, creator=request.user, content=content)
+
+        return redirect("gallery")
 
 
 class ProfileView(LoginRequiredMixin, DetailView):
@@ -68,3 +86,4 @@ class DebitCardManagementView(LoginRequiredMixin, TemplateView):
         context = self.get_context_data()
         context['form'] = form
         return self.render_to_response(context)
+
