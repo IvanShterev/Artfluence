@@ -54,3 +54,9 @@ class PostForm(forms.ModelForm):
             cleaned_data['for_sale'] = False
             cleaned_data['price'] = None
         return cleaned_data
+
+
+class EditForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'for_sale', 'price', 'image']

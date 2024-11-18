@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.views.generic.edit import CreateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
 from rest_framework import status
@@ -26,3 +26,20 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('gallery')
+
+
+class EditPostView(LoginRequiredMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'gallery/edit_post.html'
+    context_object_name = 'post'
+
+    def get_queryset(self):
+        return Post.objects.filter(owner=self.request.user)
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Post, pk=pk, owner=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'username': self.kwargs.get('username')})

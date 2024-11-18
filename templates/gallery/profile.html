@@ -26,7 +26,13 @@
         {% for post in collection %}
         <div class="post-item">
             <div class="post-top">
-                <h3>{{ post.title }}</h3>
+                <div class="title-price-cont">
+                    <span>{{ post.title }}</span>
+                </div>
+                <div class="edit-delete-cont">
+                    <a href="{% url 'edit_post' user.username post.pk %}"><i class="fa-solid fa-pen"></i></a>
+                    <i class="fa-solid fa-trash"></i>
+                </div>
             </div>
             <img src="{{ post.image.url }}">
             <div class="likes-comments-cont">
@@ -43,8 +49,14 @@
         {% for post in for_sale %}
         <div class="post-item">
             <div class="post-top">
-                <span>{{ post.title }}</span>
-                <span>Price: ${{ post.price }}</span>
+                <div class="title-price-cont">
+                    <span>{{ post.title }}</span>
+                    <span>Price: {{ post.price }} AP</span>
+                </div>
+                <div class="edit-delete-cont">
+                    <a href="{% url 'edit_post' user.username post.pk %}"><i class="fa-solid fa-pen"></i></a>
+                    <i class="fa-solid fa-trash"></i>
+                </div>
             </div>
             <img src="{{ post.image.url }}">
             <div class="likes-comments-cont">

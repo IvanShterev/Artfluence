@@ -76,7 +76,24 @@ body{
 
 .post-top{
     display: flex;
-    padding: 10px;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+.title-price-cont{
+    display: flex;
+    gap: 15px;
+    font-weight: bold;
+}
+
+.edit-delete-cont{
+    display: flex;
+    gap: 10px;
+    color: gray;
+}
+
+.edit-delete-cont a{
+    color: gray;
 }
 
 .likes-comments-cont{
