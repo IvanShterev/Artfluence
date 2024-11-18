@@ -1,0 +1,105 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    margin: 100px auto;
+    width: 35%;
+    height: 600px;
+    background-image: url("/static/images/Form_background_image.png");
+    background-size: cover;
+    background-position: center;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.5rem;
+}
+
+form {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+
+h1 {
+    font-size: 2.3rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: #8f95d9;
+    padding: 15px 25px 15px 25px;
+    border-radius: 20px;
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #434dbb;
+}
+
+.text-danger{
+    color: red;
+}
+
+@media (max-width: 1700px){
+    .container{
+        width: 40%;
+    }
+}
+
+@media (max-width: 1500px){
+    .container{
+        width: 45%;
+    }
+}
+
+@media (max-width: 1360px){
+    .container{
+        width: 50%;
+    }
+}
+
+@media (max-width: 1150px){
+    .container{
+        width: 55%;
+    }
+}
+
+@media (max-width: 1000px){
+    .container{
+        width: 60%;
+    }
+}
+
+@media (max-width: 900px){
+    .container{
+        width: 65%;
+    }
+}
+
+@media (max-width: 800px){
+    .container{
+        width: 70%;
+    }
+}
+
+@media (max-width: 700px){
+    .container{
+        width: 90%;
+    }
+}

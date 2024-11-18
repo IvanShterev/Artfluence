@@ -1,12 +1,71 @@
+{#{% extends 'base.html' %}#}
+{#{% load static %}#}
+{#{% block content %}#}
+{##}
+{#    <h1>Create a post</h1>#}
+{#    <form action="{% url 'create-post' user.username %}" method="post" enctype="multipart/form-data">#}
+{#        {% csrf_token %}#}
+{#        {{ form }}#}
+{#        <button>Create</button>#}
+{#    </form>#}
+{##}
+{#{% endblock %}#}
+
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/posts/create-post.css' %}">
 
-    <h1>Create a post</h1>
-    <form action="{% url 'create-post' user.username %}" method="post" enctype="multipart/form-data">
+<div class="container mt-5">
+    <h1 class="text-center">Create a Post</h1>
+    <form action="{% url 'create-post' user.username %}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         {% csrf_token %}
-        {{ form }}
-        <button>Create</button>
-    </form>
 
+        <div class="mb-3">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+            {% for error in form.title.errors %}
+                <div class="text-danger">*{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-check mb-3">
+            {{ form.for_sale.label_tag }}
+            {{ form.for_sale }}
+            {% for error in form.for_sale.errors %}
+                <div class="text-danger">*{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3" id="price-container">
+            {{ form.price.label_tag }}
+            {{ form.price }}
+            {% for error in form.price.errors %}
+                <div class="text-danger">*{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-check mb-3">
+            {{ form.collection.label_tag }}
+            {{ form.collection }}
+            {% for error in form.collection.errors %}
+                <div class="text-danger">*{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.image.label_tag }}
+            {{ form.image }}
+            {% for error in form.image.errors %}
+                <div class="text-danger">*{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'js/create-post.js' %}"></script>
 {% endblock %}

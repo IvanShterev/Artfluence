@@ -1,5 +1,5 @@
-
-from django.shortcuts import get_object_or_404, redirect
+from django.db.models import Count
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -61,8 +61,17 @@ class ProfileView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.get_object()
-        context['collection'] = Post.objects.filter(owner=user, for_sale=False)
-        context['for_sale'] = Post.objects.filter(owner=user, for_sale=True)
+
+        user_posts = Post.objects.filter(owner=user)
+        total_likes_received = user_posts.aggregate(total_likes=Count('likes'))['total_likes']
+        total_comments_received = Comment.objects.filter(post__in=user_posts).count()
+
+        context['collection'] = user_posts.filter(for_sale=False)
+        context['for_sale'] = user_posts.filter(for_sale=True)
+        context['liked_posts'] = Post.objects.filter(likes=self.request.user)
+        context['user_comments'] = Comment.objects.filter(creator=self.request.user)
+        context['total_likes_received'] = total_likes_received or 0
+        context['total_comments_received'] = total_comments_received or 0
         context['is_owner'] = self.request.user == user
         return context
 
@@ -87,3 +96,14 @@ class DebitCardManagementView(LoginRequiredMixin, TemplateView):
         context['form'] = form
         return self.render_to_response(context)
 
+
+def top_liked_posts(request):
+    posts = Post.objects.annotate(likes_count=Count('likes')).order_by('likes_count')[:5]
+    starting_counter = 5
+
+    for post in posts:
+        post.is_liked_by_user = request.user in post.likes.all()
+        post.likes_count = post.likes.count()
+        post.comments_count = post.comments.count()
+
+    return render(request, 'gallery/top_five.html', {'posts': posts, 'starting_counter': starting_counter})

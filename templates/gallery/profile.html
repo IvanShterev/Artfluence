@@ -30,8 +30,8 @@
             </div>
             <img src="{{ post.image.url }}">
             <div class="likes-comments-cont">
-                <p>Likes: {{ post.likes_count }}</p>
-                <p>Comments: {{ post.comments_count }}</p>
+                <p>Likes: {{ total_likes_received }}</p>
+                <p>Comments: {{ total_comments_received }}</p>
             </div>
         </div>
         {% empty %}
@@ -48,8 +48,8 @@
             </div>
             <img src="{{ post.image.url }}">
             <div class="likes-comments-cont">
-                <p>Likes: {{ post.likes_count }}</p>
-                <p>Comments: {{ post.comments_count }}</p>
+                <p>Likes: {{ total_likes_received }}</p>
+                <p>Comments: {{ total_comments_received }}</p>
             </div>
         </div>
         {% empty %}

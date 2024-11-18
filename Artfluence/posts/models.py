@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.timezone import now
 
 from Artfluence.accounts.models import ArtfluenceUser
+from Artfluence.posts.validators import validate_file_size
 
 
 class Post(models.Model):
@@ -11,7 +12,7 @@ class Post(models.Model):
         related_name='owned_posts'
     )
     title = models.CharField(
-        max_length=15,
+        max_length=30,
     )
     for_sale = models.BooleanField(
         default=False,
@@ -27,11 +28,13 @@ class Post(models.Model):
     )
     image = models.ImageField(
         upload_to='art_pictures/',
+        validators=[validate_file_size],
     )
     created_at = models.DateTimeField(
         default=now,
         editable=False
     )
+
     def is_liked_by(self, user):
         return self.likes.filter(id=user.id).exists()
 

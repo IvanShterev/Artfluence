@@ -3,12 +3,16 @@ from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
+from rest_framework import status
+from rest_framework.exceptions import NotFound
+from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Post, Comment
 from .forms import PostForm
+from .serializers import CommentSerializer
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -22,4 +26,3 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('gallery')
-

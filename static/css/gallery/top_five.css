@@ -1,98 +1,41 @@
-
 *{
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-a{
-    text-decoration: none;
-    color: black;
-}
-
-.top-container{
+body{
     display: flex;
+    flex-flow: column;
     align-items: center;
-    justify-content: space-between;
-    width: 82%;
-    border-bottom: 1px solid gray;
-    background-color: #f6f5f7;
-    position: fixed;
-    top: 0;
-    z-index: 100;
+    justify-content: center;
+    gap: 30px;
+    padding-top: 100px;
 }
 
-.top-container img{
-    height: 100px;
-    width: 100px;
-}
-
-.top-container input{
-    padding: 15px;
-    border-radius: 20px;
-    width: 50%;
-}
-
-.a-points-cont{
+.post-rank-cont{
     display: flex;
-    flex-flow: column;
-    gap: 15px;
-    background-color: #f6f5f7;
-    padding: 15px;
-    height: 350px;
-    width: 300px;
-    position: fixed;
-    left: 100px;
-    border-radius: 15px;
+    width: 40%;
 }
 
-.a-points-top{
+.rank-cont{
     display: flex;
-    flex-flow: column;
-    gap: 5px;
-}
-
-.resultCont{
-    display: flex;
-    flex-flow: column;
-    font-size: 22px;
-    margin-top: 110px;
-}
-
-.display-ap-cont{
-   font-size: 22px;
-    display: flex;
-    flex-flow: column;
-    gap: 20px;
-}
-
-.posts {
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 150px;
-    padding: 20px;
-    gap: 40px;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 20%;
+    font-size: 3rem;
 }
 
-.post {
+.post{
     background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 20px;
-    width: 45%;
+    width: 65%;
 }
 
 .post h2, .post p, .post h3, .post ul {
     margin: 10px 0;
-}
-
-.post ul {
-    list-style: none;
-    padding: 0;
 }
 
 .post-top{
@@ -111,6 +54,8 @@ a{
 .post-top a{
     margin-left: 100px;
     font-weight: normal;
+    text-decoration: none;
+    color: black;
 }
 
 #user-profile{
@@ -154,55 +99,6 @@ a{
     height: 1px;
     background-color: black;
     width: 100%;
-}
-
-.posts{
-    display: flex;
-    flex-flow: column;
-}
-
-.right-menu{
-    display: flex;
-    flex-flow: column;
-    gap: 20px;
-    width: 18%;
-    position: fixed;
-    top: 0;
-    right: 0;
-    padding: 40px 10px 0 10px;
-    height: 100vh;
-    font-size: 20px;
-    border-left: 1px solid gray;
-    background-color: #f6f5f7;
-}
-
-.right-menu h2{
-    padding-left: 30px;
-}
-
-#greet-user{
-    padding-left: 30px;
-}
-
-.option{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 15px;
-    width: 100%;
-}
-
-.option:hover{
-    background-color: rgba(0, 0, 0, .3);
-}
-
-.option img{
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
 }
 
 .fa-heart, .fa-comment{

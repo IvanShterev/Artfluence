@@ -10,7 +10,6 @@ class PostForm(forms.ModelForm):
             'id': 'collection_checkbox',
         }),
         label="Collection",
-        help_text="Check this box if the post is part of a collection."
     )
 
     class Meta:
@@ -40,12 +39,6 @@ class PostForm(forms.ModelForm):
             'price': 'Price',
             'image': 'Upload Image',
         }
-        help_texts = {
-            'title': 'The title should be short and descriptive (max 15 characters).',
-            'for_sale': 'Check this box if the post is for sale.',
-            'price': 'Set a price if the post is for sale.',
-            'image': 'Upload an image for your post.',
-        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -58,6 +51,6 @@ class PostForm(forms.ModelForm):
         if for_sale and (price is None or price <= 0):
             self.add_error('price', "Price must be set and greater than 0 if the post is for sale.")
         if collection:
-            cleaned_data['for_sale'] = False  # Override the for_sale field if collection is selected
-            cleaned_data['price'] = None  # Clear price if collection is selected
+            cleaned_data['for_sale'] = False
+            cleaned_data['price'] = None
         return cleaned_data

@@ -1,28 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load mathfilters %}
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/gallery/gallery.css' %}">
 
-    <div class="top-container">
-        <img src="{% static 'images/Artfluence-logo-removebg-preview (1).png' %}">
-        <input type="text" placeholder="Search">
-        <div></div>
-    </div>
-    {% if user.is_authenticated %}
-        <div class="a-points-cont">
-            <div class="a-points-top">
-                <span>Current AP Balance:</span>
-                <span class="dividing-line"></span>
-            </div>
-            <div class="display-ap-cont">
-                <span id="balance">{{ user.artfluence_points }}</span>
-            </div>
-        </div>
-    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/gallery/top_five.css' %}">
 
-    <div class="posts">
-        {% if posts %}
-            {% for post in posts %}
+    <h1>Top 5 Most Liked Posts</h1>
+        {% for post in posts %}
+            <div class="post-rank-cont">
+                <div class="rank-cont">
+                    <h2>#{{ starting_counter|sub:forloop.counter0 }}</h2>
+                </div>
+
                 <div class="post">
                     <div class="post-top">
                         <img src="{{ user.profile_picture.url }}">
@@ -71,60 +60,8 @@
                         <button type="submit" name="comment">Comment</button>
                     </form>
                 </div>
-            {% endfor %}
-        {% else %}
-            <h1>Currently, there are no posts.</h1>
-            <h1>Be the first one to post!</h1>
-        {% endif %}
-    </div>
+            </div>
 
+        {% endfor %}
 
-    <div class="right-menu">
-        <h2>Artfluence</h2>
-        {% if user.is_authenticated %}
-                <span id="greet-user">Hello, {{ user.username }}!</span>
-                <a href="{% url 'profile' user.username %}" class="option">
-                    <img src="{{ user.profile_picture.url }}">
-                    <span>Profile</span>
-                </a>
-
-                <a href="{% url 'create-post' user.username %}" class="option">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Create</span>
-                </a>
-
-                <a href="#" class="option">
-                    <img src="{% static 'images/Artfluence_AP_coin_facing_forward-removebg-preview.png' %}" alt="">
-                    <span>Buy AP</span>
-                </a>
-            {% else %}
-                <span>Login to access all features!</span>
-                <a href="{% url 'login' %}" class="option">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Login</span>
-                </a>
-            {% endif %}
-
-            <a href="{% url 'home' %}" class="option" >
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
-            </a>
-
-            <a href="{% url 'gallery' %}" class="option">
-                <i class="fa-solid fa-image"></i>
-                <span>Gallery</span>
-            </a>
-
-            <a href="{% url 'top-liked-posts' %}" class="option">
-                <i class="fa-solid fa-layer-group"></i>
-                <span>Top 5 Art Pieces</span>
-            </a>
-
-            <a href="#" class="option">
-                <i class="fa-solid fa-gear"></i>
-                <span>Settings</span>
-            </a>
-    </div>
-
-    <script src="{% static 'js/gallery.js' %}"></script>
 {% endblock %}
