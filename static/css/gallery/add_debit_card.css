@@ -3,3 +3,81 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/static/images/debitcard-bg.png");
+}
+
+.container{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 150px;
+    min-height: 500px;
+    background-color: #f6f5f7;
+    border-radius: 15px;
+    width: 50%;
+}
+
+.add-debit-card-cont{
+    cursor: pointer;
+}
+
+.card-info-cont{
+    display: flex;
+    flex-flow: column;
+}
+
+.credential-cont{
+    display: flex;
+    gap: 5px;
+}
+
+.card-credential{
+    font-weight: bold;
+}
+
+form{
+    display: flex;
+    flex-flow: column;
+    gap: 30px;
+}
+
+form input{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.btns-cont{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.btns-cont button, .btns-cont a{
+    width: 25%;
+    padding: 12px 20px 12px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    border: none;
+    background-color: #3C5A99;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+}
+
+.btns-cont a{
+    background-color: #2a2922;
+    display: flex;
+    justify-content: center;
+}
+
+.btns-cont button:hover, .btns-cont a:hover{
+    transform: scale(1.1);
+}

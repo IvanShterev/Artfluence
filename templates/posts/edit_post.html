@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/gallery/edit_post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/posts/edit_post.css' %}">
 
-    <h1>Edit Post</h1>
     <form method="post" action="{% url 'edit_post' request.user.username post.pk %}" enctype="multipart/form-data">
+        <h1>Edit Post</h1>
         {% csrf_token %}
         <div class="form-group">
             {{ form.title.label_tag }}
@@ -26,13 +26,16 @@
             {{ form.price.label_tag }}
             {{ form.price }}
         </div>
-        <div class="form-group">
+        <div class="form-group" id="change-img-cont">
             {{ form.image.label_tag }}
             {{ form.image }}
         </div>
-        <button type="submit">Save Changes</button>
+
+        <div class="btns-cont">
+          <button type="submit">Save</button>
+          <a href="{% url 'profile' request.user.username %}">Cancel</a>
+        </div>
     </form>
-    <a href="{% url 'profile' request.user.username %}">Cancel</a>
 
     {% include 'gallery/side-menu.html' %}
 

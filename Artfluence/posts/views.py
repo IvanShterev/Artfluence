@@ -19,7 +19,7 @@ from .serializers import CommentSerializer
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
-    template_name = 'gallery/create_post.html'
+    template_name = 'gallery/../../templates/posts/create_post.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -32,7 +32,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class EditPostView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
-    template_name = 'gallery/edit_post.html'
+    template_name = 'gallery/../../templates/posts/edit_post.html'
     context_object_name = 'post'
 
     def get_queryset(self):

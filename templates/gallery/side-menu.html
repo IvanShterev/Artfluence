@@ -45,11 +45,6 @@
             </a>
 
             {% if user.is_authenticated %}
-                <a href="#" class="option">
-                    <i class="fa-solid fa-gear"></i>
-                    <span>Settings</span>
-                </a>
-
                 <a href="{% url 'logout' %}" class="option">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>

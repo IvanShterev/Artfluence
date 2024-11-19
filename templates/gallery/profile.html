@@ -6,7 +6,11 @@
     <div class="profile-card">
         <img src="{{ user.profile_picture.url }}">
         <div class="right-side-cont">
-            <h1>{{ user.username }}</h1>
+            <div class="right-side-top-cont">
+                <h1>{{ user.username }}</h1>
+                <a href="{% url 'edit-profile' user.username %}">Edit Profile</a>
+                <a href="">Delete Profile</a>
+            </div>
             <span>Currently showing:
                 <select id="view-selector" onchange="updateView()">
                     <option value="collection">Collection</option>

@@ -2,13 +2,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
-from django.views.generic.edit import FormView, CreateView
+from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.urls import reverse_lazy
-from django.contrib.auth import login, logout
-from .forms import CustomUserRegistrationForm, LoginForm, DebitCardForm
+from django.contrib.auth import login, logout, update_session_auth_hash
+from .forms import CustomUserRegistrationForm, LoginForm, DebitCardForm, EditProfileForm
 from django.contrib import messages
 
-from .models import DebitCard
+from .models import DebitCard, ArtfluenceUser
 
 
 class CustomLoginView(FormView):
@@ -42,6 +42,33 @@ class RegisterView(FormView):
 def logout_view(request):
     logout(request)
     return redirect(reverse_lazy('gallery'))
+
+
+class EditProfileView(LoginRequiredMixin, UpdateView):
+    model = ArtfluenceUser
+    form_class = EditProfileForm
+    template_name = 'gallery/edit_profile.html'
+    success_url = reverse_lazy('edit_profile')
+
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'username': self.request.user.username})
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+
+        new_password = form.cleaned_data.get("new_password1")
+        if new_password:
+            user.set_password(new_password)
+            update_session_auth_hash(self.request, user)
+
+        user.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
 
 class AddDebitCardView(LoginRequiredMixin, CreateView):

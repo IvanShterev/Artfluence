@@ -15,11 +15,6 @@ class Gallery(ListView):
     queryset = Post.objects.prefetch_related('likes', 'comments__creator').select_related('owner')
 
     def get_queryset(self):
-        # return (
-        #     Post.objects.prefetch_related('likes', 'comments__creator')
-        #     .select_related('owner')
-        #     .order_by('-created_at')
-        # )
         queryset = Post.objects.prefetch_related('likes', 'comments__creator').select_related('owner')
         search_query = self.request.GET.get('search')
 

@@ -1,0 +1,84 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    background-image: url("/static/images/edit-post-bg.png");
+}
+
+form {
+    margin-top: 150px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 20px;
+    width: 30%;
+    background-color: #FFF8FA;
+    border-radius: 20px;
+    padding: 30px 0 30px 0;
+}
+.form-group {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    gap: 5px;
+    font-size: 18px;
+}
+
+input{
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+
+#change-img-cont{
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+}
+
+#change-img-cont input{
+    border: none;
+}
+
+.btns-cont{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 60%;
+}
+
+.btns-cont a{
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 25%;
+    background-color: #2a2922;
+    text-align: center;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease;
+    width: 25%;
+}
+
+button:hover, .btns-cont a:hover{
+    transform: scale(1.1);
+}

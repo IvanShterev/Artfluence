@@ -33,7 +33,7 @@
             {% for post in posts %}
                 <div class="post">
                     <div class="post-top">
-                        <img src="{{ user.profile_picture.url }}">
+                        <img src="{{ post.owner.profile_picture.url }}">
                         <a href="{% url 'profile' post.owner.username %}" id="user-profile">{{ post.owner.username }}</a>
                         {% if post.for_sale %}
                             <a href="#"

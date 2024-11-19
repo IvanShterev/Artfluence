@@ -3,31 +3,49 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/gallery/add_debit_card.css' %}">
 
-    <h2>Your Debit Cards</h2>
-    {% if debit_cards %}
-        <ul>
-            {% for card in debit_cards %}
-                <li>
-                    <strong>Cardholder:</strong> {{ card.cardholder_name }}<br>
-                    <strong>Card Number:</strong> **** **** **** {{ card.card_number|slice:"-4:" }}<br>
-                    <strong>Expires:</strong> {{ card.expiration_date|date:"m/Y" }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>You have no saved debit cards.</p>
-    {% endif %}
+    <div class="container">
+        <h2>Your Debit Cards</h2>
+        {% if debit_cards %}
+            <ul>
+                {% for card in debit_cards %}
+                    <div class="card-info-cont">
+                        <div class="credential-cont">
+                            <span class="card-credential">Cardholder:</span>
+                            <span>{{ card.holder_name }}</span>
+                        </div>
+                        <div class="credentail-cont">
+                            <span class="card-credential">Card Number:</span>
+                            <span>**** **** **** {{ card.card_number|slice:"-4:" }}</span>
+                        </div>
+                        <div class="credentail-cont">
+                            <span class="card-credential">Expires:</span>
+                            <span>{{ card.expiration_date|date:"m/Y" }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have no saved debit cards.</p>
+        {% endif %}
 
-    <div class="add-debit-card-cont">
-        <i class="fa-regular fa-credit-card"></i>
-        <span>Add Debit Card</span>
+        <div class="add-debit-card-cont">
+            <i class="fa-regular fa-credit-card"></i>
+            <span>Add Debit Card</span>
+        </div>
     </div>
 
-    <form action="" method="post" style="display: none" id="add-debit-card-form">
-        {% csrf_token %}
-        {{ form }}
-        <button>Add Debit Card</button>
-    </form>
+    <div class="container" style="display: none" id="add-debit-card-form-cont">
+        <form action="" method="post" id="add-debit-card-form">
+            {% csrf_token %}
+            {{ form }}
+            <div class="btns-cont">
+                <button>Add</button>
+                <a href="javascript:void(0)" id="cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    {% include 'gallery/side-menu.html' %}
 
     <script src="{% static 'js/add_debit_card.js' %}"></script>
 

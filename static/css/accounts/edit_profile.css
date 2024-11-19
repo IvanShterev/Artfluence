@@ -1,0 +1,84 @@
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/static/images/edit-profile-bg.png");
+}
+
+img{
+    height: 100px;
+    border-radius: 50%;
+}
+
+.edit-profile-form{
+    margin-top: 150px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 20px;
+    width: 30%;
+    background-color: #FFF8FA;
+    border-radius: 20px;
+    padding: 30px 0 30px 0;
+}
+
+form{
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
+    border-radius: 15px;
+    border: none;
+    width: 62%;
+}
+
+form input{
+   padding: 5px;
+   border: 1px solid black;
+    border-radius: 12px;
+}
+
+#profile-pic-cont input{
+    border: none;
+}
+
+.btns-cont{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+button{
+    background-color: #04537C;
+    padding: 10px 0 10px 0;
+    border-radius: 20px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    width: 25%;
+    transition: 0.3s;
+}
+
+.btns-cont a{
+    background-color: #2a2922;
+    color: #fff;
+    padding: 10px 0 10px 0;
+    text-align: center;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    width: 25%;
+    transition: 0.3s;
+}
+
+button:hover, .btns-cont a:hover{
+    transform: scale(1.1);
+}

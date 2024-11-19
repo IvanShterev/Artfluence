@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .models import ArtfluenceUser, DebitCard
+from django.contrib.auth.hashers import check_password
 
 
 class CustomUserRegistrationForm(UserCreationForm):
@@ -49,6 +50,54 @@ class LoginForm(forms.Form):
         return cleaned_data
 
 
+class EditProfileForm(forms.ModelForm):
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Old Password'}),
+        required=False,
+        label="Old Password",
+    )
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'New Password'}),
+        required=False,
+        label="New Password",
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm New Password'}),
+        required=False,
+        label="Confirm New Password",
+    )
+
+    class Meta:
+        model = ArtfluenceUser
+        fields = ['username', 'email', 'profile_picture']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+            'profile_picture': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'username': 'Username',
+            'email': 'Email Address',
+            'profile_picture': 'Profile Picture',
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        old_password = cleaned_data.get("old_password")
+        new_password1 = cleaned_data.get("new_password1")
+        new_password2 = cleaned_data.get("new_password2")
+
+        if new_password1 or new_password2:
+            if not old_password:
+                self.add_error('old_password', "Old password is required to set a new password.")
+            elif not check_password(old_password, self.instance.password):
+                self.add_error('old_password', "The old password is incorrect.")
+            if new_password1 != new_password2:
+                self.add_error('new_password2', "The new passwords do not match.")
+
+        return cleaned_data
+
+
 class DebitCardForm(forms.ModelForm):
     class Meta:
         model = DebitCard
@@ -78,11 +127,6 @@ class DebitCardForm(forms.ModelForm):
             'holder_name': 'Cardholder Name',
             'expiration_date': 'Expiration Date',
             'cvv': 'CVV',
-        }
-        help_texts = {
-            'card_number': 'Enter the 16-digit card number without spaces.',
-            'expiration_date': 'Enter the expiration date in MM/YYYY format.',
-            'cvv': 'The 3-digit number on the back of your card.',
         }
 
         def clean_card_number(self):

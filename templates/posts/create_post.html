@@ -1,15 +1,3 @@
-{#{% extends 'base.html' %}#}
-{#{% load static %}#}
-{#{% block content %}#}
-{##}
-{#    <h1>Create a post</h1>#}
-{#    <form action="{% url 'create-post' user.username %}" method="post" enctype="multipart/form-data">#}
-{#        {% csrf_token %}#}
-{#        {{ form }}#}
-{#        <button>Create</button>#}
-{#    </form>#}
-{##}
-{#{% endblock %}#}
 
 {% extends 'base.html' %}
 {% load static %}
@@ -63,11 +51,12 @@
 
         <div class="btn-container">
             <button type="submit" class="btn btn-primary">Create</button>
+            <a href="{% url 'gallery' %}">Cancel</a>
         </div>
     </form>
 </div>
 
     {% include 'gallery/side-menu.html' %}
 
-<script src="{% static 'js/create-post.js' %}"></script>
+    <script src="{% static 'js/create-post.js' %}"></script>
 {% endblock %}

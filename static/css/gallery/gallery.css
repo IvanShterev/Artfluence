@@ -55,6 +55,7 @@ h1{
     border: none;
     border-left: 1px solid gray;
     padding-left: 13px;
+    padding-right: 7px;
     cursor: pointer;
     background-color: transparent;
 }
@@ -132,6 +133,7 @@ h1{
 
 .post-top img{
     height: 32px;
+    border-radius: 50%;
 }
 
 .post-top a{

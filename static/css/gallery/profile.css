@@ -41,8 +41,29 @@ body{
     gap: 10px;
 }
 
+.right-side-top-cont{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.right-side-top-cont a{
+    margin-top: 7px;
+    background-color: #e7e7e7;
+    padding: 8px 15px 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.right-side-top-cont a:hover{
+    text-decoration: none;
+    background-color: #d3d2d2;
+}
+
 .profile-card img{
     height: 120px;
+    border-radius: 50%;
 }
 
 .no-items-to-display{
