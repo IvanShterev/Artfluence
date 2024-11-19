@@ -29,10 +29,12 @@
                 <div class="title-price-cont">
                     <span>{{ post.title }}</span>
                 </div>
-                <div class="edit-delete-cont">
-                    <a href="{% url 'edit_post' user.username post.pk %}"><i class="fa-solid fa-pen"></i></a>
-                    <i class="fa-solid fa-trash"></i>
-                </div>
+                {% if is_owner %}
+                    <div class="edit-delete-cont">
+                        <a href="{% url 'edit_post' user.username post.pk %}"><i class="fa-solid fa-pen"></i></a>
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                {% endif %}
             </div>
             <img src="{{ post.image.url }}">
             <div class="likes-comments-cont">
@@ -51,12 +53,16 @@
             <div class="post-top">
                 <div class="title-price-cont">
                     <span>{{ post.title }}</span>
-                    <span>Price: {{ post.price }} AP</span>
+                    {% if not is_owner %}
+                        <a href="#">Buy $</a>
+                    {% endif %}
                 </div>
-                <div class="edit-delete-cont">
-                    <a href="{% url 'edit_post' user.username post.pk %}"><i class="fa-solid fa-pen"></i></a>
-                    <i class="fa-solid fa-trash"></i>
-                </div>
+                {% if is_owner %}
+                    <div class="edit-delete-cont">
+                        <a href="{% url 'edit_post' user.username post.pk %}"><i class="fa-solid fa-pen"></i></a>
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                {% endif %}
             </div>
             <img src="{{ post.image.url }}">
             <div class="likes-comments-cont">
@@ -68,6 +74,8 @@
         <p class="no-items-to-display">No items for sale</p>
         {% endfor %}
     </div>
+    
+    {% include 'gallery/side-menu.html' %}
 
     <script src="{% static 'js/profile.js' %}"></script>
 {% endblock %}

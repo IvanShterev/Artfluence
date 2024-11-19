@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
+from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404

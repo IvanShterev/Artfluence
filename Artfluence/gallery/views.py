@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,11 +15,20 @@ class Gallery(ListView):
     queryset = Post.objects.prefetch_related('likes', 'comments__creator').select_related('owner')
 
     def get_queryset(self):
-        return (
-            Post.objects.prefetch_related('likes', 'comments__creator')
-            .select_related('owner')
-            .order_by('-created_at')
-        )
+        # return (
+        #     Post.objects.prefetch_related('likes', 'comments__creator')
+        #     .select_related('owner')
+        #     .order_by('-created_at')
+        # )
+        queryset = Post.objects.prefetch_related('likes', 'comments__creator').select_related('owner')
+        search_query = self.request.GET.get('search')
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(title__icontains=search_query) | Q(owner__username__icontains=search_query)
+            )
+
+        return queryset.order_by('-created_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

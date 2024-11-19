@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, CreateView
 from django.urls import reverse_lazy
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .forms import CustomUserRegistrationForm, LoginForm, DebitCardForm
 from django.contrib import messages
 
@@ -37,6 +37,11 @@ class RegisterView(FormView):
     def form_valid(self, form):
         user = form.save()
         return super().form_valid(form)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse_lazy('gallery'))
 
 
 class AddDebitCardView(LoginRequiredMixin, CreateView):

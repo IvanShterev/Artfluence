@@ -82,8 +82,13 @@ body{
 
 .title-price-cont{
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
     font-weight: bold;
+    width: 55%;
+}
+
+.title-price-cont a:hover{
+    text-decoration: underline;
 }
 
 .edit-delete-cont{

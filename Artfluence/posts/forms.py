@@ -25,7 +25,7 @@ class PostForm(forms.ModelForm):
                 'id': 'for_sale_checkbox',
             }),
             'price': forms.NumberInput(attrs={
-                'placeholder': 'Enter price if for sale',
+                'placeholder': 'Enter a price',
                 'class': 'form-control',
                 'id': 'price_input',
             }),
