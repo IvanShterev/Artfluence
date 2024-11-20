@@ -1,14 +1,16 @@
 from rest_framework import serializers
-from .models import Comment
+from .models import Post, Comment
+
+
+class PostSerializer(serializers.ModelSerializer):
+    likes_count = serializers.IntegerField(source='likes.count', read_only=True)
+
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'for_sale', 'price', 'image', 'likes_count']
 
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ['id', 'text', 'user', 'created_at']
-        read_only_fields = ['user', 'created_at']
-
-    def create(self, validated_data):
-        request = self.context.get('request')
-        validated_data['user'] = request.user
-        return super().create(validated_data)
+        fields = ['id', 'content', 'creator', 'post', 'created_at']

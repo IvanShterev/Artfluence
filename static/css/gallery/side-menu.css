@@ -18,6 +18,12 @@
     font-size: 20px;
     border-left: 1px solid gray;
     background-color: #f6f5f7;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.right-menu.hidden {
+    transform: translateX(100%);
 }
 
 .right-menu h2{
@@ -52,4 +58,47 @@
 a{
     text-decoration: none;
     color: black;
+}
+
+#menu-toggle {
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: black;
+}
+
+.hide{
+    display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+    .right-menu {
+        height: auto;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        flex-flow: row;
+        padding: 10px 20px;
+        border-left: none;
+        display: flex;
+        border-bottom: 1px solid gray;
+    }
+
+    .right-menu h2,
+    #greet-user {
+        display: none;
+    }
+
+    .option {
+        padding: 10px;
+        padding-left: 0;
+        justify-content: center;
+    }
 }

@@ -16,6 +16,7 @@ body{
 .post-rank-cont{
     display: flex;
     width: 40%;
+    padding-bottom: 40px;
 }
 
 .rank-cont{
@@ -49,6 +50,7 @@ body{
 
 .post-top img{
     height: 32px;
+    border-radius: 50%;
 }
 
 .post-top a{
@@ -152,4 +154,66 @@ textarea {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+.hidden{
+    display: none;
+}
+
+@media only screen and (max-width: 1669px){
+    .post-rank-cont{
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+    }
+    .rank-cont{
+        width: 5%;
+    }
+    .post{
+        width: 35%;
+    }
+}
+
+@media only screen and (max-width: 1420px){
+    .post{
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 1200px){
+    .post{
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .post{
+        width: 55%;
+    }
+}
+
+@media only screen and (max-width: 900px){
+    .post{
+        width: 65%;
+    }
+
+    .hidden{
+        display: flex;
+    }
+
+    .rank-cont{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 700px){
+    .post{
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .post{
+        width: 95%;
+    }
 }

@@ -16,6 +16,7 @@
                     <div class="post-top">
                         <img src="{{ user.profile_picture.url }}">
                         <a href="{% url 'profile' post.owner.username %}" id="user-profile">{{ post.owner.username }}</a>
+                        <span class="hidden">#{{ starting_counter|sub:forloop.counter0 }}</span>
                         {% if post.for_sale %}
                             <a href="#"
                                class="for-sale-btn"

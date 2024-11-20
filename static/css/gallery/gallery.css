@@ -67,7 +67,7 @@ h1{
     background-color: #f6f5f7;
     padding: 15px;
     height: 350px;
-    width: 300px;
+    width: 17%;
     position: fixed;
     left: 100px;
     border-radius: 15px;
@@ -240,4 +240,89 @@ textarea {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+@media only screen and (max-width: 1600px){
+    .a-points-cont{
+        width: 17%;
+    }
+
+    .post{
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 1450px){
+    .a-points-cont{
+        left: 85px;
+    }
+
+    .post{
+        width: 55%;
+    }
+}
+
+@media only screen and (max-width: 1350px){
+    .a-points-cont{
+        left: 60px;
+    }
+
+    .post{
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 1250px){
+    .post{
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 1200px){
+    .a-points-cont{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1150px){
+    .posts{
+        width: 100%;
+    }
+
+    .post{
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .posts{
+        margin-top: 180px;
+    }
+
+    .post{
+        width: 60%;
+    }
+
+    .top-container{
+        top: 71px;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 750px){
+    .post{
+        width: 75%;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .post{
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .post{
+        width: 95%;
+    }
 }

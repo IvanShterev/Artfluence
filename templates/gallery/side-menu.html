@@ -9,47 +9,68 @@
                 <span id="greet-user">Hello, {{ request.user.username }}!</span>
                 <a href="{% url 'profile' request.user.username %}" class="option">
                     <img src="{{ request.user.profile_picture.url }}">
-                    <span>Profile</span>
+                    <span class="target">Profile</span>
                 </a>
 
                 <a href="{% url 'create-post' request.user.username %}" class="option">
                     <i class="fa-solid fa-plus"></i>
-                    <span>Create</span>
+                    <span class="target">Create</span>
                 </a>
 
                 <a href="#" class="option">
                     <img src="{% static 'images/Artfluence_AP_coin_facing_forward-removebg-preview.png' %}" alt="">
-                    <span>Buy AP</span>
+                    <span class="target">Buy AP</span>
                 </a>
             {% else %}
                 <span>Login to access all features!</span>
                 <a href="{% url 'login' %}" class="option">
                     <i class="fa-solid fa-user"></i>
-                    <span>Login</span>
+                    <span class="target">Login</span>
                 </a>
             {% endif %}
 
             <a href="{% url 'home' %}" class="option" >
                 <i class="fa-solid fa-house"></i>
-                <span>Home</span>
+                <span class="target">Home</span>
             </a>
 
             <a href="{% url 'gallery' %}" class="option">
                 <i class="fa-solid fa-image"></i>
-                <span>Gallery</span>
+                <span class="target">Gallery</span>
             </a>
 
             <a href="{% url 'top-liked-posts' %}" class="option">
                 <i class="fa-solid fa-layer-group"></i>
-                <span>Top 5 Art Pieces</span>
+                <span class="target">Top 5 Art Pieces</span>
             </a>
 
             {% if user.is_authenticated %}
                 <a href="{% url 'logout' %}" class="option">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Logout</span>
+                    <span class="target">Logout</span>
                 </a>
             {% endif %}
     </div>
+
+    <script>
+        const targets = document.querySelectorAll('.target');
+
+        const applyMediaQuery = () => {
+            if (window.matchMedia("(max-width: 1000px)").matches) {
+                targets.forEach(target => {
+                    target.classList.add('hide');
+                });
+            } else {
+                targets.forEach(target => {
+                    target.classList.remove('hide');
+                });
+            }
+        };
+
+        applyMediaQuery();
+
+        window.matchMedia("(max-width: 1000px)").addEventListener("change", applyMediaQuery);
+
+    </script>
 
 {% endblock %}

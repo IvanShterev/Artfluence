@@ -19,7 +19,7 @@ from .serializers import CommentSerializer
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
-    template_name = 'gallery/../../templates/posts/create_post.html'
+    template_name = 'posts/create_post.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -32,7 +32,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class EditPostView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
-    template_name = 'gallery/../../templates/posts/edit_post.html'
+    template_name = 'posts/edit_post.html'
     context_object_name = 'post'
 
     def get_queryset(self):
@@ -44,3 +44,33 @@ class EditPostView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('profile', kwargs={'username': self.kwargs.get('username')})
+
+
+# class LikePostView(APIView):
+#     permission_classes = [IsAuthenticated]
+#
+#     def post(self, request, pk):
+#         try:
+#             post = Post.objects.get(pk=pk)
+#             if post.is_liked_by(request.user):
+#                 post.unlike_post(request.user)
+#             else:
+#                 post.like_post(request.user)
+#             return Response({'likes_count': post.likes.count()})
+#         except Post.DoesNotExist:
+#             return Response({'error': 'Post not found'}, status=status.HTTP_404_NOT_FOUND)
+#
+#
+# class CommentPostView(APIView):
+#     permission_classes = [IsAuthenticated]
+#
+#     def post(self, request, pk):
+#         try:
+#             post = Post.objects.get(pk=pk)
+#             serializer = CommentSerializer(data=request.data)
+#             if serializer.is_valid():
+#                 serializer.save(creator=request.user, post=post)
+#                 return Response(serializer.data, status=status.HTTP_201_CREATED)
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#         except Post.DoesNotExist:
+#             return Response({'error': 'Post not found'}, status=status.HTTP_404_NOT_FOUND)

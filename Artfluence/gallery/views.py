@@ -1,4 +1,5 @@
 from django.db.models import Count, Q
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -51,6 +52,28 @@ class Gallery(ListView):
                 Comment.objects.create(post=post, creator=request.user, content=content)
 
         return redirect("gallery")
+    # def post(self, request, *args, **kwargs):
+    #     post_id = request.POST.get("post_id")
+    #     post = get_object_or_404(Post, id=post_id)
+    #
+    #     if "like" in request.POST:
+    #         if post.likes.filter(id=request.user.id).exists():
+    #             post.likes.remove(request.user)
+    #         else:
+    #             post.likes.add(request.user)
+    #         return JsonResponse({'likes_count': post.likes.count()})
+    #
+    #     elif "comment" in request.POST:
+    #         content = request.POST.get("comment_content")
+    #         if content:
+    #             comment = Comment.objects.create(post=post, creator=request.user, content=content)
+    #             return JsonResponse({
+    #                 'comment_id': comment.id,
+    #                 'creator': request.user.username,
+    #                 'content': comment.content,
+    #             })
+    #
+    #     return redirect("gallery")
 
 
 class ProfileView(LoginRequiredMixin, DetailView):

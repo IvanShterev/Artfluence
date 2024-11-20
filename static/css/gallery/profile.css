@@ -132,7 +132,104 @@ body{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 40px;
-    width: 70%;
+    gap: 30px;
+    width: 73%;
+    padding-right: 40px;
+    padding-bottom: 40px;
+}
 
+@media only screen and (max-width: 1620px){
+    body{
+        align-items: normal;
+    }
+
+    .profile-card{
+        width: 35%;
+        align-self: center;
+    }
+
+    #collection-view, #for-sale-view{
+        gap: 20px;
+        width: 80%;
+        padding-right: 0;
+        padding-left: 40px;
+    }
+}
+
+@media only screen and (max-width: 1460px){
+    #collection-view, #for-sale-view{
+        gap: 20px;
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 1460px){
+    .profile-card{
+        width: 38%;
+        align-self: center;
+    }
+}
+
+@media only screen and (max-width: 1281px){
+    .profile-card{
+        width: 40%;
+        align-self: center;
+    }
+    #collection-view, #for-sale-view {
+        gap: 20px;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 40px;
+    }
+}
+
+@media only screen and (max-width: 1218px){
+    .profile-card{
+        width: 43%;
+        align-self: center;
+    }
+    #collection-view, #for-sale-view {
+        gap: 20px;
+        width: 100%;
+        padding-left: 0;
+        flex-flow: column;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 1135px){
+    .post-item{
+        width: 40%;
+    }
+    .profile-card{
+        width: 50%;
+        align-self: center;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .profile-card{
+        width: 65%;
+        align-self: center;
+    }
+    .post-item{
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 760px){
+    .profile-card{
+        width: 100%;
+        align-self: center;
+        justify-content: center;
+    }
+    .post-item{
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 580px){
+    .post-item{
+        width: 77%;
+    }
 }
