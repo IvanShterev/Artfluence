@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -113,7 +115,7 @@ class DebitCardForm(forms.ModelForm):
                 'class': 'form-control',
             }),
             'expiration_date': forms.DateInput(attrs={
-                'type': 'date',
+                'type': 'month',
                 'class': 'form-control',
             }),
             'cvv': forms.PasswordInput(attrs={
@@ -140,3 +142,4 @@ class DebitCardForm(forms.ModelForm):
             if len(cvv) != 3:
                 raise forms.ValidationError("CVV must contain exactly 3 digits.")
             return cvv
+

@@ -1,6 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.urls import reverse_lazy
@@ -82,3 +84,4 @@ class AddDebitCardView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return redirect('profile', username=self.request.user.username).url
+

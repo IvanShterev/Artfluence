@@ -2,15 +2,35 @@ from rest_framework import serializers
 from .models import Post, Comment
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    creator = serializers.StringRelatedField()
+
+    class Meta:
+        model = Comment
+        fields = ["id", "creator", "content"]
+
+
 class PostSerializer(serializers.ModelSerializer):
-    likes_count = serializers.IntegerField(source='likes.count', read_only=True)
+    likes_count = serializers.IntegerField(source="likes.count", read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
+    is_liked_by_user = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'for_sale', 'price', 'image', 'likes_count']
+        fields = [
+            "id",
+            "title",
+            "image",
+            "for_sale",
+            "price",
+            "owner",
+            "likes_count",
+            "is_liked_by_user",
+            "comments",
+        ]
 
-
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = ['id', 'content', 'creator', 'post', 'created_at']
+    def get_is_liked_by_user(self, obj):
+        request = self.context.get("request")
+        if request and request.user.is_authenticated:
+            return obj.likes.filter(id=request.user.id).exists()
+        return False

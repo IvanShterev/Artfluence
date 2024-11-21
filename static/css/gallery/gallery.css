@@ -19,7 +19,7 @@ h1{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 82%;
+    width: 84%;
     border-bottom: 1px solid gray;
     background-color: #f6f5f7;
     position: fixed;
@@ -63,7 +63,7 @@ h1{
 .a-points-cont{
     display: flex;
     flex-flow: column;
-    gap: 15px;
+    gap: 16px;
     background-color: #f6f5f7;
     padding: 15px;
     height: 350px;
@@ -176,6 +176,7 @@ h1{
     display: flex;
     gap: 30px;
     font-size: 20px;
+    align-items: center;
 }
 
 .dividing-line{
@@ -196,7 +197,7 @@ h1{
 .likes-comments-cont i {
     font-size: 24px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.3s;
     color: black;
     padding: 0;
 }

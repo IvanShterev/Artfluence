@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
@@ -16,11 +17,11 @@
         </form>
         <div></div>
     </div>
+
     {% if user.is_authenticated %}
         <div class="a-points-cont">
             <div class="a-points-top">
                 <span>Current AP Balance:</span>
-                <span class="dividing-line"></span>
             </div>
             <div class="display-ap-cont">
                 <span id="balance">{{ user.artfluence_points }}</span>
@@ -60,19 +61,22 @@
                                     <i class="fa-regular fa-heart"></i>
                                 {% endif %}
                             </button>
-                            <span>{{ post.likes_count }}</span>
+                            <span id="likes-count-{{ post.id }}">{{ post.likes_count }}</span>
                         </form>
+
+                        <!-- Comments Count -->
                         <p><i class="fa-regular fa-comment"></i> {{ post.comments_count }}</p>
                     </div>
 
-                    <div class="comments">
-                        {% if post.comments.all %}
-                            {% for comment in post.comments.all %}
-                                <p><strong>{{ comment.creator.username }}:</strong> {{ comment.content }}</p>
-                            {% endfor %}
-                        {% endif %}
+                    <!-- Comments Section -->
+                    <div class="comments" id="comments-list">
+                        {% for comment in post.comments.all %}
+                            <p><strong>{{ comment.creator.username }}:</strong> {{ comment.content }}</p>
+                        {% endfor %}
                     </div>
-                    <form method="POST" action="">
+
+                    <!-- Add Comment Form -->
+                    <form method="POST" action="" id="comment-form">
                         {% csrf_token %}
                         <input type="hidden" name="post_id" value="{{ post.id }}">
                         <textarea name="comment_content" placeholder="Add a comment..." maxlength="200" required></textarea>
@@ -89,151 +93,3 @@
 
     <script src="{% static 'js/gallery.js' %}"></script>
 {% endblock %}
-{#{% extends 'base.html' %}#}
-{#{% load static %}#}
-{#{% block content %}#}
-{#    <link rel="stylesheet" href="{% static 'css/gallery/gallery.css' %}">#}
-{##}
-{#    <div class="top-container">#}
-{#        <img src="{% static 'images/Artfluence-logo-removebg-preview (1).png' %}">#}
-{#        <form method="get" action="{% url 'gallery' %}" id="search-form">#}
-{#            <input#}
-{#                type="text"#}
-{#                name="search"#}
-{#                placeholder="Search by title or username"#}
-{#                value="{{ request.GET.search|default_if_none:'' }}"#}
-{#            >#}
-{#            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>#}
-{#        </form>#}
-{#        <div></div>#}
-{#    </div>#}
-{##}
-{#    {% if user.is_authenticated %}#}
-{#        <div class="a-points-cont">#}
-{#            <div class="a-points-top">#}
-{#                <span>Current AP Balance:</span>#}
-{#            </div>#}
-{#            <div class="display-ap-cont">#}
-{#                <span id="balance">{{ user.artfluence_points }}</span>#}
-{#            </div>#}
-{#        </div>#}
-{#    {% endif %}#}
-{##}
-{#    <div class="posts">#}
-{#        {% if posts %}#}
-{#            {% for post in posts %}#}
-{#                <div class="post">#}
-{#                    <div class="post-top">#}
-{#                        <img src="{{ post.owner.profile_picture.url }}">#}
-{#                        <a href="{% url 'profile' post.owner.username %}">{{ post.owner.username }}</a>#}
-{#                        {% if post.for_sale %}#}
-{#                            <a href="#"#}
-{#                               class="for-sale-btn"#}
-{#                               data-price="{{ post.price }}"#}
-{#                                data-owner="{{ post.owner.username }}"#}
-{#                               data-user="{{ user.username }}">#}
-{#                                <i class="fa-solid fa-dollar-sign"></i>For Sale#}
-{#                            </a>#}
-{#                        {% endif %}#}
-{#                    </div>#}
-{#                    <div class="post-image">#}
-{#                        <img src="{{ post.image.url }}">#}
-{#                    </div>#}
-{#                    <h2>{{ post.title }}</h2>#}
-{#                    <div class="likes-comments-cont">#}
-{#                        <!-- Like Button -->#}
-{#                        <form method="POST" action="" id="like-form-{{ post.id }}">#}
-{#                            {% csrf_token %}#}
-{#                            <input type="hidden" name="post_id" value="{{ post.id }}">#}
-{#                            <button type="submit" name="like" id="like-btn-{{ post.id }}">#}
-{#                                {% if post.is_liked_by_user %}#}
-{#                                    <i class="fa-solid fa-heart"></i>#}
-{#                                {% else %}#}
-{#                                    <i class="fa-regular fa-heart"></i>#}
-{#                                {% endif %}#}
-{#                            </button>#}
-{#                            <span id="likes-count-{{ post.id }}">{{ post.likes_count }}</span>#}
-{#                        </form>#}
-{##}
-{#                        <!-- Comments Count -->#}
-{#                        <p><i class="fa-regular fa-comment"></i> {{ post.comments_count }}</p>#}
-{#                    </div>#}
-{##}
-{#                    <!-- Comments Section -->#}
-{#                    <div class="comments" id="comments-list-{{ post.id }}">#}
-{#                        {% for comment in post.comments.all %}#}
-{#                            <p><strong>{{ comment.creator.username }}:</strong> {{ comment.content }}</p>#}
-{#                        {% endfor %}#}
-{#                    </div>#}
-{##}
-{#                    <!-- Add Comment Form -->#}
-{#                    <form method="POST" action="" id="comment-form-{{ post.id }}">#}
-{#                        {% csrf_token %}#}
-{#                        <input type="hidden" name="post_id" value="{{ post.id }}">#}
-{#                        <textarea name="comment_content" placeholder="Add a comment..." maxlength="200" required></textarea>#}
-{#                        <button type="submit" name="comment">Comment</button>#}
-{#                    </form>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        {% else %}#}
-{#            <h1>Currently, there are no posts</h1>#}
-{#        {% endif %}#}
-{#    </div>#}
-{##}
-{#    {% include 'gallery/side-menu.html' %}#}
-{##}
-{#    <script>#}
-{#        // Like Functionality#}
-{#        document.querySelectorAll('[id^="like-form"]').forEach(form => {#}
-{#    form.addEventListener('submit', function (e) {#}
-{#        e.preventDefault();#}
-{#        const postId = this.querySelector('input[name="post_id"]').value;#}
-{#        const likeBtn = this.querySelector('button');#}
-{#        const likesCount = document.getElementById(`likes-count-${postId}`);#}
-{##}
-{#        fetch(`/like/${postId}/`, {#}
-{#            method: 'POST',#}
-{#            headers: {#}
-{#                'X-CSRFToken': '{{ csrf_token }}',#}
-{#                'Content-Type': 'application/json',#}
-{#            },#}
-{#        })#}
-{#        .then(response => response.json())#}
-{#        .then(data => {#}
-{#            likeBtn.innerHTML = data.liked#}
-{#                ? '<i class="fa-solid fa-heart"></i>'#}
-{#                : '<i class="fa-regular fa-heart"></i>';#}
-{#            likesCount.textContent = data.likes_count;#}
-{#        })#}
-{#        .catch(error => console.error('Error liking post:', error));#}
-{#    });#}
-{#});#}
-{##}
-{#        // Comment Functionality#}
-{#        document.querySelectorAll('[id^="comment-form"]').forEach(form => {#}
-{#    form.addEventListener('submit', function (e) {#}
-{#        e.preventDefault();#}
-{#        const postId = this.querySelector('input[name="post_id"]').value;#}
-{#        const commentsList = document.getElementById(`comments-list-${postId}`);#}
-{#        const textarea = this.querySelector('textarea');#}
-{##}
-{#        fetch(`/comment/${postId}/`, {#}
-{#            method: 'POST',#}
-{#            headers: {#}
-{#                'X-CSRFToken': '{{ csrf_token }}',#}
-{#                'Content-Type': 'application/json',#}
-{#            },#}
-{#            body: JSON.stringify({ content: textarea.value })#}
-{#        })#}
-{#        .then(response => response.json())#}
-{#        .then(data => {#}
-{#            const newComment = document.createElement('p');#}
-{#            newComment.innerHTML = `<strong>${data.creator}:</strong> ${data.content}`;#}
-{#            commentsList.appendChild(newComment);#}
-{#            textarea.value = ''; // Clear the textarea#}
-{#        })#}
-{#        .catch(error => console.error('Error adding comment:', error));#}
-{#    });#}
-{#});#}
-{#    </script>#}
-{#{% endblock %}#}
