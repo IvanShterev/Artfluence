@@ -15,6 +15,7 @@ from Artfluence.accounts.models import ArtfluenceUser, DebitCard
 from Artfluence.posts.models import Post, Comment
 from Artfluence.posts.serializers import PostSerializer, CommentSerializer
 
+
 class Gallery(ListView):
     model = Post
     template_name = 'gallery/gallery.html'

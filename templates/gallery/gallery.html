@@ -30,66 +30,13 @@
     {% endif %}
 
     <div class="posts">
-        {% if posts %}
-            {% for post in posts %}
-                <div class="post">
-                    <div class="post-top">
-                        <img src="{{ post.owner.profile_picture.url }}">
-                        <a href="{% url 'profile' post.owner.username %}" id="user-profile">{{ post.owner.username }}</a>
-                        {% if post.for_sale %}
-                            <a href="#"
-                               class="for-sale-btn"
-                               data-price="{{ post.price }}"
-                                data-owner="{{ post.owner.username }}"
-                               data-user="{{ user.username }}">
-                                <i class="fa-solid fa-dollar-sign"></i>For Sale
-                            </a>
-                        {% endif %}
-                    </div>
-                    <div class="post-image">
-                        <img src="{{ post.image.url }}">
-                    </div>
-                    <h2>{{ post.title }}</h2>
-                    <div class="likes-comments-cont">
-                        <form method="POST" action="" id="like-form">
-                            {% csrf_token %}
-                            <input type="hidden" name="post_id" value="{{ post.id }}">
-                            <button type="submit" name="like" id="like-btn">
-                                {% if post.is_liked_by_user %}
-                                    <i class="fa-solid fa-heart"></i>
-                                {% else %}
-                                    <i class="fa-regular fa-heart"></i>
-                                {% endif %}
-                            </button>
-                            <span id="likes-count-{{ post.id }}">{{ post.likes_count }}</span>
-                        </form>
-
-                        <!-- Comments Count -->
-                        <p><i class="fa-regular fa-comment"></i> {{ post.comments_count }}</p>
-                    </div>
-
-                    <!-- Comments Section -->
-                    <div class="comments" id="comments-list">
-                        {% for comment in post.comments.all %}
-                            <p><strong>{{ comment.creator.username }}:</strong> {{ comment.content }}</p>
-                        {% endfor %}
-                    </div>
-
-                    <!-- Add Comment Form -->
-                    <form method="POST" action="" id="comment-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="post_id" value="{{ post.id }}">
-                        <textarea name="comment_content" placeholder="Add a comment..." maxlength="200" required></textarea>
-                        <button type="submit" name="comment">Comment</button>
-                    </form>
-                </div>
-            {% endfor %}
-        {% else %}
-            <h1>Currently, there are no posts</h1>
-        {% endif %}
     </div>
 
     {% include 'gallery/side-menu.html' %}
 
+    <script>
+        const csrf_token = `{% csrf_token %}`;
+        const user = `{{user}}`;
+    </script>
     <script src="{% static 'js/gallery.js' %}"></script>
 {% endblock %}

@@ -7,7 +7,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ["id", "creator", "content"]
+        fields = '__all__'
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -17,17 +17,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = [
-            "id",
-            "title",
-            "image",
-            "for_sale",
-            "price",
-            "owner",
-            "likes_count",
-            "is_liked_by_user",
-            "comments",
-        ]
+        fields = '__all__'
 
     def get_is_liked_by_user(self, obj):
         request = self.context.get("request")

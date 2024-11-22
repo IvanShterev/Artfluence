@@ -41,6 +41,8 @@ class ArtfluenceUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
+    def __str__(self):
+        return self.username
 
 class DebitCard(models.Model):
     owner = models.ForeignKey(

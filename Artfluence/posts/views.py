@@ -1,3 +1,4 @@
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -13,7 +14,11 @@ from rest_framework.views import APIView
 
 from .models import Post, Comment
 from .forms import PostForm
-from .serializers import CommentSerializer
+from .serializers import CommentSerializer, PostSerializer
+from rest_framework import permissions, viewsets
+
+from ..accounts.models import ArtfluenceUser
+from ..accounts.serializers import UserSerializer
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -45,6 +50,35 @@ class EditPostView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('profile', kwargs={'username': self.kwargs.get('username')})
 
+class PostViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows posts to be viewed or edited.
+    """
+    queryset = Post.objects.all().order_by('-created_at')
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.method in ['GET']:
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticatedOrReadOnly]
+        return [permission() for permission in permission_classes]
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = ArtfluenceUser.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.method in ['GET']:
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticatedOrReadOnly]
+        return [permission() for permission in permission_classes]
 
 # class LikePostView(APIView):
 #     permission_classes = [IsAuthenticated]
