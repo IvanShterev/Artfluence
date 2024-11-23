@@ -1,3 +1,5 @@
+from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -50,10 +52,8 @@ class EditPostView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('profile', kwargs={'username': self.kwargs.get('username')})
 
+
 class PostViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows posts to be viewed or edited.
-    """
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -65,10 +65,42 @@ class PostViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAuthenticatedOrReadOnly]
         return [permission() for permission in permission_classes]
 
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    def toggle_like(self, request, pk=None):
+        post = self.get_object()
+        user = request.user
+
+        if post.likes.filter(id=user.id).exists():
+            post.likes.remove(user)
+            liked = False
+        else:
+            post.likes.add(user)
+            liked = True
+
+        return Response({
+            "liked": liked,
+            "likes_count": post.likes.count(),
+        })
+
+    @action(detail=True, methods=['get'], permission_classes=[AllowAny])
+    def comments(self, request, pk=None):
+        post = self.get_object()
+        comments = post.comments.all().order_by('-id')
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    def add_comment(self, request, pk=None):
+        post = self.get_object()
+        content = request.data.get('content', '').strip()
+        if not content:
+            return Response({'error': 'Content cannot be empty.'}, status=status.HTTP_400_BAD_REQUEST)
+        comment = Comment.objects.create(post=post, creator=request.user, content=content)
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
     queryset = ArtfluenceUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -79,32 +111,3 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAuthenticatedOrReadOnly]
         return [permission() for permission in permission_classes]
-
-# class LikePostView(APIView):
-#     permission_classes = [IsAuthenticated]
-#
-#     def post(self, request, pk):
-#         try:
-#             post = Post.objects.get(pk=pk)
-#             if post.is_liked_by(request.user):
-#                 post.unlike_post(request.user)
-#             else:
-#                 post.like_post(request.user)
-#             return Response({'likes_count': post.likes.count()})
-#         except Post.DoesNotExist:
-#             return Response({'error': 'Post not found'}, status=status.HTTP_404_NOT_FOUND)
-#
-#
-# class CommentPostView(APIView):
-#     permission_classes = [IsAuthenticated]
-#
-#     def post(self, request, pk):
-#         try:
-#             post = Post.objects.get(pk=pk)
-#             serializer = CommentSerializer(data=request.data)
-#             if serializer.is_valid():
-#                 serializer.save(creator=request.user, post=post)
-#                 return Response(serializer.data, status=status.HTTP_201_CREATED)
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#         except Post.DoesNotExist:
-#             return Response({'error': 'Post not found'}, status=status.HTTP_404_NOT_FOUND)

@@ -47,13 +47,7 @@ class Gallery(ListView):
         post_id = request.POST.get("post_id")
         post = get_object_or_404(Post, id=post_id)
 
-        if "like" in request.POST:
-            if post.likes.filter(id=request.user.id).exists():
-                post.likes.remove(request.user)
-            else:
-                post.likes.add(request.user)
-
-        elif "comment" in request.POST:
+        if "comment" in request.POST:
             content = request.POST.get("comment_content")
             if content:
                 Comment.objects.create(post=post, creator=request.user, content=content)
