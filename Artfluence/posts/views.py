@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
@@ -53,6 +54,15 @@ class EditPostView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('profile', kwargs={'username': self.kwargs.get('username')})
 
 
+class DeletePostView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, pk, *args, **kwargs):
+        post = get_object_or_404(Post, pk=pk, owner=request.user)
+        post.delete()
+        return Response({"message": "Post deleted successfully."}, status=204)
+
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
@@ -64,6 +74,17 @@ class PostViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAuthenticatedOrReadOnly]
         return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.query_params.get('search', '').strip()
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(title__icontains=search_query) | Q(owner__username__icontains=search_query)
+            )
+
+        return queryset
 
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def toggle_like(self, request, pk=None):

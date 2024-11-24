@@ -6,12 +6,12 @@
 
     <div class="top-container">
         <img src="{% static 'images/Artfluence-logo-removebg-preview (1).png' %}">
-        <form method="get" action="{% url 'gallery' %}" id="search-form">
+        <form id="search-form">
             <input
                 type="text"
+                id="search-input"
                 name="search"
                 placeholder="Search by title or username"
-                value="{{ request.GET.search|default_if_none:'' }}"
             >
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
@@ -37,6 +37,7 @@
     <script>
         const csrf_token = `{% csrf_token %}`;
         const user = `{{ user }}`;
+        let authenticatedUser = `{{ request.user.id }}`;
     </script>
     <script src="{% static 'js/gallery.js' %}"></script>
 {% endblock %}

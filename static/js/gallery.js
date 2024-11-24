@@ -127,10 +127,16 @@ async function renderComments(postId) {
             commentsContainer.appendChild(commentEl);
         });
 
-        if (commentsToShow >= allComments.length) {
+        if(allComments.length <= 3){
+            showMoreBtn.style.display = 'none';
+        }
+        else{
+           showMoreBtn.style.display = 'block';
+           if (commentsToShow >= allComments.length) {
              showMoreBtn.textContent = 'Show Less...';
-        } else {
-            showMoreBtn.textContent = 'Show More...';
+           } else {
+                showMoreBtn.textContent = 'Show More...';
+           }
         }
     }
 
@@ -163,6 +169,33 @@ document.body.addEventListener('submit', async (e) => {
     }
 });
 
+async function fetchPosts(searchQuery = '') {
+    try {
+        const response = await fetch(`/posts/?search=${encodeURIComponent(searchQuery)}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch posts: ${response.status}`);
+        }
+
+        const data = await response.json();
+        let postsContainer = document.querySelector('.posts');
+
+        let postsHTML = await Promise.all(
+            data.results.map(async (post) => {
+                const postHTML = await renderFunc(post);
+                return postHTML;
+            })
+        );
+
+        postsContainer.innerHTML = postsHTML.join("");
+        data.results.forEach((post) => {
+            renderComments(post.id);
+        });
+        attachForSaleEventListeners();
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+    }
+}
+
 let renderFunc = async (post) => {
     const userObj = await getUserById(post.owner);
 
@@ -171,7 +204,16 @@ let renderFunc = async (post) => {
     const comMap = [...allComments]
         .map((comment) => `<p><strong>${comment.creator}:</strong> ${comment.content}</p>`)
         .join("");
-    console.log(comMap);
+
+     const forSaleBtn = post.for_sale
+        ? `<a href="#" 
+              class="for-sale-btn" 
+              data-owner="${post.owner}" 
+              data-user="${authenticatedUser?.id}" 
+              data-price="${post.price}">
+              $For Sale
+          </a>`
+        : '';
 
     const comments = `
         <div class="comments" id="comments-list-${post.id}">
@@ -185,16 +227,19 @@ let renderFunc = async (post) => {
             <div class="post-top">
                 <img src="${userObj.profile_picture}">
                 <a href="../profile/${userObj.username}/" id="user-profile">${userObj.username}</a>
+                ${ forSaleBtn }
             </div>
             <div class="post-image">
                 <img src="${post.image}">
             </div>
             <h2>${post.title}</h2>
             <div class="likes-comments-cont">
-                <button type="button" class="like-btn" data-post-id="${post.id}">
-                    ${post.is_liked_by_user ? '<i class="fa-solid fa-heart"></i>' : '<i class="fa-regular fa-heart"></i>'}
-                </button>
-                <span id="likes-count-${post.id}">${post.likes_count}</span>
+                <p>
+                    <button type="button" class="like-btn" data-post-id="${post.id}">
+                        ${post.is_liked_by_user ? '<i class="fa-solid fa-heart"></i>' : '<i class="fa-regular fa-heart"></i>'}
+                    </button>
+                    <span id="likes-count-${post.id}">${post.likes_count}</span>
+                </p>
                 <p><i class="fa-regular fa-comment"></i> ${post.comments.length}</p>
             </div>
 
@@ -205,11 +250,25 @@ let renderFunc = async (post) => {
             <form method="POST" class="comment-form" data-post-id="${post.id}">
                 <input type="hidden" name="csrfmiddlewaretoken" value="${csrf_token}
                 <textarea name="comment_content" placeholder="Add a comment..." maxlength="200" required></textarea>
-                <button type="submit">Add Comment</button>
+                <button type="submit" id="add-comment-btn">Add Comment</button>
             </form>
         </div>
     `;
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+    const searchForm = document.getElementById('search-form');
+    const searchInput = document.getElementById('search-input');
+
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const searchQuery = searchInput.value;
+        fetchPosts(searchQuery); // Fetch posts with the search query
+    });
+
+    // Initial fetch without search query
+    fetchPosts();
+});
 
 fetch('http://127.0.0.1:8000/posts/')
     .then((response) => {
@@ -233,9 +292,66 @@ fetch('http://127.0.0.1:8000/posts/')
         data.results.forEach((post) => {
             renderComments(post.id);
         });
+        attachForSaleEventListeners();
     })
     .catch((error) => {
         console.error('Error fetching posts:', error);
     });
 
+function attachForSaleEventListeners() {
+    const forSaleButtons = document.querySelectorAll('.for-sale-btn');
+    const displayAPContainer = document.querySelector('.display-ap-cont');
+    const userAP = parseInt(document.getElementById('balance')?.textContent);
+    const balance = document.getElementById('balance');
+    const pointsCont = document.querySelector('.a-points-cont');
 
+    forSaleButtons.forEach(button => {
+        button.addEventListener('mouseover', function () {
+            const postOwner = this.getAttribute('data-owner');
+            const currentUser = authenticatedUser;
+            if (postOwner !== currentUser) {
+                const postPrice = parseInt(this.getAttribute('data-price'));
+                const resultAP = userAP - postPrice;
+                const resultSpan = document.createElement('span');
+                const minus = document.createElement('span');
+                const pricePost = document.createElement('span');
+                const line = document.createElement('span');
+                const resultCont = document.createElement('div');
+                resultCont.classList.add('resultCont');
+                line.classList.add('dividing-line');
+                minus.textContent = '-';
+                pricePost.textContent = `${postPrice}`;
+                minus.id = 'minus';
+                pricePost.id = 'pricePost';
+                resultSpan.id = 'result-ap';
+                resultSpan.textContent = `Remaining: ${resultAP} AP`;
+
+                if (resultAP >= 0) {
+                    resultSpan.style.color = 'green';
+                    balance.style.color = 'green';
+                } else {
+                    resultSpan.style.color = 'red';
+                    balance.style.color = 'red';
+                }
+
+                displayAPContainer.appendChild(minus);
+                displayAPContainer.appendChild(pricePost);
+                resultCont.appendChild(line);
+                resultCont.appendChild(resultSpan);
+                pointsCont.appendChild(resultCont);
+            }
+        });
+
+        button.addEventListener('mouseout', function () {
+            const resultCont = document.querySelector('.resultCont');
+            const minus = document.getElementById('minus');
+            const pricePost = document.getElementById('pricePost');
+            if (resultCont) {
+                minus.remove();
+                pricePost.remove();
+                resultCont.remove();
+                balance.style.color = 'black';
+            }
+        });
+    });
+}

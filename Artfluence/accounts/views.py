@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.http import JsonResponse
@@ -5,8 +6,12 @@ from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, CreateView, UpdateView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login, logout, update_session_auth_hash
+from rest_framework import permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .forms import CustomUserRegistrationForm, LoginForm, DebitCardForm, EditProfileForm
 from django.contrib import messages
 
@@ -71,6 +76,18 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
 
     def form_invalid(self, form):
         return super().form_invalid(form)
+
+
+class DeleteAccount(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, *args, **kwargs):
+        user = request.user
+        if user.is_authenticated:
+            user.delete()
+            logout(request)
+            return Response({"redirect_url": reverse("gallery")})
+        return Response({"error": "Unauthorized"}, status=401)
 
 
 class AddDebitCardView(LoginRequiredMixin, CreateView):

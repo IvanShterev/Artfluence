@@ -22,19 +22,10 @@ class Gallery(ListView):
     context_object_name = 'posts'
     queryset = Post.objects.prefetch_related('likes', 'comments__creator').select_related('owner')
 
-    def get_queryset(self):
-        queryset = Post.objects.prefetch_related('likes', 'comments__creator').select_related('owner')
-        search_query = self.request.GET.get('search')
-
-        if search_query:
-            queryset = queryset.filter(
-                Q(title__icontains=search_query) | Q(owner__username__icontains=search_query)
-            )
-
-        return queryset.order_by('-created_at')
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        context['search_query'] = self.request.GET.get('search', '')
 
         for post in context['posts']:
             post.likes_count = post.likes.count()
@@ -69,15 +60,15 @@ class ProfileView(LoginRequiredMixin, DetailView):
         user = self.get_object()
 
         user_posts = Post.objects.filter(owner=user)
-        total_likes_received = user_posts.aggregate(total_likes=Count('likes'))['total_likes']
-        total_comments_received = Comment.objects.filter(post__in=user_posts).count()
+        # total_likes_received = user_posts.aggregate(total_likes=Count('likes'))['total_likes']
+        # total_comments_received = Comment.objects.filter(post__in=user_posts).count()
 
         context['collection'] = user_posts.filter(for_sale=False)
         context['for_sale'] = user_posts.filter(for_sale=True)
         context['liked_posts'] = Post.objects.filter(likes=self.request.user)
         context['user_comments'] = Comment.objects.filter(creator=self.request.user)
-        context['total_likes_received'] = total_likes_received or 0
-        context['total_comments_received'] = total_comments_received or 0
+        # context['total_likes_received'] = total_likes_received or 0
+        # context['total_comments_received'] = total_comments_received or 0
         context['is_owner'] = self.request.user == user
         return context
 
@@ -104,8 +95,9 @@ class DebitCardManagementView(LoginRequiredMixin, TemplateView):
 
 
 def top_liked_posts(request):
-    posts = Post.objects.annotate(likes_count=Count('likes')).order_by('likes_count')[:5]
+    posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')[:5]
     starting_counter = 5
+    posts = list(reversed(posts))
 
     for post in posts:
         post.is_liked_by_user = request.user in post.likes.all()

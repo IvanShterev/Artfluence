@@ -14,7 +14,7 @@
 
                 <div class="post">
                     <div class="post-top">
-                        <img src="{{ user.profile_picture.url }}">
+                        <img src="{{ post.owner.profile_picture.url }}">
                         <a href="{% url 'profile' post.owner.username %}" id="user-profile">{{ post.owner.username }}</a>
                         <span class="hidden">#{{ starting_counter|sub:forloop.counter0 }}</span>
                         {% if post.for_sale %}
@@ -48,11 +48,9 @@
                     </div>
 
                     <div class="comments">
-                        {% if post.comments.all %}
-                            {% for comment in post.comments.all %}
-                                <p><strong>{{ comment.creator.username }}:</strong> {{ comment.content }}</p>
-                            {% endfor %}
-                        {% endif %}
+                        {% for comment in post.comments.all %}
+                            <p><strong>{{ comment.creator.username }}:</strong> {{ comment.content }}</p>
+                        {% endfor %}
                     </div>
                     <form method="POST" action="">
                         {% csrf_token %}

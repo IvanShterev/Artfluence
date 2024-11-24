@@ -11,5 +11,6 @@ urlpatterns = [
     path('profile/<str:username>/create-post/', PostCreateView.as_view(), name='create-post'),
     path('profile/<str:username>/post/<int:pk>/edit/', EditPostView.as_view(), name='edit_post'),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/posts/<int:pk>/', DeletePostView.as_view(), name='delete-post'),
 ]
