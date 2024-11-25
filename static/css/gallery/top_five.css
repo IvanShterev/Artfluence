@@ -1,10 +1,237 @@
-*{
+/**{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*body{*/
+/*    display: flex;*/
+/*    flex-flow: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    gap: 30px;*/
+/*    padding-top: 100px;*/
+/*}*/
+
+/*.post-rank-cont{*/
+/*    display: flex;*/
+/*    width: 40%;*/
+/*    padding-bottom: 40px;*/
+/*}*/
+
+/*.rank-cont{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    width: 20%;*/
+/*    font-size: 3rem;*/
+/*}*/
+
+/*.post{*/
+/*    background-color: #ffffff;*/
+/*    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+/*    border-radius: 10px;*/
+/*    padding: 20px;*/
+/*    width: 65%;*/
+/*}*/
+
+/*.post h2, .post p, .post h3, .post ul {*/
+/*    margin: 10px 0;*/
+/*}*/
+
+/*.post-top{*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: 10px;*/
+/*    border-bottom: 1px solid black;*/
+/*    width: 100%;*/
+/*    padding-bottom: 3px;*/
+/*}*/
+
+/*.post-top img{*/
+/*    height: 32px;*/
+/*    border-radius: 50%;*/
+/*}*/
+
+/*.post-top a{*/
+/*    margin-left: 100px;*/
+/*    font-weight: normal;*/
+/*    text-decoration: none;*/
+/*    color: black;*/
+/*}*/
+
+/*#user-profile{*/
+/*    font-size: 18px;*/
+/*    font-weight: bold;*/
+/*    margin-left: 0;*/
+/*}*/
+
+/*.post-top a:hover{*/
+/*    text-decoration: underline;*/
+/*}*/
+
+/*.post-image {*/
+/*    width: 100%;*/
+/*    height: 500px;*/
+/*    overflow: hidden;*/
+/*    border-radius: 10px;*/
+/*    margin-top: 15px;*/
+/*}*/
+
+/*.post-image img {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    object-fit: cover;*/
+/*    display: block;*/
+/*}*/
+
+/*.post h2{*/
+/*    font-size: 18px;*/
+/*    font-weight: bold;*/
+/*    border-top: 1px solid black;*/
+/*}*/
+
+/*.likes-comments-cont{*/
+/*    display: flex;*/
+/*    gap: 30px;*/
+/*    font-size: 20px;*/
+/*}*/
+
+/*.dividing-line{*/
+/*    height: 1px;*/
+/*    background-color: black;*/
+/*    width: 100%;*/
+/*}*/
+
+/*.fa-heart, .fa-comment{*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.likes-comments-cont i {*/
+/*    font-size: 24px;*/
+/*    cursor: pointer;*/
+/*    transition: transform 0.2s;*/
+/*    color: black;*/
+/*    padding: 0;*/
+/*}*/
+
+/*.fa-heart.fa-solid{*/
+/*    color: red;*/
+/*}*/
+
+/*.likes-comments-cont i:hover {*/
+/*    transform: scale(1.2);*/
+/*}*/
+
+/*.comments {*/
+/*    margin-top: 15px;*/
+/*    padding: 10px;*/
+/*    background-color: #f9f9f9;*/
+/*    border-radius: 8px;*/
+/*    display: flex;*/
+/*    flex-flow: column;*/
+/*}*/
+
+/*.comment{*/
+/*    display: flex;*/
+/*    gap: 5px;*/
+/*}*/
+
+/*#like-btn{*/
+/*    background: none;*/
+/*    border: none;*/
+/*}*/
+
+/*#like-form{*/
+/*    display: flex;*/
+/*    align-self: center;*/
+/*    justify-content: center;*/
+/*    gap: 5px;*/
+/*}*/
+
+/*.comments p {*/
+/*    margin: 5px 0;*/
+/*    font-size: 14px;*/
+/*}*/
+
+/*textarea {*/
+/*    width: 100%;*/
+/*    height: 50px;*/
+/*    margin-top: 10px;*/
+/*    padding: 5px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.hidden{*/
+/*    display: none;*/
+/*}*/
+
+/*@media only screen and (max-width: 1669px){*/
+/*    .post-rank-cont{*/
+/*        width: 100%;*/
+/*        justify-content: center;*/
+/*        gap: 20px;*/
+/*    }*/
+/*    .rank-cont{*/
+/*        width: 5%;*/
+/*    }*/
+/*    .post{*/
+/*        width: 35%;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (max-width: 1420px){*/
+/*    .post{*/
+/*        width: 40%;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (max-width: 1200px){*/
+/*    .post{*/
+/*        width: 45%;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (max-width: 1000px){*/
+/*    .post{*/
+/*        width: 55%;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (max-width: 900px){*/
+/*    .post{*/
+/*        width: 65%;*/
+/*    }*/
+
+/*    .hidden{*/
+/*        display: flex;*/
+/*    }*/
+
+/*    .rank-cont{*/
+/*        display: none;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (max-width: 700px){*/
+/*    .post{*/
+/*        width: 80%;*/
+/*    }*/
+/*}*/
+
+/*@media only screen and (max-width: 600px){*/
+/*    .post{*/
+/*        width: 95%;*/
+/*    }*/
+/*}*/
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -13,13 +240,19 @@ body{
     padding-top: 100px;
 }
 
+.all-five-posts{
+    display: flex;
+    flex-flow: column;
+    width: 40%;
+}
+
 .post-rank-cont{
     display: flex;
-    width: 40%;
+    width: 100%;
     padding-bottom: 40px;
 }
 
-.rank-cont{
+.rank-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +260,7 @@ body{
     font-size: 3rem;
 }
 
-.post{
+.post {
     background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -35,7 +268,9 @@ body{
     width: 65%;
 }
 
-.post h2, .post p, .post h3, .post ul {
+.post h2,
+.post p,
+.post h3{
     margin: 10px 0;
 }
 
@@ -70,6 +305,12 @@ body{
     text-decoration: underline;
 }
 
+.user-profile-link {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 0;
+}
+
 .post-image {
     width: 100%;
     height: 500px;
@@ -85,29 +326,35 @@ body{
     display: block;
 }
 
-.post h2{
+.post-card h2 {
     font-size: 18px;
     font-weight: bold;
     border-top: 1px solid black;
 }
 
-.likes-comments-cont{
+.likes-comments-cont {
     display: flex;
     gap: 30px;
     font-size: 20px;
 }
 
-.dividing-line{
+.likes-comments-cont button{
+    background-color: transparent;
+    border: none;
+}
+
+.divider-line {
     height: 1px;
     background-color: black;
     width: 100%;
 }
 
-.fa-heart, .fa-comment{
+.fa-heart,
+.fa-comment {
     cursor: pointer;
 }
 
-.likes-comments-cont i {
+.likes-comments-section i {
     font-size: 24px;
     cursor: pointer;
     transition: transform 0.2s;
@@ -115,39 +362,46 @@ body{
     padding: 0;
 }
 
-.fa-heart.fa-solid{
+.fa-heart.fa-solid {
     color: red;
 }
 
-.likes-comments-cont i:hover {
+.likes-comments-section i:hover {
     transform: scale(1.2);
 }
 
-.comments {
+.comments-section {
     margin-top: 15px;
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 8px;
+    display: block;
+    flex-flow: column;
 }
 
-#like-btn{
+.comment-container {
+    display: flex;
+    gap: 5px;
+}
+
+.like-btn {
     background: none;
     border: none;
 }
 
-#like-form{
+.like-form {
     display: flex;
     align-self: center;
     justify-content: center;
     gap: 5px;
 }
 
-.comments p {
+.comments-section p {
     margin: 5px 0;
     font-size: 14px;
 }
 
-textarea {
+.comment-input {
     width: 100%;
     height: 50px;
     margin-top: 10px;
@@ -156,64 +410,67 @@ textarea {
     border-radius: 5px;
 }
 
-.hidden{
+.hidden-section {
     display: none;
 }
 
-@media only screen and (max-width: 1669px){
-    .post-rank-cont{
+@media only screen and (max-width: 1669px) {
+    .top-five-post-container {
         width: 100%;
         justify-content: center;
         gap: 20px;
     }
-    .rank-cont{
+
+    .rank-container {
         width: 5%;
     }
-    .post{
+
+    .post-card {
         width: 35%;
     }
 }
 
-@media only screen and (max-width: 1420px){
-    .post{
+@media only screen and (max-width: 1420px) {
+    .post-card {
         width: 40%;
     }
 }
 
-@media only screen and (max-width: 1200px){
-    .post{
+@media only screen and (max-width: 1200px) {
+    .post-card {
         width: 45%;
     }
 }
 
-@media only screen and (max-width: 1000px){
-    .post{
+@media only screen and (max-width: 1000px) {
+    .post-card {
         width: 55%;
     }
 }
 
-@media only screen and (max-width: 900px){
-    .post{
+@media only screen and (max-width: 900px) {
+    .post-card {
         width: 65%;
     }
 
-    .hidden{
+    .hidden-section {
         display: flex;
     }
 
-    .rank-cont{
+    .rank-container {
         display: none;
     }
 }
 
-@media only screen and (max-width: 700px){
-    .post{
+@media only screen and (max-width: 700px) {
+    .post-card {
         width: 80%;
     }
 }
 
-@media only screen and (max-width: 600px){
-    .post{
+@media only screen and (max-width: 600px) {
+    .post-card {
         width: 95%;
     }
 }
+

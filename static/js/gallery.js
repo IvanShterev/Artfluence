@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const searchQuery = searchInput.value;
-        fetchPosts(searchQuery); // Fetch posts with the search query
+        fetchPosts(searchQuery);
     });
 
     // Initial fetch without search query

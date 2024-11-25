@@ -5,9 +5,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
 from Artfluence.accounts.forms import DebitCardForm
@@ -46,27 +48,6 @@ class Gallery(ListView):
         return redirect("gallery")
 
 
-# class ProfileView(LoginRequiredMixin, DetailView):
-#     model = ArtfluenceUser
-#     template_name = "gallery/profile.html"
-#     context_object_name = "user"
-#
-#     def get_object(self, **kwargs):
-#         username = self.kwargs.get('username')
-#         return get_object_or_404(self.model, username=username)
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         user = self.get_object()
-#
-#         user_posts = Post.objects.filter(owner=user)
-#
-#         context['collection'] = user_posts.filter(for_sale=False)
-#         context['for_sale'] = user_posts.filter(for_sale=True)
-#         context['liked_posts'] = Post.objects.filter(likes=self.request.user)
-#         context['user_comments'] = Comment.objects.filter(creator=self.request.user)
-#         context['is_owner'] = self.request.user == user
-#         return context
 class ProfileView(LoginRequiredMixin, DetailView):
     model = ArtfluenceUser
     template_name = "gallery/profile.html"
@@ -80,10 +61,8 @@ class ProfileView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         user = self.get_object()
 
-        # Fetch posts owned by the profile user
         user_posts = Post.objects.filter(owner=user)
 
-        # Annotate posts in 'collection' and 'for_sale' with 'is_liked_by_user'
         collection_posts = user_posts.filter(for_sale=False)
         for_sale_posts = user_posts.filter(for_sale=True)
 
@@ -96,16 +75,14 @@ class ProfileView(LoginRequiredMixin, DetailView):
         context['collection'] = collection_posts
         context['for_sale'] = for_sale_posts
 
-        # Additional context for liked posts and user comments
         context['liked_posts'] = Post.objects.filter(likes=self.request.user)
         context['user_comments'] = Comment.objects.filter(creator=self.request.user)
 
-        # Check if the profile belongs to the currently logged-in user
         context['is_owner'] = self.request.user == user
 
         return context
 
-# new!!!!!!!!!!!!!!
+
 class UserPostsAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -165,3 +142,5 @@ def top_liked_posts(request):
         post.comments_count = post.comments.count()
 
     return render(request, 'gallery/top_five.html', {'posts': posts, 'starting_counter': starting_counter})
+
+

@@ -181,20 +181,17 @@ document.addEventListener("DOMContentLoaded", function () {
             const postTitle = button.getAttribute("data-post-title");
             const postId = button.getAttribute("data-post-id");
 
-            // Display the modal
             message.textContent = `Are you sure you want to delete "${postTitle}"?`;
             deletePostModal.style.display = "block";
             postIdToDelete = postId;
         }
     });
 
-    // Cancel delete action
     cancelDeletePostBtn.addEventListener("click", () => {
         deletePostModal.style.display = "none";
         postIdToDelete = null;
     });
 
-    // Confirm delete action
     confirmDeletePostBtn.addEventListener("click", () => {
         if (postIdToDelete) {
             const csrfToken = getCookie('csrftoken');

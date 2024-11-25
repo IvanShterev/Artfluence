@@ -1,68 +1,17 @@
+
 {% extends 'base.html' %}
 {% load static %}
-{% load mathfilters %}
-{% block content %}
 
+{% block content %}
     <link rel="stylesheet" href="{% static 'css/gallery/top_five.css' %}">
 
     <h1>Top 5 Most Liked Posts</h1>
-        {% for post in posts %}
-            <div class="post-rank-cont">
-                <div class="rank-cont">
-                    <h2>#{{ starting_counter|sub:forloop.counter0 }}</h2>
-                </div>
-
-                <div class="post">
-                    <div class="post-top">
-                        <img src="{{ post.owner.profile_picture.url }}">
-                        <a href="{% url 'profile' post.owner.username %}" id="user-profile">{{ post.owner.username }}</a>
-                        <span class="hidden">#{{ starting_counter|sub:forloop.counter0 }}</span>
-                        {% if post.for_sale %}
-                            <a href="#"
-                               class="for-sale-btn"
-                               data-price="{{ post.price }}"
-                                data-owner="{{ post.owner.username }}"
-                               data-user="{{ user.username }}">
-                                <i class="fa-solid fa-dollar-sign"></i>For Sale
-                            </a>
-                        {% endif %}
-                    </div>
-                    <div class="post-image">
-                        <img src="{{ post.image.url }}">
-                    </div>
-                    <h2>{{ post.title }}</h2>
-                    <div class="likes-comments-cont">
-                        <form method="POST" action="" id="like-form">
-                            {% csrf_token %}
-                            <input type="hidden" name="post_id" value="{{ post.id }}">
-                            <button type="submit" name="like" id="like-btn">
-                                {% if post.is_liked_by_user %}
-                                    <i class="fa-solid fa-heart"></i>
-                                {% else %}
-                                    <i class="fa-regular fa-heart"></i>
-                                {% endif %}
-                            </button>
-                            <span>{{ post.likes_count }}</span>
-                        </form>
-                        <p><i class="fa-regular fa-comment"></i> {{ post.comments_count }}</p>
-                    </div>
-
-                    <div class="comments">
-                        {% for comment in post.comments.all %}
-                            <p><strong>{{ comment.creator.username }}:</strong> {{ comment.content }}</p>
-                        {% endfor %}
-                    </div>
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        <input type="hidden" name="post_id" value="{{ post.id }}">
-                        <textarea name="comment_content" placeholder="Add a comment..." maxlength="200" required></textarea>
-                        <button type="submit" name="comment">Comment</button>
-                    </form>
-                </div>
-            </div>
-
-        {% endfor %}
+    <div class="all-five-posts"></div>
 
     {% include 'gallery/side-menu.html' %}
 
+    <script>
+        const csrf_token = `{% csrf_token %}`;
+    </script>
+    <script src="{% static 'js/top_five.js' %}"></script>
 {% endblock %}
