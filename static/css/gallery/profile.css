@@ -124,8 +124,24 @@ body{
 
 .likes-comments-cont{
     display: flex;
+    align-items: center;
     gap: 30px;
     padding: 10px;
+    font-size: 18px;
+}
+
+.likes-comments-cont button{
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.like-button{
+    cursor: pointer;
+}
+
+.like-button .fa-solid{
+    color: red;
 }
 
 #collection-view, #for-sale-view{

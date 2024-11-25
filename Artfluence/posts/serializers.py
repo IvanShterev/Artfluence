@@ -14,6 +14,7 @@ class PostSerializer(serializers.ModelSerializer):
     likes_count = serializers.IntegerField(source="likes.count", read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
     is_liked_by_user = serializers.SerializerMethodField()
+    is_owner = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -24,3 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
         if request and request.user.is_authenticated:
             return obj.likes.filter(id=request.user.id).exists()
         return False
+
+    def get_is_owner(self, obj):
+        request = self.context.get('request')
+        return obj.owner == request.user
