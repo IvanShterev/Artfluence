@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchTopFivePosts() {
         console.log("Attempting to fetch top 5 posts...");
         try {
-            const response = await fetch(`/top-five/`);
+            const response = await fetch(`/api/top-five-posts/posts/`);
             if (!response.ok) {
                 throw new Error('Failed to fetch top 5 posts.');
             }

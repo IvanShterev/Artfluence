@@ -21,7 +21,26 @@ body{
     min-height: 500px;
     background-color: #f6f5f7;
     border-radius: 15px;
-    width: 50%;
+    width: 45%;
+}
+
+.card-container-all{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.remove-card-btn{
+    padding: 10px;
+    background-color: #3C5A99;
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
 }
 
 .add-debit-card-cont{
@@ -29,6 +48,11 @@ body{
 }
 
 .card-info-cont{
+    display: flex;
+    gap: 10px;
+}
+
+.card-cont{
     display: flex;
     flex-flow: column;
 }

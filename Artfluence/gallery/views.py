@@ -4,8 +4,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework import status, viewsets, permissions
+from rest_framework.decorators import api_view, action
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
@@ -27,7 +27,7 @@ class Gallery(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['search_query'] = self.request.GET.get('search', '')
+        context['search_query'] = self.request.GET.get('search')
 
         for post in context['posts']:
             post.likes_count = post.likes.count()
@@ -93,14 +93,12 @@ class UserPostsAPIView(APIView):
         collection = user_posts.filter(for_sale=False)
         for_sale = user_posts.filter(for_sale=True)
 
-        # Annotate posts with is_liked_by_user
         for post in collection:
             post.is_liked_by_user = post.likes.filter(id=request.user.id).exists()
 
         for post in for_sale:
             post.is_liked_by_user = post.likes.filter(id=request.user.id).exists()
 
-        # Serialize the data
         collection_data = PostSerializer(collection, many=True, context={'request': request}).data
         for_sale_data = PostSerializer(for_sale, many=True, context={'request': request}).data
 
@@ -125,22 +123,108 @@ class DebitCardManagementView(LoginRequiredMixin, TemplateView):
             debit_card = form.save(commit=False)
             debit_card.owner = self.request.user
             debit_card.save()
-            return redirect('profile', username=self.request.user.username)
+            return redirect('add-debit-card', username=self.request.user.username)
         context = self.get_context_data()
         context['form'] = form
         return self.render_to_response(context)
 
 
-def top_liked_posts(request):
-    posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')[:5]
-    starting_counter = 5
-    posts = list(reversed(posts))
+class DeleteDebitCard(APIView):
+    permission_classes = [permissions.IsAuthenticated]
 
-    for post in posts:
-        post.is_liked_by_user = request.user in post.likes.all()
-        post.likes_count = post.likes.count()
-        post.comments_count = post.comments.count()
-
-    return render(request, 'gallery/top_five.html', {'posts': posts, 'starting_counter': starting_counter})
+    def delete(self, request, pk, *args, **kwargs):
+        debit_card = get_object_or_404(DebitCard, pk=pk, owner=request.user)
+        debit_card.delete()
+        return Response({"message": "Removed card successfully"}, status=204)
 
 
+class SetDefaultDebitCard(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk, *args, **kwargs):
+        debit_card = get_object_or_404(DebitCard, pk=pk, owner=request.user)
+
+        DebitCard.objects.filter(owner=request.user, used_for_payments=True).update(used_for_payments=False)
+
+        debit_card.used_for_payments = True
+        debit_card.save()
+
+        return Response({"message": "Card set as default for payments"})
+
+
+class BuyArtfluencePointsTemplateView(TemplateView):
+    template_name = "gallery/buy_ap.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+
+        card = DebitCard.objects.filter(owner=user, used_for_payments=True).first()
+
+        context['card'] = card
+        return context
+
+
+class BuyArtfluencePointsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        ap_amount = request.data.get('ap_amount')
+
+        if not ap_amount or int(ap_amount) <= 0:
+            return Response({"message": "Enter a valid AP amount."}, status=status.HTTP_400_BAD_REQUEST)
+
+        euro_equivalent = int(ap_amount) / 100
+
+        user = request.user
+        card = user.debit_cards.filter(used_for_payments=True).first()
+
+        if not card:
+            return Response({"message": "No payment card is set for purchases."}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.artfluence_points += int(ap_amount)
+        user.save()
+
+        return Response(
+            {
+                "message": f"You have successfully purchased {ap_amount} AP for €{euro_equivalent:.2f}.",
+                "ap_purchased": ap_amount,
+                "euro_cost": euro_equivalent,
+            },
+            status=status.HTTP_200_OK
+        )
+
+
+# def top_liked_posts(request):
+#     posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')[:5]
+#     starting_counter = 5
+#     posts = list(reversed(posts))
+#
+#     for post in posts:
+#         post.is_liked_by_user = request.user in post.likes.all()
+#         post.likes_count = post.likes.count()
+#         post.comments_count = post.comments.count()
+#
+#     return render(request, 'gallery/top_five.html', {'posts': posts, 'starting_counter': starting_counter})
+
+
+class TopFivePostsAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        # Fetch the top 5 posts with the most likes
+        top_posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')[:5]
+
+        # Annotate each post with whether it's liked by the user
+        for post in top_posts:
+            post.is_liked_by_user = post.likes.filter(id=request.user.id).exists()
+
+        if request.headers.get('Accept', '').lower() == 'text/html':
+            return render(request, 'gallery/top_five.html', {'posts': top_posts})
+
+        # Serialize the data
+        top_posts_data = PostSerializer(top_posts, many=True, context={'request': request}).data
+
+        return Response({
+            'top_five_posts': top_posts_data,
+        })

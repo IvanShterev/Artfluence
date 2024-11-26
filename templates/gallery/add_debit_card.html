@@ -1,52 +1,65 @@
+
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/gallery/add_debit_card.css' %}">
+<link rel="stylesheet" href="{% static 'css/gallery/add_debit_card.css' %}">
 
-    <div class="container">
-        <h2>Your Debit Cards</h2>
-        {% if debit_cards %}
-            <ul>
-                {% for card in debit_cards %}
-                    <div class="card-info-cont">
+<div class="container">
+    <h2>Your Debit Cards</h2>
+    {% if debit_cards %}
+        {% for card in debit_cards %}
+            <div class="card-container-all" data-card-id="{{ card.id }}">
+                <div class="card-info-cont">
+                    <input type="radio" name="default-card" class="default-card-radio"
+                           {% if card.used_for_payments %}
+                                checked
+                           {% endif %}
+                    >
+                    <div class="card-cont">
                         <div class="credential-cont">
                             <span class="card-credential">Cardholder:</span>
                             <span>{{ card.holder_name }}</span>
                         </div>
-                        <div class="credentail-cont">
+                        <div class="credential-cont">
                             <span class="card-credential">Card Number:</span>
                             <span>**** **** **** {{ card.card_number|slice:"-4:" }}</span>
                         </div>
-                        <div class="credentail-cont">
+                        <div class="credential-cont">
                             <span class="card-credential">Expires:</span>
                             <span>{{ card.expiration_date|date:"m/Y" }}</span>
                         </div>
                     </div>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>You have no saved debit cards.</p>
-        {% endif %}
-
-        <div class="add-debit-card-cont">
-            <i class="fa-regular fa-credit-card"></i>
-            <span>Add Debit Card</span>
-        </div>
-    </div>
-
-    <div class="container" style="display: none" id="add-debit-card-form-cont">
-        <form action="" method="post" id="add-debit-card-form">
-            {% csrf_token %}
-            {{ form }}
-            <div class="btns-cont">
-                <button>Add</button>
-                <a href="javascript:void(0)" id="cancel-btn">Cancel</a>
+                </div>
+                <button class="remove-card-btn" style="display: none;">Remove</button>
             </div>
-        </form>
+        {% endfor %}
+    {% else %}
+        <p>You have no saved debit cards.</p>
+    {% endif %}
+
+    <div class="add-debit-card-cont">
+        <i class="fa-regular fa-credit-card"></i>
+        <span>Add Debit Card</span>
     </div>
+</div>
 
-    {% include 'gallery/side-menu.html' %}
+<div class="container" style="display: none" id="add-debit-card-form-cont">
+    <form action="" method="post" id="add-debit-card-form">
+        {% csrf_token %}
+        {{ form }}
+        <div class="btns-cont">
+            <button>Add</button>
+            <a href="javascript:void(0)" id="cancel-btn">Cancel</a>
+        </div>
+    </form>
+</div>
 
+{% include 'gallery/side-menu.html' %}
+
+    <script>
+        const csrf_token = `{% csrf_token %}`;
+        const username = `{{ request.user.username }}`
+    </script>
     <script src="{% static 'js/add_debit_card.js' %}"></script>
 
 {% endblock %}

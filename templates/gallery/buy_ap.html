@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/gallery/buy_ap.css' %}">
+
+    <div class="container">
+        <h1>Buy Artfluence Points</h1>
+        <img src="{% static 'images/Artfluence_AP_coin_facing_forward-removebg-preview.png' %}" alt="">
+        <div class="card-cont">
+            {% if card %}
+                <span>Currently using:</span>
+                <div class="card">
+                    <div class="credential-cont">
+                        <span class="card-credential">Cardholder:</span>
+                        <span>{{ card.holder_name }}</span>
+                    </div>
+                    <div class="credential-cont">
+                        <span class="card-credential">Card Number:</span>
+                        <span>**** **** **** {{ card.card_number|slice:"-4:" }}</span>
+                    </div>
+                </div>
+            {% else %}
+                <span>Currently no card is used</span>
+            {% endif %}
+        </div>
+
+        <div class="ap-cont">
+            <span>AP: </span>
+            <input type="number" id="ap-input">
+        </div>
+
+        <div class="euro-cont">
+            <span>Costs €: </span>
+            <input type="number" id="euro-input" readonly>
+        </div>
+
+        <button id="buy-ap-btn">Buy</button>
+
+    </div>
+
+    <div id="message-container" style="display: none;" class="message-container">
+        <p id="message-text"></p>
+        <button>Awsome</button>
+    </div>
+
+
+    {% include 'gallery/side-menu.html' %}
+
+    <script>
+        const csrf_token = `{% csrf_token %}`;
+        const username = `{{ request.user.username }}`
+    </script>
+
+    <script src="{% static 'js/buy_ap.js' %}"></script>
+
+{% endblock %}

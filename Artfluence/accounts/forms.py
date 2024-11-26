@@ -115,7 +115,7 @@ class DebitCardForm(forms.ModelForm):
                 'class': 'form-control',
             }),
             'expiration_date': forms.DateInput(attrs={
-                'type': 'month',
+                'type': 'date',
                 'class': 'form-control',
             }),
             'cvv': forms.PasswordInput(attrs={

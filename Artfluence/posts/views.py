@@ -77,7 +77,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        search_query = self.request.query_params.get('search', '').strip()
+        search_query = self.request.query_params.get('search')
 
         if search_query:
             queryset = queryset.filter(
@@ -113,7 +113,7 @@ class PostViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def add_comment(self, request, pk=None):
         post = self.get_object()
-        content = request.data.get('content', '').strip()
+        content = request.data.get('content').strip()
         if not content:
             return Response({'error': 'Content cannot be empty.'}, status=status.HTTP_400_BAD_REQUEST)
         comment = Comment.objects.create(post=post, creator=request.user, content=content)

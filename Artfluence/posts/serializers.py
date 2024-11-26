@@ -21,11 +21,11 @@ class PostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_is_liked_by_user(self, obj):
-        request = self.context.get("request")
+        request = self.context.get("request", )
         if request and request.user.is_authenticated:
             return obj.likes.filter(id=request.user.id).exists()
         return False
 
     def get_is_owner(self, obj):
-        request = self.context.get('request')
+        request = self.context.get('request', )
         return obj.owner == request.user

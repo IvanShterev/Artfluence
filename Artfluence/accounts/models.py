@@ -44,6 +44,7 @@ class ArtfluenceUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
+
 class DebitCard(models.Model):
     owner = models.ForeignKey(
         to='ArtfluenceUser',
