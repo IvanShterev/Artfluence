@@ -1,7 +1,11 @@
+import json
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import status, viewsets, permissions
@@ -194,6 +198,35 @@ class BuyArtfluencePointsView(APIView):
             status=status.HTTP_200_OK
         )
 
+
+class BuyArtView(APIView):
+
+    def get(self, request, post_id):
+        post = get_object_or_404(Post, id=post_id)
+
+        return render(request, 'gallery/buy_art.html', {'post': post})
+
+    def patch(self, request, post_id):
+        body = json.loads(request.body)
+        post_id = body.get('post_id')
+        post = get_object_or_404(Post, id=post_id)
+        user = request.user
+        seller = post.owner
+
+        if user.artfluence_points < post.price:
+            return Response({'success': False, 'error': 'Not enough AP'}, status=400)
+
+        user.artfluence_points -= post.price
+        user.save()
+
+        seller.artfluence_points += post.price
+        seller.save()
+
+        post.owner = user
+        post.for_sale = False
+        post.save()
+
+        return Response({'success': True, 'new_balance': user.artfluence_points})
 
 # def top_liked_posts(request):
 #     posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')[:5]

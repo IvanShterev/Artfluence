@@ -205,11 +205,14 @@ let renderFunc = async (post) => {
         .map((comment) => `<p><strong>${comment.creator}:</strong> ${comment.content}</p>`)
         .join("");
 
+    const href = isAuthenticated && post.owner != authenticatedUser ? `/buy-art/${post.id}` : `#`;
+
      const forSaleBtn = post.for_sale
-        ? `<a href="#" 
+        ? `<a href="${href}" 
               class="for-sale-btn" 
               data-owner="${post.owner}" 
               data-user="${authenticatedUser?.id}" 
+              data-post-id="${post.id}"
               data-price="${post.price}">
               $For Sale
           </a>`
@@ -266,7 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchPosts(searchQuery);
     });
 
-    // Initial fetch without search query
     fetchPosts();
 });
 

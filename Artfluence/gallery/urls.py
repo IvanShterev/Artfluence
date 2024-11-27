@@ -18,4 +18,5 @@ urlpatterns = [
     path('top-five/', TopFivePostsAPIView.as_view(), name='top_five_page'),
     path('profile/<str:username>/buy-ap/', BuyArtfluencePointsTemplateView.as_view(), name='buy-ap'),
     path('api/buy-ap/', BuyArtfluencePointsView.as_view(), name='buy-ap-api'),
+    path('buy-art/<int:post_id>/', BuyArtView.as_view(), name='buy-art'),
 ]

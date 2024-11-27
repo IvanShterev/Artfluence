@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/gallery/buy_art.css' %}">
+
+    {% if user.is_authenticated %}
+        <div class="a-points-cont">
+            <div class="a-points-top">
+                <span>Current AP Balance:</span>
+            </div>
+            <div class="display-ap-cont">
+                <span id="balance">{{ user.artfluence_points }}</span>
+            </div>
+        </div>
+    {% endif %}
+
+    <h1>Do you want to buy {{ post.title }}</h1>
+
+    <div class="post"
+    data-owner="{{ post.owner }}"
+    data-post-id="{{ post.id }}"
+    data-price="{{ post.price }}"
+    >
+        <div class="title-cont"><strong>{{ post.title }}</strong></div>
+        <img src="{{ post.image.url }}">
+    </div>
+
+    <button id="buy-btn" type="submit">Buy</button>
+
+    <div class="error-message" style="display: none">
+        <p>You don't have enough Artfluence Points to buy this art!</p>
+        <button id="okay-btn">OK</button>
+    </div>
+
+    {% if user.is_authenticated %}
+        <div class="success-message" style="display: none">
+            <p>You successfully bought {{ post.title }}</p>
+            <a href="{% url 'profile' request.user.username %}" id="awesome-btn">Awesome</a>
+        </div>
+    {% endif %}
+
+    {% include 'gallery/side-menu.html' %}
+
+    <script>
+        const csrf_token = `{% csrf_token %}`;
+    </script>
+
+    <script src="{% static 'js/buy_art.js' %}"></script>
+
+{% endblock %}
