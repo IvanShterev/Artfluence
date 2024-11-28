@@ -21,6 +21,11 @@
                     <img src="{% static 'images/Artfluence_AP_coin_facing_forward-removebg-preview.png' %}" alt="">
                     <span class="target">Buy AP</span>
                 </a>
+
+                <a href="{% url 'transfer' request.user.username %}" class="option">
+                    <i class="fa-solid fa-euro-sign"></i>
+                    <span class="target">Transfer</span>
+                </a>
             {% else %}
                 <span>Login to access all features!</span>
                 <a href="{% url 'login' %}" class="option">

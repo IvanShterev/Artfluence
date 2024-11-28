@@ -199,6 +199,57 @@ class BuyArtfluencePointsView(APIView):
         )
 
 
+class TransferTemplateView(TemplateView):
+    template_name = "gallery/transfer.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+
+        card = DebitCard.objects.filter(owner=user, used_for_payments=True).first()
+
+        context['card'] = card
+        return context
+
+
+class Transfer(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        ap_amount = request.data.get('ap_amount')
+
+        if not ap_amount or int(ap_amount) <= 0:
+            return Response({"message": "Enter a valid AP amount."}, status=status.HTTP_400_BAD_REQUEST)
+
+        ap_amount = int(ap_amount)
+        euro_equivalent = ap_amount / 100
+
+        user = request.user
+
+        if user.artfluence_points < ap_amount:
+            return Response(
+                {"message": "You do not have enough Artfluence Points for this conversion."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        card = user.debit_cards.filter(used_for_payments=True).first()
+
+        if not card:
+            return Response({"message": "No payment card is set for withdrawals."}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.artfluence_points -= ap_amount
+        user.save()
+
+        return Response(
+            {
+                "message": f"You have successfully converted {ap_amount} AP into €{euro_equivalent:.2f}.",
+                "ap_converted": ap_amount,
+                "euro_equivalent": euro_equivalent,
+            },
+            status=status.HTTP_200_OK
+        )
+
+
 class BuyArtView(APIView):
 
     def get(self, request, post_id):
@@ -226,7 +277,9 @@ class BuyArtView(APIView):
         post.for_sale = False
         post.save()
 
-        return Response({'success': True, 'new_balance': user.artfluence_points})
+        redirect_url = f'/profile/{user.username}/'
+
+        return JsonResponse({'success': True, 'redirect_url': redirect_url}, status=200)
 
 # def top_liked_posts(request):
 #     posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')[:5]

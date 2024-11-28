@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/gallery/transfer.css' %}">
+
+    <div class="container">
+        <h1>Transfer Artfluence Points to Euro</h1>
+        <div class="card-cont">
+            {% if card %}
+                <span>Currently using:</span>
+                <div class="card">
+                    <div class="credential-cont">
+                        <span class="card-credential">Cardholder:</span>
+                        <span>{{ card.holder_name }}</span>
+                    </div>
+                    <div class="credential-cont">
+                        <span class="card-credential">Card Number:</span>
+                        <span>**** **** **** {{ card.card_number|slice:"-4:" }}</span>
+                    </div>
+                </div>
+            {% else %}
+                <span>Currently no card is used</span>
+            {% endif %}
+        </div>
+
+        <div class="ap-cont">
+            <span>AP: </span>
+            <input type="number" id="ap-input">
+        </div>
+
+        <div class="euro-cont">
+            <span>Euro €: </span>
+            <input type="number" id="euro-input" readonly>
+        </div>
+
+        <button id="convert-ap-btn">Convert</button>
+
+    </div>
+
+    <div id="message-container" style="display: none;" class="message-container">
+        <p id="message-text"></p>
+        <button>Awsome</button>
+    </div>
+
+
+    {% include 'gallery/side-menu.html' %}
+
+    <script>
+        const csrf_token = `{% csrf_token %}`;
+        const username = `{{ request.user.username }}`
+    </script>
+
+    <script src="{% static 'js/transfer.js' %}"></script>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const apInput = document.getElementById('ap-input');
     const euroInput = document.getElementById('euro-input');
-    const buyButton = document.getElementById('buy-ap-btn');
+    const convertButton = document.getElementById('convert-ap-btn');
     const messageContainer = document.getElementById('message-container');
     const messageText = document.getElementById('message-text');
     const awesomeBtn = document.querySelector('.message-container button');
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         euroInput.value = (apAmount / 100).toFixed(2);
     });
 
-    buyButton.addEventListener('click', async () => {
+    convertButton.addEventListener('click', async () => {
         const apAmount = parseInt(apInput.value);
         const csrf_token = getCookie('csrftoken');
         if (!apAmount || apAmount <= 0) {
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`/api/buy-ap/`, {
+            const response = await fetch(`/api/transfer/`, {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': csrf_token,
@@ -46,11 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to purchase AP.');
+                throw new Error(errorData.message || 'Failed to convert to Euro.');
             }
 
             const data = await response.json();
-            showMessage(`You have successfully purchased ${data.ap_purchased} AP for €${data.euro_cost}.`, 'success');
+            showMessage(`You have successfully transferred ${data.ap_converted} AP for €${data.euro_equivalent}.`, 'success');
             apInput.value = '';
             euroInput.value = '';
         } catch (error) {

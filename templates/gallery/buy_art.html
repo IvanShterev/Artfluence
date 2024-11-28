@@ -33,13 +33,6 @@
         <button id="okay-btn">OK</button>
     </div>
 
-    {% if user.is_authenticated %}
-        <div class="success-message" style="display: none">
-            <p>You successfully bought {{ post.title }}</p>
-            <a href="{% url 'profile' request.user.username %}" id="awesome-btn">Awesome</a>
-        </div>
-    {% endif %}
-
     {% include 'gallery/side-menu.html' %}
 
     <script>

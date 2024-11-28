@@ -19,4 +19,6 @@ urlpatterns = [
     path('profile/<str:username>/buy-ap/', BuyArtfluencePointsTemplateView.as_view(), name='buy-ap'),
     path('api/buy-ap/', BuyArtfluencePointsView.as_view(), name='buy-ap-api'),
     path('buy-art/<int:post_id>/', BuyArtView.as_view(), name='buy-art'),
+    path('profile/<str:username>/transfer/', TransferTemplateView.as_view(), name='transfer'),
+    path('api/transfer/', Transfer.as_view(), name='transfer-api'),
 ]

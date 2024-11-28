@@ -4,7 +4,6 @@ const post = document.querySelector('.post');
 const postId = post.dataset.postId;
 const okayBtn = document.getElementById('okay-btn');
 const errorMessage = document.querySelector('.error-message');
-const successMessage = document.querySelector('.success-message');
 const buyBtn = document.getElementById('buy-btn');
 
 const postPrice = parseInt(post.getAttribute('data-price'));
@@ -18,9 +17,6 @@ const minus = document.createElement('span');
 const pricePost = document.createElement('span');
 const line = document.createElement('span');
 const resultCont = document.createElement('div');
-// console.log(`post price: ${postPrice}, displayAPContainer: ${displayAPContainer},
-// userAP: ${userAP}, balance: ${balance}, pointsCont: ${pointsCont}, resultAP: ${resultAP},
-// resultSpan: ${resultSpan}, minus: ${minus}, pricePost: ${pricePost}, resultCont: ${resultCont}`)
 resultCont.classList.add('resultCont');
 line.classList.add('dividing-line');
 minus.textContent = '-';
@@ -77,15 +73,15 @@ buyBtn.addEventListener('click', () => {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            document.getElementById('balance').textContent = data.new_balance;
-            successMessage.style.display = 'block';
+            window.location.href = data.redirect_url;
         } else {
             errorMessage.style.display = 'block';
+            errorMessage.textContent = data.error;
         }
     })
     .catch(error => {
-            console.error('Error:', error);
-        });
+        console.error('Error:', error);
+    });
 
     okayBtn.addEventListener('click', () => {
         errorMessage.style.display = 'none';
