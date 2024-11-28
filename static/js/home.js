@@ -4,8 +4,6 @@ const homeButton = document.getElementById('home-btn');
 const homeDiv = document.getElementById('home-div');
 const contactsButton = document.getElementById('contacts-btn');
 const contactsDiv = document.getElementById('contacts-div');
-const popupButton = document.getElementById('popup-btn');
-const popup = document.getElementById('popup-message');
 
 aboutButton.addEventListener('click', function () {
     whatIsArtfluenceDiv.scrollIntoView({
@@ -32,7 +30,3 @@ function toggleMenu() {
     const navMenu = document.querySelector('.header-anchors-container');
     navMenu.classList.toggle('active');
 }
-
-popupButton.addEventListener('click', function () {
-    popup.style.display = 'none';
-})

@@ -15,7 +15,6 @@ urlpatterns = [
     path('profile/<str:username>/add-debit-card/', DebitCardManagementView.as_view(), name='add-debit-card'),
     path('profile/<str:username>/debit-cards/<int:pk>/', DeleteDebitCard.as_view(), name='delete_debit_card'),
     path('profile/<str:username>/debit-cards/<int:pk>/set-default/', SetDefaultDebitCard.as_view(), name='set_default_card'),
-    path('top-five/', TopFivePostsAPIView.as_view(), name='top_five_page'),
     path('profile/<str:username>/buy-ap/', BuyArtfluencePointsTemplateView.as_view(), name='buy-ap'),
     path('api/buy-ap/', BuyArtfluencePointsView.as_view(), name='buy-ap-api'),
     path('buy-art/<int:post_id>/', BuyArtView.as_view(), name='buy-art'),

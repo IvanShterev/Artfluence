@@ -101,6 +101,14 @@ class EditProfileForm(forms.ModelForm):
 
 
 class DebitCardForm(forms.ModelForm):
+    expiration_date = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'MM/YY',
+            }
+        ))
+
     class Meta:
         model = DebitCard
         fields = ['card_number', 'holder_name', 'expiration_date', 'cvv']
@@ -112,10 +120,6 @@ class DebitCardForm(forms.ModelForm):
             }),
             'holder_name': forms.TextInput(attrs={
                 'placeholder': 'Cardholder Name',
-                'class': 'form-control',
-            }),
-            'expiration_date': forms.DateInput(attrs={
-                'type': 'date',
                 'class': 'form-control',
             }),
             'cvv': forms.PasswordInput(attrs={
@@ -142,4 +146,12 @@ class DebitCardForm(forms.ModelForm):
             if len(cvv) != 3:
                 raise forms.ValidationError("CVV must contain exactly 3 digits.")
             return cvv
+
+        def clean_expiration_date(self):
+            expiration_date = self.cleaned_data['expiration_date']
+            try:
+                parsed_date = datetime.strptime(expiration_date, '%m/%y')
+                return parsed_date.replace(day=1).date()
+            except ValueError:
+                raise forms.ValidationError("Expiration date must be in the format MM/YY.")
 

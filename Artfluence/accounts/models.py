@@ -31,10 +31,6 @@ class ArtfluenceUser(AbstractBaseUser, PermissionsMixin):
         default='profile_pictures/default_profile_pic.png'
     )
     artfluence_points = models.PositiveIntegerField(default=0)
-    has_posted = models.BooleanField(default=False)
-    has_sold_art = models.BooleanField(default=False)
-    has_bought_art = models.BooleanField(default=False)
-    is_first_login = models.BooleanField(default=True)
 
     objects = ArtfluenceUserManager()
 
@@ -74,4 +70,7 @@ class DebitCard(models.Model):
         )]
     )
     used_for_payments = models.BooleanField(default=False)
+
+    def formatted_expiration_date(self):
+        return self.expiration_date.strftime('%m/%y')
 

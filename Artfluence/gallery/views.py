@@ -280,37 +280,3 @@ class BuyArtView(APIView):
         redirect_url = f'/profile/{user.username}/'
 
         return JsonResponse({'success': True, 'redirect_url': redirect_url}, status=200)
-
-# def top_liked_posts(request):
-#     posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')[:5]
-#     starting_counter = 5
-#     posts = list(reversed(posts))
-#
-#     for post in posts:
-#         post.is_liked_by_user = request.user in post.likes.all()
-#         post.likes_count = post.likes.count()
-#         post.comments_count = post.comments.count()
-#
-#     return render(request, 'gallery/top_five.html', {'posts': posts, 'starting_counter': starting_counter})
-
-
-class TopFivePostsAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, *args, **kwargs):
-        # Fetch the top 5 posts with the most likes
-        top_posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')[:5]
-
-        # Annotate each post with whether it's liked by the user
-        for post in top_posts:
-            post.is_liked_by_user = post.likes.filter(id=request.user.id).exists()
-
-        if request.headers.get('Accept', '').lower() == 'text/html':
-            return render(request, 'gallery/top_five.html', {'posts': top_posts})
-
-        # Serialize the data
-        top_posts_data = PostSerializer(top_posts, many=True, context={'request': request}).data
-
-        return Response({
-            'top_five_posts': top_posts_data,
-        })
