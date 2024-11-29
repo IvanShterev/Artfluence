@@ -156,8 +156,10 @@
     {% include 'gallery/side-menu.html' %}
     <script>
         const csrf_token = `{% csrf_token %}`
+        let authenticatedUser = `{{ request.user.id }}`;
+        const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
     </script>
 
-    <script src="{% static 'js/profile.js' %}"></script>
+    <script src="{% static 'js/gallery/profile.js' %}"></script>
 {% endblock %}
 

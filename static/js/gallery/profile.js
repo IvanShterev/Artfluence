@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                          <div class="title-price-cont">
                             <span>${ post.title }</span>
                          </div>
-                         ${viewName === 'For Sale' && !post.is_owner ? `<a href='#'>Buy $</a>` : ''}
+                         ${viewName === 'For Sale' && !post.is_owner ? `<a href="${isAuthenticated && post.owner != authenticatedUser ? `/buy-art/${post.id}` : `#`}">Buy $</a>` : ''}
                          ${post.is_owner ? `
                          <div class="edit-delete-cont">
                            <a href="/profile/${username}/post/${post.id}/edit/"><i class="fa-solid fa-pen"></i></a>
