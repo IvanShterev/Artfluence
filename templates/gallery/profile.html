@@ -1,111 +1,4 @@
-{#{% extends 'base.html' %}#}
-{#{% load static %}#}
-{#{% block content %}#}
-{#    <link rel="stylesheet" href="{% static 'css/gallery/profile.css' %}">#}
-{##}
-{#    <div class="profile-card">#}
-{#        <img src="{{ user.profile_picture.url }}">#}
-{#        <div class="right-side-cont">#}
-{#            <div class="right-side-top-cont">#}
-{#                <h1>{{ user.username }}</h1>#}
-{#                {% if is_owner %}#}
-{#                    <a href="{% url 'edit-profile' user.username %}">Edit Profile</a>#}
-{#                    <a href="javascript:void(0)" id="delete-profile-btn">Delete Profile</a>#}
-{#                {% endif %}#}
-{#            </div>#}
-{##}
-{#            <div id="delete-profile-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: red; border: 1px solid #ccc; padding: 20px; z-index: 1000;">#}
-{#                <p>Are you sure you want to delete your profile?</p>#}
-{#                <button id="confirm-delete-profile" class="btn btn-danger">Delete</button>#}
-{#                <button id="cancel-delete-profile" class="btn btn-secondary">Cancel</button>#}
-{#            </div>#}
-{##}
-{#            <span>Currently showing:#}
-{#                <select id="view-selector" onchange="updateView()">#}
-{#                    <option value="collection">Collection</option>#}
-{#                    <option value="for-sale">For sale</option>#}
-{#                </select>#}
-{#            </span>#}
-{#            {% if is_owner %}#}
-{#                <div class="debit-card-cont">#}
-{#                    <i class="fa-regular fa-credit-card"></i>#}
-{#                    <a href="{% url 'add-debit-card' user.username %}">Choose debit card</a>#}
-{#                </div>#}
-{#            {% endif %}#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    <div id="collection-view">#}
-{#        {% for post in collection %}#}
-{#            <div class="post-item">#}
-{#                <div class="post-top">#}
-{#                    <div class="title-price-cont">#}
-{#                        <span>{{ post.title }}</span>#}
-{#                    </div>#}
-{#                    {% if is_owner %}#}
-{#                        <div class="edit-delete-cont">#}
-{#                            <a href="{% url 'edit_post' user.username post.pk %}"><i class="fa-solid fa-pen"></i></a>#}
-{#                            <a href="javascript:void(0)" class="delete-post-btn" data-post-id="{{ post.id }}" data-post-title="{{ post.title }}">#}
-{#                                <i class="fa-solid fa-trash"></i>#}
-{#                            </a>#}
-{#                        </div>#}
-{#                    {% endif %}#}
-{#                </div>#}
-{#                <img src="{{ post.image.url }}">#}
-{#                <div class="likes-comments-cont">#}
-{#                    <p>Likes: {{ post.likes }}</p>#}
-{#                    <p>Comments: {{ post.comments.length }}</p>#}
-{#                </div>#}
-{#            </div>#}
-{#        {% empty %}#}
-{#            <p class="no-items-to-display">No items in collection</p>#}
-{#        {% endfor %}#}
-{#    </div>#}
-{##}
-{#    <div id="delete-post-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: red; border: 1px solid #ccc; padding: 20px; z-index: 1000;">#}
-{#        <p id="delete-post-message"></p>#}
-{#        <button id="confirm-delete-post" class="btn btn-danger">Delete</button>#}
-{#        <button id="cancel-delete-post" class="btn btn-secondary">Cancel</button>#}
-{#    </div>#}
-{##}
-{#    <div id="for-sale-view">#}
-{#        {% for post in for_sale %}#}
-{#            <div class="post-item">#}
-{#                <div class="post-top">#}
-{#                    <div class="title-price-cont">#}
-{#                        <span>{{ post.title }}</span>#}
-{#                        {% if not is_owner %}#}
-{#                            <a href="#">Buy $</a>#}
-{#                        {% endif %}#}
-{#                    </div>#}
-{##}
-{#                    {% if is_owner %}#}
-{#                        <div class="edit-delete-cont">#}
-{#                            <a href="{% url 'edit_post' user.username post.pk %}"><i class="fa-solid fa-pen"></i></a>#}
-{#                            <a href="javascript:void(0)" class="delete-post-btn" data-post-id="{{ post.id }}" data-post-title="{{ post.title }}">#}
-{#                                <i class="fa-solid fa-trash"></i>#}
-{#                            </a>#}
-{#                        </div>#}
-{#                    {% endif %}#}
-{#                </div>#}
-{#                <img src="{{ post.image.url }}">#}
-{#                <div class="likes-comments-cont">#}
-{#                    <p>Likes: {{ total_likes_received }}</p>#}
-{#                    <p>Comments: {{ total_comments_received }}</p>#}
-{#                </div>#}
-{#            </div>#}
-{#        {% empty %}#}
-{#            <p class="no-items-to-display">No items for sale</p>#}
-{#        {% endfor %}#}
-{#    </div>#}
-{##}
-{#    {% include 'gallery/side-menu.html' %}#}
-{##}
-{#    <script>#}
-{#        const csrf_token = `{% csrf_token %}`#}
-{#    </script>#}
-{#    <script src="{% static 'js/profile.js' %}"></script>#}
-{#{% endblock %}#}
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -144,7 +37,7 @@
         </div>
     </div>
 
-    <div id="delete-post-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: red; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
+    <div id="delete-post-modal">
         <p id="delete-post-message"></p>
         <button id="confirm-delete-post" class="btn btn-danger">Delete</button>
         <button id="cancel-delete-post" class="btn btn-secondary">Cancel</button>

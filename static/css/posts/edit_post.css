@@ -47,6 +47,10 @@ input{
     border: none;
 }
 
+.text-danger{
+    color: red;
+}
+
 .btns-cont{
     display: flex;
     align-items: center;

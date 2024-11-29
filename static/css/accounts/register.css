@@ -75,8 +75,8 @@ form{
 	justify-content: center;
 	gap: 20px;
 	flex-direction: column;
-	padding: 0 50px;
-	height: 600px;
+	padding: 10px 50px;
+	height: auto;
     width: calc(100vw - 75%);
 	text-align: center;
 	border-radius: 15px;
@@ -90,6 +90,10 @@ input {
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 80%;
+}
+
+.text-danger{
+	color: red;
 }
 
 a{

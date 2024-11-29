@@ -175,6 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelDeletePostBtn = document.getElementById("cancel-delete-post");
     let postIdToDelete = null;
 
+
     document.addEventListener('click', (e) => {
         if (e.target.closest('.delete-post-btn')) {
             const button = e.target.closest('.delete-post-btn');

@@ -1,6 +1,7 @@
 import json
 
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.db.models import Count, Q
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, redirect, render
@@ -50,7 +51,6 @@ class Gallery(ListView):
                 Comment.objects.create(post=post, creator=request.user, content=content)
 
         return redirect("gallery")
-
 
 class ProfileView(LoginRequiredMixin, DetailView):
     model = ArtfluenceUser

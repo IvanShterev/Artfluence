@@ -154,6 +154,18 @@ body{
     padding-bottom: 40px;
 }
 
+#delete-post-modal{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: red;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+}
+
 @media only screen and (max-width: 1620px){
     body{
         align-items: normal;

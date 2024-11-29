@@ -208,10 +208,10 @@ let renderFunc = async (post) => {
     const href = isAuthenticated && post.owner != authenticatedUser ? `/buy-art/${post.id}` : `#`;
 
      const forSaleBtn = post.for_sale
-        ? `<a href="${href}" 
-              class="for-sale-btn" 
-              data-owner="${post.owner}" 
-              data-user="${authenticatedUser?.id}" 
+        ? `<a href="${href}"
+              class="for-sale-btn"
+              data-owner="${post.owner}"
+              data-user="${authenticatedUser?.id}"
               data-post-id="${post.id}"
               data-price="${post.price}">
               $For Sale
@@ -357,3 +357,4 @@ function attachForSaleEventListeners() {
         });
     });
 }
+

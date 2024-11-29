@@ -1,14 +1,25 @@
-const forSaleCheckbox = document.getElementById('for_sale_checkbox');
-const priceContainer = document.getElementById('price-container');
 
-const togglePriceInput = () => {
+const forSaleCheckbox = document.getElementById("for-sale-checkbox");
+const collectionCheckbox = document.getElementById("collection-checkbox");
+const priceContainer = document.getElementById("price-container");
+
+const togglePriceField = () => {
     if (forSaleCheckbox.checked) {
-        priceContainer.style.display = 'block';
+        priceContainer.style.display = "block";
+        collectionCheckbox.checked = false;
     } else {
-        priceContainer.style.display = 'none';
+        priceContainer.style.display = "none";
     }
 };
 
-forSaleCheckbox.addEventListener('change', togglePriceInput);
+collectionCheckbox.addEventListener("change", () => {
+    if (collectionCheckbox.checked) {
+        forSaleCheckbox.checked = false;
+        priceContainer.style.display = "none";
+    }
+});
 
-togglePriceInput();
+forSaleCheckbox.addEventListener("change", togglePriceField);
+
+// Initialize the price input visibility
+togglePriceField();

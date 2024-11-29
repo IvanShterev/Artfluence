@@ -18,11 +18,13 @@
         </div>
 
         <div class="form-check mb-3">
-            {{ form.for_sale.label_tag }}
-            {{ form.for_sale }}
             {% for error in form.for_sale.errors %}
                 <div class="text-danger">*{{ error }}</div>
             {% endfor %}
+            <label>
+                <input type="checkbox" id="for-sale-checkbox" name="for_sale">
+                For Sale
+            </label>
         </div>
 
         <div class="mb-3" id="price-container">
@@ -34,11 +36,13 @@
         </div>
 
         <div class="form-check mb-3">
-            {{ form.collection.label_tag }}
-            {{ form.collection }}
             {% for error in form.collection.errors %}
                 <div class="text-danger">*{{ error }}</div>
             {% endfor %}
+            <label>
+                <input type="checkbox" id="collection-checkbox" name="collection">
+                Collection
+            </label>
         </div>
 
         <div class="mb-3">

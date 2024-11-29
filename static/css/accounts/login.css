@@ -112,6 +112,10 @@ a{
 	color: #3C5A99;
 }
 
+.text-danger{
+	color: red;
+}
+
 a:hover{
 	text-decoration: underline;
 }
