@@ -10,6 +10,9 @@ body{
     flex-flow: column;
     gap: 30px;
     background: #f6f5f7;
+    position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 .profile-card{
@@ -154,16 +157,56 @@ body{
     padding-bottom: 40px;
 }
 
-#delete-post-modal{
+#delete-post-modal, #delete-profile-modal{
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: red;
-    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 15px;
+    border: none;
     padding: 20px;
     z-index: 1000;
+    height: 30%;
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    gap: 30px;
+}
+
+.delete-btns-cont{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+}
+
+.delete-btns-cont button{
+    padding: 10px;
+    transition: 0.3s ease-in-out;
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btns-cont button:hover{
+    transform: scale(1.1);
+}
+
+#confirm-delete-post, #confirm-delete-profile{
+    background-color: #3C5A99;
+}
+
+#cancel-delete-post, #cancel-delete-profile{
+    background-color: #2a2922;
+}
+
+.overlay{
+    display: none;
+    position: absolute;
 }
 
 @media only screen and (max-width: 1620px){
@@ -205,7 +248,7 @@ body{
     }
     #collection-view, #for-sale-view {
         gap: 20px;
-        width: 100%;
+        width: 90%;
         padding-left: 0;
         padding-right: 40px;
     }
@@ -241,6 +284,9 @@ body{
         align-self: center;
     }
     .post-item{
+        width: 46%;
+    }
+    #delete-post-modal, #delete-profile-modal{
         width: 50%;
     }
 }
@@ -252,6 +298,9 @@ body{
         justify-content: center;
     }
     .post-item{
+        width: 60%;
+    }
+    #delete-post-modal, #delete-profile-modal{
         width: 60%;
     }
 }

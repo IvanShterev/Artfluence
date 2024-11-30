@@ -5,6 +5,8 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/gallery/profile.css' %}">
 
+    <div class="overlay"></div>
+
     <div class="profile-card">
         <img src="{{ user.profile_picture.url }}">
         <div class="right-side-cont">
@@ -14,12 +16,6 @@
                     <a href="{% url 'edit-profile' user.username %}">Edit Profile</a>
                     <a href="javascript:void(0)" id="delete-profile-btn">Delete Profile</a>
                 {% endif %}
-            </div>
-
-            <div id="delete-profile-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: red; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
-                <p>Are you sure you want to delete your profile?</p>
-                <button id="confirm-delete-profile" class="btn btn-danger">Delete</button>
-                <button id="cancel-delete-profile" class="btn btn-secondary">Cancel</button>
             </div>
 
             <span>Currently showing:
@@ -37,10 +33,20 @@
         </div>
     </div>
 
+    <div id="delete-profile-modal">
+        <p>Are you sure you want to delete your profile?</p>
+        <div class="delete-btns-cont">
+            <button id="confirm-delete-profile" class="btn btn-danger">Delete</button>
+            <button id="cancel-delete-profile" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+
     <div id="delete-post-modal">
         <p id="delete-post-message"></p>
-        <button id="confirm-delete-post" class="btn btn-danger">Delete</button>
-        <button id="cancel-delete-post" class="btn btn-secondary">Cancel</button>
+        <div class="delete-btns-cont">
+            <button id="confirm-delete-post" class="btn btn-danger">Delete</button>
+            <button id="cancel-delete-post" class="btn btn-secondary">Cancel</button>
+        </div>
     </div>
 
     <div id="collection-view" class="post-container" style="display: flex;"></div>

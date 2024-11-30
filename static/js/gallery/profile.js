@@ -139,6 +139,8 @@ let likePost = async (postId, button) => {
     }
 };
 
+const overlay = document.querySelector('.overlay');
+
 document.addEventListener("DOMContentLoaded", function () {
     const deleteBtn = document.getElementById("delete-profile-btn");
     const modal = document.getElementById("delete-profile-modal");
@@ -146,9 +148,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelBtn = document.getElementById("cancel-delete-profile");
 
     if (deleteBtn) {
-        deleteBtn.addEventListener("click", () => modal.style.display = "block");
+        deleteBtn.addEventListener("click", () => {
+            modal.style.display = "flex";
+            overlay.style.height = '100%';
+            overlay.style.width = '100%';
+            overlay.style.position = 'absolute';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+            overlay.style.display = 'block';
+            overlay.style.zIndex = '999';
+        });
     }
-    cancelBtn.addEventListener("click", () => modal.style.display = "none");
+    cancelBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+        overlay.style.display = 'none';
+    });
 
     confirmBtn.addEventListener("click", () => {
         const csrfToken = getCookie('csrftoken');
@@ -183,13 +196,20 @@ document.addEventListener("DOMContentLoaded", function () {
             const postId = button.getAttribute("data-post-id");
 
             message.textContent = `Are you sure you want to delete "${postTitle}"?`;
-            deletePostModal.style.display = "block";
+            deletePostModal.style.display = "flex";
             postIdToDelete = postId;
+            overlay.style.height = '100%';
+            overlay.style.width = '100%';
+            overlay.style.position = 'absolute';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+            overlay.style.display = 'block';
+            overlay.style.zIndex = '999';
         }
     });
 
     cancelDeletePostBtn.addEventListener("click", () => {
         deletePostModal.style.display = "none";
+        overlay.style.display = 'none';
         postIdToDelete = null;
     });
 

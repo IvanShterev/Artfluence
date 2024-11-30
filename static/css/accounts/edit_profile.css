@@ -82,3 +82,36 @@ button{
 button:hover, .btns-cont a:hover{
     transform: scale(1.1);
 }
+
+@media only screen and (max-width: 1560px){
+	.edit-profile-form{
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 1385px){
+	.edit-profile-form{
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 1235px){
+	.edit-profile-form{
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 1140px){
+	.edit-profile-form{
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 550px){
+	.edit-profile-form{
+        width: 70%;
+    }
+    .btns-cont a{
+        width: 30%;
+    }
+}
