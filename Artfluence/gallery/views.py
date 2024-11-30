@@ -1,26 +1,15 @@
 import json
-
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
-from django.db.models import Count, Q
-from django.http import JsonResponse, HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.decorators import method_decorator
-from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, TemplateView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework import status, viewsets, permissions
-from rest_framework.decorators import api_view, action
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.renderers import JSONRenderer
+from rest_framework import status, permissions
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
-
 from Artfluence.accounts.forms import DebitCardForm
 from Artfluence.accounts.models import ArtfluenceUser, DebitCard
 from Artfluence.posts.models import Post, Comment
-from Artfluence.posts.serializers import PostSerializer, CommentSerializer
+from Artfluence.posts.serializers import PostSerializer
 
 
 class Gallery(ListView):

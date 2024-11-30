@@ -38,6 +38,9 @@ class Post(models.Model):
     def is_liked_by(self, user):
         return self.likes.filter(id=user.id).exists()
 
+    def __str__(self):
+        return self.title
+
 
 class Comment(models.Model):
     content = models.TextField(
@@ -53,3 +56,6 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         related_name='comments'
     )
+
+    def __str__(self):
+        return self.content

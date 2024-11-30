@@ -74,3 +74,5 @@ class DebitCard(models.Model):
     def formatted_expiration_date(self):
         return self.expiration_date.strftime('%m/%y')
 
+    def __str__(self):
+        return f'**** **** **** {self.card_number[:4]}'

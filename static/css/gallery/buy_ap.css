@@ -34,6 +34,12 @@ body{
     gap: 10px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 #buy-ap-btn{
     padding: 10px;
     background-color: #3C5A99;
@@ -41,11 +47,53 @@ body{
     border-radius: 20px;
     border: none;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+#buy-ap-btn:hover{
+    transform: scale(1.1);
 }
 
 .message-container{
     position: fixed;
     top: 150px;
     left: 50%;
-    background-color: red;
+    height: 300px;
+    width: 30%;
+    background-color: #f6f5f7;
 }
+
+@media only screen and (max-width: 1300px){
+    .container{
+        width: 55%;
+    }
+}
+
+@media only screen and (max-width: 1140px){
+    .container{
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 835px){
+    .container{
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 660px){
+    .container{
+        width: 90%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

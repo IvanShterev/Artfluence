@@ -62,13 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function showMessage(message, type) {
         messageText.textContent = message;
         messageContainer.style.display = 'block';
-
+        let awesomeBtn = document.querySelector('.message-container button');
         if (type === 'success') {
             messageContainer.classList.add('success');
             messageContainer.classList.remove('error');
+            awesomeBtn.textContent = 'Awesome';
         } else {
             messageContainer.classList.add('error');
             messageContainer.classList.remove('success');
+            awesomeBtn.textContent = 'OK';
         }
     }
 

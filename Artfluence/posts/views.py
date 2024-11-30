@@ -1,25 +1,18 @@
 from django.db.models import Q
 from rest_framework.decorators import action
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
-from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework import status
-from rest_framework.exceptions import NotFound
-from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from .models import Post, Comment
 from .forms import PostForm
 from .serializers import CommentSerializer, PostSerializer
 from rest_framework import permissions, viewsets
-
 from ..accounts.models import ArtfluenceUser
 from ..accounts.serializers import UserSerializer
 
