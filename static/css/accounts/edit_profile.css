@@ -83,6 +83,10 @@ button:hover, .btns-cont a:hover{
     transform: scale(1.1);
 }
 
+.text-danger{
+    color: red;
+}
+
 @media only screen and (max-width: 1560px){
 	.edit-profile-form{
         width: 40%;

@@ -77,7 +77,18 @@ a{
     display: none;
 }
 
-@media only screen and (max-width: 1140px) {
+.not-auth h2{
+    text-align: center;
+    padding-left: 0;
+}
+
+#login-to-not-auth{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1150px) {
     .right-menu {
         height: auto;
         width: 100%;
@@ -99,5 +110,13 @@ a{
     .option {
         padding: 10px;
         justify-content: center;
+    }
+
+    .right-menu.not-auth{
+        height: 70px;
+    }
+
+    .not-auth .option{
+        width: 20%;
     }
 }

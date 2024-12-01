@@ -25,6 +25,8 @@
                 </select>
             </span>
             {% if is_owner %}
+                <span style="display: flex; align-items: center; gap: 5px"><img src="{% static 'images/Artfluence_AP_coin_facing_forward-removebg-preview.png' %}" style="height: 25px;"> Balance: {{ user.artfluence_points }}</span>
+
                 <div class="debit-card-cont">
                     <i class="fa-regular fa-credit-card"></i>
                     <a href="{% url 'add-debit-card' user.username %}">Choose debit card</a>
