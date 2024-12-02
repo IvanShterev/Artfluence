@@ -1,8 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.validators import MinLengthValidator, RegexValidator
-import hashlib
 from django.db import models
-from django.utils.crypto import get_random_string
 
 
 class ArtfluenceUserManager(BaseUserManager):
@@ -61,7 +59,13 @@ class DebitCard(models.Model):
             message="Cardholder name must contain only letters and spaces."
         )]
     )
-    expiration_date = models.DateField()
+    expiration_date = models.CharField(
+        max_length=5,
+        validators=[MinLengthValidator(5), RegexValidator(
+            regex=r'^(0[1-9]|1[0-2])\/[2-9][0-9]$',
+            message="Enter a valid expiration date"
+        )]
+    )
     cvv = models.CharField(
         max_length=3,
         validators=[MinLengthValidator(3), RegexValidator(
@@ -70,9 +74,6 @@ class DebitCard(models.Model):
         )]
     )
     used_for_payments = models.BooleanField(default=False)
-
-    def formatted_expiration_date(self):
-        return self.expiration_date.strftime('%m/%y')
 
     def __str__(self):
         return f'**** **** **** {self.card_number[:4]}'

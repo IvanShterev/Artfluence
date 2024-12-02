@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout, update_session_auth_hash
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .forms import CustomUserRegistrationForm, LoginForm, DebitCardForm, EditProfileForm
+from .forms import CustomUserRegistrationForm, LoginForm, EditProfileForm
 from .models import DebitCard, ArtfluenceUser
 
 
@@ -75,18 +75,18 @@ class DeleteAccount(APIView):
         return Response({"error": "Unauthorized"}, status=401)
 
 
-class AddDebitCardView(LoginRequiredMixin, CreateView):
-    model = DebitCard
-    form_class = DebitCardForm
-    template_name = 'gallery/add_debit_card.html'
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return redirect('profile', username=self.request.user.username).url
-
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
+# class AddDebitCardView(LoginRequiredMixin, CreateView):
+#     model = DebitCard
+#     form_class = DebitCardForm
+#     template_name = 'gallery/add_debit_card.html'
+#
+#     def form_valid(self, form):
+#         form.instance.owner = self.request.user
+#         return super().form_valid(form)
+#
+#     def get_success_url(self):
+#         return redirect('profile', username=self.request.user.username).url
+#
+#     def form_invalid(self, form):
+#         return self.render_to_response(self.get_context_data(form=form))
 

@@ -105,3 +105,31 @@ form input{
 .btns-cont button:hover, .btns-cont a:hover{
     transform: scale(1.1);
 }
+
+.text-danger{
+    color: red;
+}
+
+@media only screen and (max-width: 1400px){
+    .container{
+        width: 55%;
+    }
+}
+
+@media only screen and (max-width: 1150px){
+    .container{
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 800px){
+    .container{
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .container{
+        width: 90%;
+    }
+}

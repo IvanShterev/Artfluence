@@ -1,4 +1,5 @@
 import json
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,8 +7,8 @@ from rest_framework import status, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from Artfluence.accounts.forms import DebitCardForm
 from Artfluence.accounts.models import ArtfluenceUser, DebitCard
+from Artfluence.accounts.serializers import DebitCardSerializer
 from Artfluence.posts.models import Post, Comment
 from Artfluence.posts.serializers import PostSerializer
 
@@ -40,6 +41,7 @@ class Gallery(ListView):
                 Comment.objects.create(post=post, creator=request.user, content=content)
 
         return redirect("gallery")
+
 
 class ProfileView(LoginRequiredMixin, DetailView):
     model = ArtfluenceUser
@@ -101,25 +103,26 @@ class UserPostsAPIView(APIView):
         })
 
 
-class DebitCardManagementView(LoginRequiredMixin, TemplateView):
+class UserDebitCardListView(LoginRequiredMixin, ListView):
     template_name = "gallery/add_debit_card.html"
+    context_object_name = "debit_cards"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['debit_cards'] = self.request.user.debit_cards.all()
-        context['form'] = DebitCardForm()
-        return context
+    def get_queryset(self):
+        return self.request.user.debit_cards.all()
 
-    def post(self, request, *args, **kwargs):
-        form = DebitCardForm(request.POST)
-        if form.is_valid():
-            debit_card = form.save(commit=False)
-            debit_card.owner = self.request.user
-            debit_card.save()
-            return redirect('add-debit-card', username=self.request.user.username)
-        context = self.get_context_data()
-        context['form'] = form
-        return self.render_to_response(context)
+
+class AddDebitCardAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return render(request, "gallery/add_debit_card.html", {"form_errors": {}})
+
+    def post(self, request):
+        serializer = DebitCardSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(owner=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class DeleteDebitCard(APIView):

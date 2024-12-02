@@ -86,6 +86,13 @@ a{
     display: flex;
     align-items: center;
     text-align: center;
+    padding-left: 40px;
+}
+
+@media only screen and (max-width: 1700px){
+    #login-to-not-auth{
+        padding-left: 20px;
+    }
 }
 
 @media only screen and (max-width: 1150px) {
@@ -118,5 +125,9 @@ a{
 
     .not-auth .option{
         width: 20%;
+    }
+
+    #login-to-not-auth{
+        padding-left: 0;
     }
 }
