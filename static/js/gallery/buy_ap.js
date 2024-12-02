@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageContainer = document.getElementById('message-container');
     const messageText = document.getElementById('message-text');
     const awesomeBtn = document.querySelector('.message-container button');
+    let container = document.querySelector('.container');
+    let messageTop = document.getElementById('message-top');
+    let warningSuccessCont = document.querySelector('.warning-success-cont');
+    let warnSuccBtn = document.getElementById('warn-succ-btn');
 
     function getCookie(name) {
     let cookieValue = null;
@@ -30,10 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const apAmount = parseInt(apInput.value);
         const csrf_token = getCookie('csrftoken');
         if (!apAmount || apAmount <= 0) {
-            showMessage('Please enter a valid AP amount.', 'error');
+            showMessage('Please enter a valid AP amount', 'error');
+            container.style.display = 'none';
             return;
         }
-
         try {
             const response = await fetch(`/api/buy-ap/`, {
                 method: 'POST',
@@ -50,31 +54,40 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            showMessage(`You have successfully purchased ${data.ap_purchased} AP for €${data.euro_cost}.`, 'success');
+            showMessage(`You have successfully purchased ${data.ap_purchased} AP for €${data.euro_cost}`, 'success');
             apInput.value = '';
             euroInput.value = '';
+            container.style.display = 'none';
         } catch (error) {
             console.error(error);
             showMessage(error.message || 'An error occurred. Please try again.', 'error');
+            container.style.display = 'none';
         }
     });
 
     function showMessage(message, type) {
         messageText.textContent = message;
-        messageContainer.style.display = 'block';
+        messageContainer.style.display = 'flex';
         let awesomeBtn = document.querySelector('.message-container button');
         if (type === 'success') {
             messageContainer.classList.add('success');
             messageContainer.classList.remove('error');
             awesomeBtn.textContent = 'Awesome';
+            messageTop.textContent = 'SUCCESS!';
+            warningSuccessCont.style.backgroundColor = 'green';
+            warnSuccBtn.style.backgroundColor = 'lightseagreen';
         } else {
             messageContainer.classList.add('error');
             messageContainer.classList.remove('success');
             awesomeBtn.textContent = 'OK';
+            messageTop.textContent = 'WARNING!';
+            warningSuccessCont.style.backgroundColor = '#de0c37';
+            warnSuccBtn.style.backgroundColor = 'deepskyblue';
         }
     }
 
     awesomeBtn.addEventListener('click', () => {
         messageContainer.style.display = 'none';
+        container.style.display = 'flex';
     })
 });

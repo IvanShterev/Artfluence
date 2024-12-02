@@ -150,12 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (deleteBtn) {
         deleteBtn.addEventListener("click", () => {
             modal.style.display = "flex";
-            overlay.style.height = '100%';
-            overlay.style.width = '100%';
-            overlay.style.position = 'absolute';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
             overlay.style.display = 'block';
-            overlay.style.zIndex = '999';
         });
     }
     cancelBtn.addEventListener("click", () => {
@@ -198,12 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
             message.textContent = `Are you sure you want to delete "${postTitle}"?`;
             deletePostModal.style.display = "flex";
             postIdToDelete = postId;
-            overlay.style.height = '100%';
-            overlay.style.width = '100%';
-            overlay.style.position = 'absolute';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
             overlay.style.display = 'block';
-            overlay.style.zIndex = '999';
         }
     });
 

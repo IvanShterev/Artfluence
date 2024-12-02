@@ -11,6 +11,10 @@ body{
     justify-content: center;
     align-items: center;
     background-image: url("/static/images/edit-profile-bg.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    background-size: cover;
 }
 
 img{
@@ -19,7 +23,6 @@ img{
 }
 
 .edit-profile-form{
-    margin-top: 150px;
     display: flex;
     flex-flow: column;
     align-items: center;

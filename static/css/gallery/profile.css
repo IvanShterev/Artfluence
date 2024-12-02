@@ -196,6 +196,10 @@ body{
     transform: scale(1.1);
 }
 
+#delete-post-message, #delete-profile-modal p{
+    text-align: center;
+}
+
 #confirm-delete-post, #confirm-delete-profile{
     background-color: #3C5A99;
 }
@@ -206,7 +210,11 @@ body{
 
 .overlay{
     display: none;
-    position: absolute;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 @media only screen and (max-width: 1620px){
