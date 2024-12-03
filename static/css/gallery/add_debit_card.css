@@ -78,6 +78,10 @@ form input{
     border-radius: 20px;
 }
 
+input[type="radio"]{
+    accent-color: black;
+}
+
 .btns-cont{
     display: flex;
     justify-content: center;
@@ -128,8 +132,24 @@ form input{
     }
 }
 
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 600px){
+    body{
+        height: 100vh;
+    }
     .container{
-        width: 90%;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border-radius: 0;
+        background-color: transparent;
+    }
+    h2{
+        font-size: 2rem;
+    }
+    .card-container-all{
+        font-size: 1.25rem;
+    }
+    .add-debit-card-cont{
+        font-size: 1.25rem;
     }
 }

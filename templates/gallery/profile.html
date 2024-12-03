@@ -13,8 +13,10 @@
             <div class="right-side-top-cont">
                 <h1>{{ user.username }}</h1>
                 {% if is_owner %}
-                    <a href="{% url 'edit-profile' user.username %}">Edit Profile</a>
-                    <a href="javascript:void(0)" id="delete-profile-btn">Delete Profile</a>
+                    <div class="btns-profile-cont">
+                        <a href="{% url 'edit-profile' user.username %}">Edit Profile</a>
+                        <a href="javascript:void(0)" id="delete-profile-btn">Delete Profile</a>
+                    </div>
                 {% endif %}
             </div>
 

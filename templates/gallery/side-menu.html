@@ -6,50 +6,50 @@
     <div class="right-menu {% if not user.is_authenticated %}not-auth{% endif %}">
         <h2>Artfluence</h2>
         {% if user.is_authenticated %}
-                <span id="greet-user">Hello, {{ request.user.username }}!</span>
-                <a href="{% url 'profile' request.user.username %}" class="option">
-                    <img src="{{ request.user.profile_picture.url }}">
-                    <span class="target">Profile</span>
-                </a>
-
-                <a href="{% url 'create-post' request.user.username %}" class="option">
-                    <i class="fa-solid fa-plus"></i>
-                    <span class="target">Create</span>
-                </a>
-
-                <a href="{% url 'buy-ap' request.user.username %}" class="option">
-                    <img src="{% static 'images/Artfluence_AP_coin_facing_forward-removebg-preview.png' %}" alt="">
-                    <span class="target">Buy AP</span>
-                </a>
-
-                <a href="{% url 'transfer' request.user.username %}" class="option">
-                    <i class="fa-solid fa-euro-sign"></i>
-                    <span class="target">Transfer</span>
-                </a>
-            {% else %}
-                <span id="login-to-not-auth">Login to access all features!</span>
-                <a href="{% url 'login' %}" class="option">
-                    <i class="fa-solid fa-user"></i>
-                    <span class="target">Login</span>
-                </a>
-            {% endif %}
-
-            <a href="{% url 'home' %}" class="option" >
-                <i class="fa-solid fa-house"></i>
-                <span class="target">Home</span>
+            <span id="greet-user">Hello, {{ request.user.username }}!</span>
+            <a href="{% url 'profile' request.user.username %}" class="option">
+                <img src="{{ request.user.profile_picture.url }}">
+                <span class="target">Profile</span>
             </a>
 
-            <a href="{% url 'gallery' %}" class="option">
-                <i class="fa-solid fa-image"></i>
-                <span class="target">Gallery</span>
+            <a href="{% url 'create-post' request.user.username %}" class="option">
+                <i class="fa-solid fa-plus"></i>
+                <span class="target">Create</span>
             </a>
 
-            {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="option">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span class="target">Logout</span>
-                </a>
-            {% endif %}
+            <a href="{% url 'buy-ap' request.user.username %}" class="option">
+                <img src="{% static 'images/Artfluence_AP_coin_facing_forward-removebg-preview.png' %}" alt="">
+                <span class="target">Buy AP</span>
+            </a>
+
+            <a href="{% url 'transfer' request.user.username %}" class="option">
+                <i class="fa-solid fa-euro-sign"></i>
+                <span class="target">Transfer</span>
+            </a>
+        {% else %}
+            <span id="login-to-not-auth">Login to access all features!</span>
+            <a href="{% url 'login' %}" class="option">
+                <i class="fa-solid fa-user"></i>
+                <span class="target">Login</span>
+            </a>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="option" >
+            <i class="fa-solid fa-house"></i>
+            <span class="target">Home</span>
+        </a>
+
+        <a href="{% url 'gallery' %}" class="option">
+            <i class="fa-solid fa-image"></i>
+            <span class="target">Gallery</span>
+        </a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="option">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="target">Logout</span>
+            </a>
+        {% endif %}
     </div>
 
     <script>

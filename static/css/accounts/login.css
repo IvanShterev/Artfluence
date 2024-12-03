@@ -202,17 +202,18 @@ a:hover{
 	}
 }
 
-@media only screen and (max-width: 515px){
-	.form-container{
-		width: 75%;
+@media only screen and (max-width: 600px) {
+	body{
+		margin: 0;
 	}
-	form input{
-		width: 80%;
-	}
-}
-
-@media only screen and (max-width: 400px){
-	.form-container{
+	.form-container {
 		width: 100%;
+		height: 100%;
+		border-radius: 0;
+	}
+	form{
+		height: 100%;
+		width: 100%;
+		border-radius: 0;
 	}
 }

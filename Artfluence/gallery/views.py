@@ -77,6 +77,50 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
         return context
 
+# class ProfileView(DetailView):
+#     model = ArtfluenceUser
+#     template_name = "gallery/profile.html"
+#     context_object_name = "user"
+#
+#     def get_object(self, **kwargs):
+#         username = self.kwargs.get('username')
+#         return get_object_or_404(self.model, username=username)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user = self.get_object()
+#
+#         user_posts = Post.objects.filter(owner=user)
+#
+#         collection_posts = user_posts.filter(for_sale=False)
+#         for_sale_posts = user_posts.filter(for_sale=True)
+#
+#         if self.request.user.is_authenticated:
+#             for post in collection_posts:
+#                 post.is_liked_by_user = post.likes.filter(id=self.request.user.id).exists()
+#
+#             for post in for_sale_posts:
+#                 post.is_liked_by_user = post.likes.filter(id=self.request.user.id).exists()
+#
+#             context['liked_posts'] = Post.objects.filter(likes=self.request.user)
+#             context['user_comments'] = Comment.objects.filter(creator=self.request.user)
+#             context['is_owner'] = self.request.user == user
+#         else:
+#             for post in collection_posts:
+#                 post.is_liked_by_user = False
+#
+#             for post in for_sale_posts:
+#                 post.is_liked_by_user = False
+#
+#             context['liked_posts'] = []
+#             context['user_comments'] = []
+#             context['is_owner'] = False
+#
+#         context['collection'] = collection_posts
+#         context['for_sale'] = for_sale_posts
+#
+#         return context
+
 
 class UserPostsAPIView(APIView):
     permission_classes = [IsAuthenticated]

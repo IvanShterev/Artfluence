@@ -104,6 +104,11 @@ body{
     padding: 12px;
 }
 
+.btns-profile-cont{
+    display: flex;
+    gap: 12px;
+}
+
 .title-price-cont{
     display: flex;
     justify-content: space-between;
@@ -313,8 +318,22 @@ body{
     }
 }
 
-@media only screen and (max-width: 580px){
+@media only screen and (max-width: 600px){
+    .profile-card{
+        margin-top: 80px;
+        flex-flow: column;
+    }
+    #collection-view, #for-sale-view{
+        padding-right: 0;
+    }
     .post-item{
-        width: 77%;
+        width: 75%;
+    }
+    #delete-post-modal, #delete-profile-modal{
+        width: 90%;
+        font-size: 1.1rem;
+    }
+    .right-side-top-cont{
+        flex-flow: column;
     }
 }

@@ -15,7 +15,7 @@
             >
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
-        <div></div>
+        <div class="top-div-filler"></div>
     </div>
 
     {% if user.is_authenticated %}
@@ -37,8 +37,8 @@
     <script>
         const csrf_token = `{% csrf_token %}`;
         const user = `{{ user }}`;
-        let authenticatedUser = `{{ request.user.id }}`;
         const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+        let authenticatedUser = `{{ request.user.id }}`;
     </script>
     <script src="{% static 'js/gallery/gallery.js' %}"></script>
 {% endblock %}

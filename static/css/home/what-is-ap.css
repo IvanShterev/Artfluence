@@ -13,16 +13,6 @@ html, body {
     color: #fff;
 }
 
-/*.explanation-container{*/
-/*    margin: 100px auto;*/
-/*    display: flex;*/
-/*    gap: 40px;*/
-/*    align-items: center;*/
-/*    color: #fff;*/
-/*    width: 1000px;*/
-/*    height: 400px;*/
-/*}*/
-
 h1{
     font-size: 60px;
 }
@@ -108,14 +98,33 @@ ul li{
 }
 
 @media only screen and (max-width: 600px){
+    body{
+        margin: 0;
+    }
+    .coin{
+        margin: 0;
+        width: 71%;
+        height: 31%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .coin-face{
-        width: 277px;
-        height: 277px;
+        width: 89%;
+        height: 90%;
+    }
+    .explanation-text-con{
+        align-items: center;
     }
     h1{
-        font-size: 45px;
+        font-size: 2.5rem;
     }
     .explanation-text-con ul{
-        font-size: 20px;
+        font-size: 1.25rem;
+        list-style: none;
+        align-items: center;
+    }
+    #first{
+        text-align: center;
     }
 }

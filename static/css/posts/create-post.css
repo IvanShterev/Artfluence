@@ -158,8 +158,21 @@ h1 {
     }
 }
 
-@media (min-aspect-ratio: 9/16) {
-    body::before {
-        transform: scaleX(-1);
+@media only screen and (max-width: 600px){
+    .container{
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        border-radius: 0;
+    }
+    .btn-primary, .btn-container a{
+        width: 30%;
+    }
+    #post-title{
+        display: flex;
+        flex-flow: column;
+    }
+    #post-title input{
+        width: 70%;
     }
 }

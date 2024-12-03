@@ -9,7 +9,7 @@
     <form action="{% url 'create-post' user.username %}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         {% csrf_token %}
 
-        <div class="mb-3">
+        <div class="mb-3" id="post-title">
             {{ form.title.label_tag }}
             {{ form.title }}
             {% for error in form.title.errors %}
