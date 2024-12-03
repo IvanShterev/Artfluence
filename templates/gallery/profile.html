@@ -58,6 +58,16 @@
 
     {% include 'gallery/side-menu.html' %}
     <script>
+        const usernameElement = document.querySelector(".right-side-top-cont h1");
+        const container = document.querySelector(".right-side-top-cont");
+
+        if (usernameElement && container) {
+            const usernameLength = usernameElement.innerText.length;
+
+            if (usernameLength > 4) {
+                container.style.flexFlow = "column";
+            }
+        }
         const csrf_token = `{% csrf_token %}`
         let authenticatedUser = `{{ request.user.id }}`;
         const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
