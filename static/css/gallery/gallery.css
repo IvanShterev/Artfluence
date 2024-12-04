@@ -221,6 +221,26 @@ h1{
     border-radius: 8px;
 }
 
+.comment-cont{
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-body{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.edit-del-com-cont{
+    display: none;
+    gap: 10px;
+}
+
+.edit-del-com-cont i{
+    cursor: pointer;
+}
+
 .like-btn{
     background: none;
     border: none;

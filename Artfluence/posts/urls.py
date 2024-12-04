@@ -14,4 +14,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/posts/<int:pk>/', DeletePostView.as_view(), name='delete-post'),
+    path('comments/<int:comment_id>/update/', UpdateCommentAPIView.as_view(), name='update_comment_api'),
+    path('comments/<int:comment_id>/delete/', DeleteCommentAPIView.as_view(), name='delete_comment_api'),
 ]

@@ -39,6 +39,7 @@
         const user = `{{ user }}`;
         const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
         let authenticatedUser = `{{ request.user.id }}`;
+        const userUsername = `{{ request.user }}`;
     </script>
     <script src="{% static 'js/gallery/gallery.js' %}"></script>
 {% endblock %}

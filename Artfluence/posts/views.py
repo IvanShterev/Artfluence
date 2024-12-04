@@ -1,4 +1,8 @@
+import json
+
 from django.db.models import Q
+from django.http import JsonResponse
+from django.views import View
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from django.urls import reverse, reverse_lazy
@@ -125,3 +129,28 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAuthenticatedOrReadOnly]
         return [permission() for permission in permission_classes]
+
+
+class UpdateCommentAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request, comment_id):
+        comment = get_object_or_404(Comment, id=comment_id, creator=request.user)
+        data = request.data
+        new_content = data.get('content')
+
+        if not new_content:
+            return Response({'error': 'Content is required'}, status=400)
+
+        comment.content = new_content
+        comment.save()
+        return Response({'message': 'Comment updated successfully', 'content': comment.content}, status=200)
+
+
+class DeleteCommentAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, comment_id):
+        comment = get_object_or_404(Comment, id=comment_id, creator=request.user)
+        comment.delete()
+        return Response({'message': 'Comment deleted successfully'}, status=204)
