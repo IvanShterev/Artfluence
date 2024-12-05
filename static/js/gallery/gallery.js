@@ -324,7 +324,7 @@ let renderFunc = async (post) => {
         `)
         .join("");
 
-    const href = isAuthenticated && post.owner != authenticatedUser ? `/buy-art/${post.id}` : `#`;
+    const href = isAuthenticated && post.owner != authenticatedUser ? `/buy-art/${post.id}` : `javascript:void(0)`;
 
     const forSaleBtn = post.for_sale
         ? `<a href="${href}"
@@ -348,7 +348,7 @@ let renderFunc = async (post) => {
         <div id="post-${post.id}" class="post">
             <div class="post-top">
                 <img src="${userObj.profile_picture}">
-                <a href="../profile/${userObj.username}/" id="user-profile">${userObj.username}</a>
+                <a href="${isAuthenticated ? `../profile/${userObj.username}/` : 'javascript:void(0)'}" id="user-profile">${userObj.username}</a>
                 ${forSaleBtn}
             </div>
             <div class="post-image">

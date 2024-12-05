@@ -7,16 +7,29 @@
 
 body{
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.post-cont{
+    display: flex;
     flex-flow: column;
     align-items: center;
-    padding-top: 150px;
+    width: 40%;
     gap: 30px;
+}
+
+h1{
+    position: absolute;
+    top: 70px;
 }
 
 .post{
     display: flex;
     flex-flow: column;
-    width: 30%;
+    width: 55%;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -37,11 +50,10 @@ body{
     gap: 16px;
     background-color: #f6f5f7;
     padding: 15px;
-    height: 350px;
-    width: 17%;
-    position: fixed;
-    left: 100px;
+    height: 330px;
+    width: 15%;
     border-radius: 15px;
+    margin-bottom: 80px;
 }
 
 .a-points-top{
@@ -64,6 +76,193 @@ body{
     gap: 20px;
 }
 
-.error-message, .success-message{
-    background-color: red;
+.filler{
+    width: 20%;
+}
+
+.overlay{
+    display: none;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.error-message{
+    background-color: #f6f5f7;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    gap: 20px;
+    position: fixed;
+    top: 25%;
+    left: 40%;
+    z-index: 1000;
+    border-radius: 15px;
+    height: 26%;
+    width: 30%;
+}
+
+.error-message p{
+    text-align: center;
+}
+
+.warning-text-div{
+    align-self: flex-start;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FF4B2B;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#okay-btn{
+    background-color: #3C5A99;
+    color: #fff;
+    padding: 10px;
+    width: 15%;
+    border-radius: 20px;
+    border: none;
+}
+
+.dividing-line{
+    height: 1px;
+    background-color: black;
+    width: 100%;
+}
+
+#buy-btn{
+    background-color: #3C5A99;
+    color: #fff;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    width: 10%;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+#buy-btn:hover{
+    transform: scale(1.1);
+}
+
+@media only screen and (max-width: 1600px){
+    .filler{
+        width: 15%;
+    }
+    .post{
+       width: 60%;
+    }
+    .a-points-cont{
+        width: 18%;
+    }
+}
+
+@media only screen and (max-width: 1500px){
+    .filler{
+        width: 15%;
+    }
+    .post{
+        width: 65%;
+    }
+    .a-points-cont{
+        width: 20%;
+    }
+}
+
+@media only screen and (max-width: 1300px){
+    .post{
+        width: 68%;
+    }
+    .a-points-cont{
+        width: 23%;
+    }
+    .filler{
+        width: 12%;
+    }
+    .error-message{
+        left: 35%;
+        width: 35%;
+    }
+}
+
+@media only screen and (max-width: 1150px){
+    h1{
+        margin-top: 20px;
+    }
+    .post-cont{
+        width: 55%;
+    }
+    .filler{
+        width: 5%;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .post-cont{
+        width: 65%;
+    }
+    .filler{
+        width: 0;
+    }
+    .a-points-cont{
+        width: 27%;
+    }
+    #buy-btn{
+        width: 15%;
+    }
+    .error-message{
+        left: 30%;
+        width: 43%;
+    }
+}
+
+@media only screen and (max-width: 900px){
+    body{
+        flex-flow: column;
+        flex-direction: column-reverse;
+        padding-top: 115px;
+        height: 130vh;
+    }
+    .filler{
+        display: none;
+    }
+    .post-cont{
+        width: 75%;
+    }
+    .a-points-cont{
+        width: 45%;
+    }
+    .overlay{
+        height: 127vh;
+    }
+    .error-message{
+        left: 30%;
+        width: 55%;
+    }
+    #okay-btn{
+        width: 20%;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    h1{
+        text-align: center;
+    }
+    .post-cont{
+        width: 100%;
+    }
+    .a-points-cont{
+        width: 65%;
+    }
+    .error-message{
+        left: 7%;
+        width: 85%;
+        height: 30%;
+    }
 }

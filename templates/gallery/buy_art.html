@@ -4,6 +4,8 @@
 
     <link rel="stylesheet" href="{% static 'css/gallery/buy_art.css' %}">
 
+    <h1>Do you want to buy {{ post.title }}?</h1>
+
     {% if user.is_authenticated %}
         <div class="a-points-cont">
             <div class="a-points-top">
@@ -15,20 +17,28 @@
         </div>
     {% endif %}
 
-    <h1>Do you want to buy {{ post.title }}</h1>
+    <div class="post-cont">
 
-    <div class="post"
-    data-owner="{{ post.owner }}"
-    data-post-id="{{ post.id }}"
-    data-price="{{ post.price }}"
-    >
-        <div class="title-cont"><strong>{{ post.title }}</strong></div>
-        <img src="{{ post.image.url }}">
+        <div class="post"
+        data-owner="{{ post.owner }}"
+        data-post-id="{{ post.id }}"
+        data-price="{{ post.price }}"
+        >
+            <div class="title-cont"><strong>{{ post.title }}</strong></div>
+            <img src="{{ post.image.url }}">
+        </div>
+
+        <button id="buy-btn" type="submit">Buy</button>
     </div>
 
-    <button id="buy-btn" type="submit">Buy</button>
+    <div class="filler"></div>
+
+    <div class="overlay" style="display: none"></div>
 
     <div class="error-message" style="display: none">
+        <div class="warning-text-div">
+            <h2>WARNING!</h2>
+        </div>
         <p>You don't have enough Artfluence Points to buy this art!</p>
         <button id="okay-btn">OK</button>
     </div>

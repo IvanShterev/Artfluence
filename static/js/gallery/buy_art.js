@@ -25,6 +25,7 @@ minus.id = 'minus';
 pricePost.id = 'pricePost';
 resultSpan.id = 'result-ap';
 resultSpan.textContent = `Remaining: ${resultAP} AP`;
+const overlay = document.querySelector('.overlay');
 
 if (resultAP >= 0) {
     resultSpan.style.color = 'green';
@@ -75,8 +76,8 @@ buyBtn.addEventListener('click', () => {
         if (data.success) {
             window.location.href = data.redirect_url;
         } else {
-            errorMessage.style.display = 'block';
-            errorMessage.textContent = data.error;
+            overlay.style.display = 'block';
+            errorMessage.style.display = 'flex';
         }
     })
     .catch(error => {
@@ -84,6 +85,7 @@ buyBtn.addEventListener('click', () => {
     });
 
     okayBtn.addEventListener('click', () => {
+        overlay.style.display = 'none';
         errorMessage.style.display = 'none';
     });
 });
