@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'mathfilters',
     'corsheaders',
     'Artfluence.home',
-    'Artfluence.accounts',
+    'Artfluence.accounts.apps.AccountsConfig',
     'Artfluence.posts',
     'Artfluence.gallery'
 ]

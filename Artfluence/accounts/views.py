@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.contrib.auth.models import Group
+from django.http import HttpResponseForbidden
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login, logout, update_session_auth_hash
@@ -73,20 +76,4 @@ class DeleteAccount(APIView):
             logout(request)
             return Response({"redirect_url": reverse("gallery")})
         return Response({"error": "Unauthorized"}, status=401)
-
-
-# class AddDebitCardView(LoginRequiredMixin, CreateView):
-#     model = DebitCard
-#     form_class = DebitCardForm
-#     template_name = 'gallery/add_debit_card.html'
-#
-#     def form_valid(self, form):
-#         form.instance.owner = self.request.user
-#         return super().form_valid(form)
-#
-#     def get_success_url(self):
-#         return redirect('profile', username=self.request.user.username).url
-#
-#     def form_invalid(self, form):
-#         return self.render_to_response(self.get_context_data(form=form))
 

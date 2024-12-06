@@ -218,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelector(`.delete-post-btn[data-post-id="${postIdToDelete}"]`)
                         .closest(".post-item").remove();
                     deletePostModal.style.display = "none";
+                    overlay.style.display = 'none';
                 } else {
                     console.error("Failed to delete post:", response.statusText);
                 }
