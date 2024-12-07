@@ -104,7 +104,6 @@ document.body.addEventListener('click', (e) => {
         if (button) {
             const postItem = button.closest('.post-item');
             const postId = postItem.id.replace('post-', '');
-            console.log(`Like button clicked for Post ID: ${postId}`);
             likePost(postId, button);
         }
     });
@@ -125,15 +124,12 @@ let likePost = async (postId, button) => {
         }
 
         const data = await response.json();
-         console.log(`Response from server: ${JSON.stringify(data)}`);
         const likeCountEl = button.closest('.post-item').querySelector('.like-count');
         const heartIcon = button.querySelector('i');
 
         likeCountEl.textContent = data.likes_count;
         heartIcon.classList.toggle('fa-solid', data.liked);
         heartIcon.classList.toggle('fa-regular', !data.liked);
-
-        console.log('Like toggled successfully:', data);
     } catch (error) {
         console.error('Error toggling like:', error);
     }

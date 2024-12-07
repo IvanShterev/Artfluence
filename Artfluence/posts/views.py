@@ -1,14 +1,11 @@
-import json
-
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import JsonResponse
-from django.views import View
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -30,9 +27,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
     def get_success_url(self):
         return reverse('gallery')
-
 
 class EditPostView(LoginRequiredMixin, UpdateView):
     model = Post
@@ -153,4 +152,4 @@ class DeleteCommentAPIView(APIView):
     def delete(self, request, comment_id):
         comment = get_object_or_404(Comment, id=comment_id, creator=request.user)
         comment.delete()
-        return Response({'message': 'Comment deleted successfully'}, status=204)
+        return Response(status=204)

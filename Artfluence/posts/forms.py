@@ -53,6 +53,8 @@ class PostForm(forms.ModelForm):
         if collection:
             cleaned_data['for_sale'] = False
             cleaned_data['price'] = None
+        if collection and price:
+            self.add_error('price', "Collection posts don't have a price.")
         return cleaned_data
 
 

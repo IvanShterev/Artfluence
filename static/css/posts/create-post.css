@@ -110,6 +110,12 @@ h1 {
     color: red;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 @media only screen and (max-width: 1700px){
     .container{
         width: 40%;

@@ -91,6 +91,12 @@ button:hover, .btns-cont a:hover{
     transform: scale(1.1);
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 @media only screen and (max-width: 1650px){
     form{
         width: 40%;

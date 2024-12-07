@@ -6,7 +6,7 @@
 
 <div class="container mt-5">
     <h1 class="text-center">Create a Post</h1>
-    <form action="{% url 'create-post' user.username %}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+    <form method="post" enctype="multipart/form-data" class="needs-validation">
         {% csrf_token %}
 
         <div class="mb-3" id="post-title">
@@ -29,7 +29,7 @@
 
         <div class="mb-3" id="price-container">
             {{ form.price.label_tag }}
-            {{ form.price }}
+             <input type="number" id="price" name="price" class="form-control" placeholder="Enter a price">
             {% for error in form.price.errors %}
                 <div class="text-danger">*{{ error }}</div>
             {% endfor %}
@@ -62,5 +62,5 @@
 
     {% include 'gallery/side-menu.html' %}
 
-    <script src="{% static 'js/gallery/create-post.js' %}"></script>
+    <script src="{% static 'js/posts/create-post.js' %}"></script>
 {% endblock %}

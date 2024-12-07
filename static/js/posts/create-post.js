@@ -1,25 +1,31 @@
 
 const forSaleCheckbox = document.getElementById("for-sale-checkbox");
 const collectionCheckbox = document.getElementById("collection-checkbox");
-const priceContainer = document.getElementById("price-container");
+const priceInput = document.getElementById("price");
+
+priceInput.addEventListener('input', () => {
+   if (priceInput.value.length >= 2 && priceInput.value[0] === '0') {
+        priceInput.value = priceInput.value.slice(1);
+    }
+});
 
 const togglePriceField = () => {
     if (forSaleCheckbox.checked) {
-        priceContainer.style.display = "block";
+        priceInput.disabled = false;
         collectionCheckbox.checked = false;
     } else {
-        priceContainer.style.display = "none";
+        priceInput.disabled = true;
     }
 };
 
 collectionCheckbox.addEventListener("change", () => {
     if (collectionCheckbox.checked) {
         forSaleCheckbox.checked = false;
-        priceContainer.style.display = "none";
+        priceInput.disabled = true;
+        priceInput.value = '';
     }
 });
 
 forSaleCheckbox.addEventListener("change", togglePriceField);
 
-// Initialize the price input visibility
 togglePriceField();
