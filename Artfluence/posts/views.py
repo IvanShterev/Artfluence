@@ -33,6 +33,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('gallery')
 
+
 class EditPostView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
