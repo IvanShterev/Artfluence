@@ -2,6 +2,7 @@
 from django.contrib import admin
 from .models import ArtfluenceUser, DebitCard
 
+
 @admin.register(ArtfluenceUser)
 class ArtfluenceUserAdmin(admin.ModelAdmin):
     list_display = ('id', 'email', 'username', 'is_staff', 'is_superuser')

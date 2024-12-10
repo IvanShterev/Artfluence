@@ -1,11 +1,10 @@
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response

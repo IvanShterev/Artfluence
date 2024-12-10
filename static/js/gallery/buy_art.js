@@ -1,5 +1,3 @@
-
-
 const post = document.querySelector('.post');
 const postId = post.dataset.postId;
 const okayBtn = document.getElementById('okay-btn');

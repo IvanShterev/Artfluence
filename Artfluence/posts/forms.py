@@ -37,7 +37,6 @@ class PostForm(forms.ModelForm):
             'title': 'Post Title',
             'for_sale': 'For Sale',
             'price': 'Price',
-            'image': 'Upload Image',
         }
 
     def clean(self):

@@ -1,9 +1,7 @@
-from datetime import datetime
-
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .models import ArtfluenceUser, DebitCard
+from .models import ArtfluenceUser
 from django.contrib.auth.hashers import check_password
 
 

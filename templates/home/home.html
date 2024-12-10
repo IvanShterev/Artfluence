@@ -19,7 +19,6 @@
             <a href="javascript:void(0)" id="contacts-btn">Contacts</a>
             {% if user.is_authenticated %}
                 <p>Welcome, {{ user.username }}!</p>
-{#                <a href="{% url 'logout' %}">Logout</a>#}
             {% else %}
                 <a href="{% url 'login' %}" id="login-btn">Log in</a>
             {% endif %}
@@ -162,7 +161,7 @@
             <p>Follow us on:</p>
             <div class="social-medias-logos-con">
                 <a href="https://www.facebook.com/vanko.shterev.7" target="_blank" id="facebook-span"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" target="_blank" id="twitter-span"><i class="fa-brands fa-twitter"></i></a>
+                <a href="javascript:void(0)" id="twitter-span"><i class="fa-brands fa-twitter"></i></a>
                 <a href="https://www.instagram.com/ivan_shterevv/" target="_blank" id="instagram-span"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://www.linkedin.com/in/ivan-shterev/" target="_blank" id="linkedin-span"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>

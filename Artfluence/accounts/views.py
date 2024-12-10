@@ -1,16 +1,13 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import Group
-from django.http import HttpResponseForbidden
-from django.shortcuts import redirect, get_object_or_404
-from django.views.generic.edit import FormView, CreateView, UpdateView
+from django.shortcuts import redirect
+from django.views.generic.edit import FormView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login, logout, update_session_auth_hash
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import CustomUserRegistrationForm, LoginForm, EditProfileForm
-from .models import DebitCard, ArtfluenceUser
+from .models import ArtfluenceUser
 
 
 class CustomLoginView(FormView):
