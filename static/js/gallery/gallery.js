@@ -70,8 +70,6 @@ let likePost = async (postId) => {
         likeCountEl.textContent = data.likes_count;
         heartEl.classList.toggle('fa-solid', data.liked);
         heartEl.classList.toggle('fa-regular', !data.liked);
-
-        console.log('Like toggled successfully:', data);
     } catch (error) {
         console.error('Error toggling like:', error);
     }
@@ -83,7 +81,7 @@ async function fetchComments(postId) {
         if (!response.ok) {
             throw new Error(`Failed to fetch comments: ${response.status}`);
         }
-        return await response.json();
+        return await response.json() || [];
     } catch (error) {
         console.error('Error fetching comments:', error);
         return [];
@@ -283,20 +281,23 @@ async function fetchPosts(searchQuery = '') {
             throw new Error(`Failed to fetch posts: ${response.status}`);
         }
 
-        const data = await response.json();
+        const posts = await response.json();
+
         let postsContainer = document.querySelector('.posts');
 
-        let postsHTML = await Promise.all(
-            data.results.map(async (post) => {
+        const postsHTML = await Promise.all(
+            posts.map(async (post) => {
                 const postHTML = await renderFunc(post);
                 return postHTML;
             })
         );
 
-        postsContainer.innerHTML = postsHTML.join("");
-        data.results.forEach((post) => {
+        postsContainer.innerHTML = postsHTML.join('');
+
+        posts.forEach((post) => {
             renderComments(post.id);
         });
+
         attachForSaleEventListeners();
     } catch (error) {
         console.error('Error fetching posts:', error);
@@ -399,8 +400,10 @@ fetch('http://127.0.0.1:8000/posts/')
     .then(async (data) => {
         const postsContainer = document.querySelector('.posts');
 
+        const posts= Array.isArray(data) ? data : data.results || [];
+
         const postsHTML = await Promise.all(
-            data.results.map(async (post) => {
+            posts.map(async (post) => {
                 const postHTML = await renderFunc(post);
                 return postHTML;
             })
@@ -408,7 +411,7 @@ fetch('http://127.0.0.1:8000/posts/')
 
         postsContainer.innerHTML = postsHTML.join("");
 
-        data.results.forEach((post) => {
+        posts.forEach((post) => {
             renderComments(post.id);
         });
         attachForSaleEventListeners();

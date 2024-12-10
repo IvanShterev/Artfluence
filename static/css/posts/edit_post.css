@@ -41,6 +41,21 @@ input{
     border-radius: 20px;
 }
 
+#price-field{
+    display: flex;
+    flex-flow: column;
+    width: 60%;
+    gap: 5px;
+    font-size: 18px;
+}
+
+.price-cont{
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    align-items: center;
+}
+
 #change-img-cont{
     display: flex;
     flex-flow: column;
@@ -59,6 +74,7 @@ input{
 
 .text-danger{
     color: red;
+    width: 100%;
 }
 
 .btns-cont{

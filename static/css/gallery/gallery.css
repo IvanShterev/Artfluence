@@ -282,9 +282,16 @@ textarea {
     resize: none;
 }
 
+.cancel-edit{
+    padding: 5px 10px 5px 10px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 1600px){
     .a-points-cont{
-        width: 17%;
+        width: 20%;
     }
 
     .post{
@@ -327,10 +334,11 @@ textarea {
 @media only screen and (max-width: 1150px){
     .posts{
         width: 100%;
+        padding-top: 40px;
     }
 
     .post{
-        width: 50%;
+        width: 45%;
     }
 
     .top-container{
@@ -340,12 +348,8 @@ textarea {
 }
 
 @media only screen and (max-width: 1000px){
-    .posts{
-        margin-top: 180px;
-    }
-
     .post{
-        width: 60%;
+        width: 55%;
     }
 }
 
