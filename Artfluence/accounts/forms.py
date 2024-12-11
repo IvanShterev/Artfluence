@@ -93,7 +93,10 @@ class EditProfileForm(forms.ModelForm):
             elif not check_password(old_password, self.instance.password):
                 self.add_error('old_password', "The old password is incorrect.")
             if new_password1 != new_password2:
-                self.add_error('new_password2', "The new passwords do not match.")
+                self.add_error('new_password2', "Passwords do not match.")
+            if new_password1 == new_password2:
+                if check_password(new_password1, self.instance.password):
+                    self.add_error('new_password1', "The new password cannot be the same as the old password.")
 
         return cleaned_data
 

@@ -237,6 +237,14 @@ async function renderComments(postId) {
                 commentEl.addEventListener('mouseleave', () => {
                     editDelCont.style.display = 'none';
                 });
+                commentEl.addEventListener('click', () => {
+                   if(editDelCont.style.display === 'none'){
+                       editDelCont.style.display = 'flex';
+                   }
+                   else if(editDelCont.style.display === 'flex'){
+                       editDelCont.style.display = 'none';
+                   }
+                });
             }
 
             const editIcon = commentEl.querySelector('.edit-comment');
@@ -268,8 +276,8 @@ async function renderComments(postId) {
 
     showMoreBtn.addEventListener('click', () => {
         commentsToShow = commentsToShow >= allComments.length
-            ? Math.max(3, commentsToShow - 3)
-            : Math.min(allComments.length, commentsToShow + 3);
+            ? 3
+            : allComments.length;
         updateCommentsDisplay();
     });
 }
