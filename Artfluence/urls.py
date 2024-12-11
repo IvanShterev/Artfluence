@@ -1,13 +1,16 @@
-
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
-from django.urls import re_path
-from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework.permissions import BasePermission
+
+
+class IsAdminUserOrDenied(BasePermission):
+
+    def has_permission(self, request, view):
+        return request.user and request.user.is_superuser
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -18,8 +21,8 @@ schema_view = get_schema_view(
       contact=openapi.Contact(email="contact@snippets.local"),
       license=openapi.License(name="BSD License"),
    ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+   public=False,
+   permission_classes=(IsAdminUserOrDenied,),
 )
 
 urlpatterns = [

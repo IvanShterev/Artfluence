@@ -4,10 +4,19 @@ from django.views.generic.edit import FormView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login, logout, update_session_auth_hash
 from rest_framework import permissions
+from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import CustomUserRegistrationForm, LoginForm, EditProfileForm
 from .models import ArtfluenceUser
+
+
+class IsOwner(BasePermission):
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            owner_id = request.data.get('owner')
+            return str(owner_id) == str(request.user.id) if owner_id else True
+        return True
 
 
 class CustomLoginView(FormView):
@@ -64,7 +73,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
 
 
 class DeleteAccount(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def delete(self, request, *args, **kwargs):
         user = request.user

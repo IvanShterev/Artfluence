@@ -146,7 +146,6 @@ async function handleEditComment(postId, commentId, commentContent) {
 
 async function handleDeleteComment(postId, commentId) {
     const csrfToken = getCookie('csrftoken');
-
     const response = await fetch(`/comments/${commentId}/delete/`, {
         method: 'DELETE',
         headers: {
@@ -155,8 +154,6 @@ async function handleDeleteComment(postId, commentId) {
     });
 
     if (response.ok) {
-        console.log('Comment deleted successfully');
-
         const commentEl = document.querySelector(`.comment-cont[data-comment-id="${commentId}"]`);
         if (commentEl) {
             commentEl.remove();

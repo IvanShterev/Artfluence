@@ -1,6 +1,6 @@
 from django.db.models import Q
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly, BasePermission
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,6 +15,14 @@ from .serializers import CommentSerializer, PostSerializer
 from rest_framework import permissions, viewsets
 from ..accounts.models import ArtfluenceUser
 from ..accounts.serializers import UserSerializer
+
+
+class IsOwner(BasePermission):
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            owner_id = request.data.get('owner')
+            return str(owner_id) == str(request.user.id) if owner_id else True
+        return True
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -51,7 +59,7 @@ class EditPostView(LoginRequiredMixin, UpdateView):
 
 
 class DeletePostView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def delete(self, request, pk, *args, **kwargs):
         post = get_object_or_404(Post, pk=pk, owner=request.user)
@@ -131,7 +139,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class UpdateCommentAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def patch(self, request, comment_id):
         comment = get_object_or_404(Comment, id=comment_id, creator=request.user)
@@ -147,7 +155,7 @@ class UpdateCommentAPIView(APIView):
 
 
 class DeleteCommentAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def delete(self, request, comment_id):
         comment = get_object_or_404(Comment, id=comment_id, creator=request.user)

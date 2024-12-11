@@ -4,13 +4,21 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import status, permissions
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, BasePermission
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from Artfluence.accounts.models import ArtfluenceUser, DebitCard
 from Artfluence.accounts.serializers import DebitCardSerializer
 from Artfluence.posts.models import Post, Comment
 from Artfluence.posts.serializers import PostSerializer
+
+
+class IsOwner(BasePermission):
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            owner_id = request.data.get('owner')
+            return str(owner_id) == str(request.user.id) if owner_id else True
+        return True
 
 
 class Gallery(ListView):
@@ -126,7 +134,7 @@ class AddDebitCardAPIView(APIView):
 
 
 class DeleteDebitCard(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def delete(self, request, pk, *args, **kwargs):
         debit_card = get_object_or_404(DebitCard, pk=pk, owner=request.user)
@@ -135,7 +143,7 @@ class DeleteDebitCard(APIView):
 
 
 class SetDefaultDebitCard(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def post(self, request, pk, *args, **kwargs):
         debit_card = get_object_or_404(DebitCard, pk=pk, owner=request.user)
@@ -162,7 +170,7 @@ class BuyArtfluencePointsTemplateView(TemplateView):
 
 
 class BuyArtfluencePointsView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def post(self, request, *args, **kwargs):
         ap_amount = request.data.get('ap_amount')
@@ -205,7 +213,7 @@ class TransferTemplateView(TemplateView):
 
 
 class Transfer(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def post(self, request, *args, **kwargs):
         ap_amount = request.data.get('ap_amount')
